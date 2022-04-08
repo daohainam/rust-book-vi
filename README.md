@@ -1,4 +1,4 @@
-# The Rust Programming Language
+# Ngôn ngữ lập trình Rust
 
 ![Build Status](https://github.com/rust-lang/book/workflows/CI/badge.svg)
 
@@ -8,7 +8,7 @@ This repository contains the source of "The Rust Programming Language" book.
 
 [nostarch]: https://nostarch.com/rust
 
-You can also read the book for free online. Please see the book as shipped with
+Bạn cũng có thể đọc trực tuyến miễn phí. Please see the book as shipped with
 the latest [stable], [beta], or [nightly] Rust releases. Be aware that issues
 in those versions may have been fixed in this repository already, as those
 releases are updated less frequently.
@@ -17,7 +17,7 @@ releases are updated less frequently.
 [beta]: https://doc.rust-lang.org/beta/book/
 [nightly]: https://doc.rust-lang.org/nightly/book/
 
-See the [releases] to download just the code of all the code listings that appear in the book.
+Đọc phần [releases] để tải về mã nguồn của tất cả các đoạn mã xuất hiện trong sách.
 
 [releases]: https://github.com/rust-lang/book/releases
 

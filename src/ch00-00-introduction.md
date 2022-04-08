@@ -1,70 +1,72 @@
-# Introduction
+# Giới thiệu
 
-> Note: This edition of the book is the same as [The Rust Programming
-> Language][nsprust] available in print and ebook format from [No Starch
-> Press][nsp].
+> Ghi chú: Phiên bản này cũng chính là phiên bản in
+[The Rust Programming
+> Language][nsprust] và ebook [No Starch
+> Press][nsp] của sách.
 
 [nsprust]: https://nostarch.com/rust
 [nsp]: https://nostarch.com/
 
-Welcome to *The Rust Programming Language*, an introductory book about Rust.
-The Rust programming language helps you write faster, more reliable software.
-High-level ergonomics and low-level control are often at odds in programming
-language design; Rust challenges that conflict. Through balancing powerful
-technical capacity and a great developer experience, Rust gives you the option
-to control low-level details (such as memory usage) without all the hassle
-traditionally associated with such control.
+Chào mừng bạn đến với *Ngôn ngữ lập trình Rust*, một cuốn sách giới thiệu về Rust.
+"Ngôn ngữ lập trình Rust" sẽ giúp bạn viết các phần mềm nhanh và tin cậy hơn.
+Việc thiết kế ngôn ngữ lập trình luôn phải giải quyết bài toán xung đột giữa
+kiểm soát ở cấp thấp và việc hỗ trợ con người ở bậc cao; Rust thách thức sự xung đột
+này. Thông qua khả năng cân bằng giữa khả năng tiếp thu công nghệ mạnh mẽ và kinh nghiệm
+phát triển tuyệt vời, Rust cung cấp cho bạn khả năng kiểm soát các chi tiết ở cấp độ 
+thấp (chẳng hạn việc sử dụng bộ nhớ) mà vẫn tránh được những phiền toái vốn hay gặp phải
+khi phải làm việc ở cấp độ này.
 
-## Who Rust Is For
+## Rust được dành cho ai
 
-Rust is ideal for many people for a variety of reasons. Let’s look at a few of
-the most important groups.
+Rust khá lý tưởng cho nhiều người vì nhiều lý do khác nhau. Hãy cũng xem qua một 
+vài trong số những nhóm lý do quan trọng nhất.
 
-### Teams of Developers
+### Các nhóm phát triển
 
-Rust is proving to be a productive tool for collaborating among large teams of
-developers with varying levels of systems programming knowledge. Low-level code
-is prone to a variety of subtle bugs, which in most other languages can be
-caught only through extensive testing and careful code review by experienced
-developers. In Rust, the compiler plays a gatekeeper role by refusing to
-compile code with these elusive bugs, including concurrency bugs. By working
-alongside the compiler, the team can spend their time focusing on the program’s
-logic rather than chasing down bugs.
+Rust đang dần chứng minh như một công cụ hữu hiệu cho việc cộng tác giữa những nhóm 
+lớn nhà phát triển với các mức độ kiến thức về lập trình hệ thống khác nhau. Mã lệnh cấp thấp
+thường dính phải các loại lỗi ẩn, vốn chỉ có thể tìm thấy thông qua việc kiểm thử 
+hoặc review cẩn thận bởi các nhà phát triển nhiều kinh nghiệm. Trong Rust, trình biên
+dịch đóng vai trò như người gác cổng bằng cách từ chối các loại lỗi như vậy, bao gồm
+cả các lỗi liên quan đến việc xử lý đồng thời. Bằng cách kết hợp với trình dịch, nhóm
+phát triển có thể dành thời gian tập trung cho logic chương trình hơn là tìm kiếm
+các lỗi.
 
-Rust also brings contemporary developer tools to the systems programming world:
+Rust cũng đồng thời cung cấp các công cụ hỗ trợ phát triển đến cho thế giới lập trình hệ thống:
 
-* Cargo, the included dependency manager and build tool, makes adding,
-  compiling, and managing dependencies painless and consistent across the Rust
-  ecosystem.
-* Rustfmt ensures a consistent coding style across developers.
-* The Rust Language Server powers Integrated Development Environment (IDE)
-  integration for code completion and inline error messages.
+* Cargo, công cụ quản lý thư viện và build, cho phép thêm, dịch, quản lý 
+các thư viện phụ thuộc dễ dàng và đồng bộ xuyên suốt hệ sinh thái Rust.
+* Rustfmt đảm bảo sự đồng nhất về phong cách viết code giữa các nhà phát triển.
+* The Rust Language Server cung cấp sức mạnh cho các Integrated Development Environment (IDE) để 
+hỗ trợ các tính năng như code completion và các thông báo lỗi tại chỗ.
 
-By using these and other tools in the Rust ecosystem, developers can be
-productive while writing systems-level code.
+Bằng cách sử dụng các công cụ ở trên cũng như một số công cụ khác trong hệ sinh thái
+Rust, các nhà phát triển có thể viết một cách hiệu quả các mã lệnh cấp hệ thống.
 
-### Students
+### Sinh viên
 
-Rust is for students and those who are interested in learning about systems
-concepts. Using Rust, many people have learned about topics like operating
-systems development. The community is very welcoming and happy to answer
-student questions. Through efforts such as this book, the Rust teams want to
-make systems concepts more accessible to more people, especially those new to
-programming.
+Rust được dành cho sinh viên và bất kỳ ai yêu thích việc học các khái niệm 
+hệ thống. Nhiều người thông qua sử dụng Rust đã học về những chủ đề như phát
+triển hệ điều hành. Cộng đông Rust cũng rất sẵn sàng chào đón và hỗ trợ trả 
+các câu hỏi của sinh viên. Thông qua những nỗ lực tương tự như cuốn sách này,
+các nhóm Rust muốn làm cho việc hiểu các khái niệm về hệ thống dễ dàng hơn với 
+nhiều người, đặc biệt những người mới làm quen với lập trình.
 
-### Companies
+### Các công ty
 
-Hundreds of companies, large and small, use Rust in production for a variety of
-tasks. Those tasks include command line tools, web services, DevOps tooling,
-embedded devices, audio and video analysis and transcoding, cryptocurrencies,
-bioinformatics, search engines, Internet of Things applications, machine
-learning, and even major parts of the Firefox web browser.
+Hàng trăm công ty, cả lớn và nhỏ, sử dụng Rust cho nhiều nhiệm vụ khác nhau trong 
+hoạt động của họ. Những nhiệm vụ đó bao gồm các công cụ dòng lệnh, dịch vụ web, 
+các công cụ DevOps, các thiết bị nhúng, các trình phân tích và mã hóa âm thanh 
+hình ảnh, tiền mã hóa, tin sinh học, các máy tìm kiếm, các ứng dụng IoT, học máy, 
+và thậm chí các phần chính của trình duyệt web FireFox.
 
-### Open Source Developers
+### Các nhà phát triển mã nguồn mở
 
 Rust is for people who want to build the Rust programming language, community,
 developer tools, and libraries. We’d love to have you contribute to the Rust
 language.
+
 
 ### People Who Value Speed and Stability
 

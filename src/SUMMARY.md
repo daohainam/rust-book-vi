@@ -1,13 +1,13 @@
 # The Rust Programming Language
 
-[The Rust Programming Language](title-page.md)
+[Ngôn ngữ lập trình Rust](title-page.md)
 [Foreword](foreword.md)
 [Introduction](ch00-00-introduction.md)
 
 ## Getting started
 
 - [Getting Started](ch01-00-getting-started.md)
-    - [Installation](ch01-01-installation.md)
+    - [Cài đặt](ch01-01-installation.md)
     - [Hello, World!](ch01-02-hello-world.md)
     - [Hello, Cargo!](ch01-03-hello-cargo.md)
 
