@@ -2,7 +2,7 @@
 
 ![Build Status](https://github.com/rust-lang/book/workflows/CI/badge.svg)
 
-This repository contains the source of "The Rust Programming Language" book.
+Repository chứa mã nguồn cho cuốn sách "Ngôn ngữ lập trình Rust".
 
 [The book is available in dead-tree form from No Starch Press][nostarch].
 
