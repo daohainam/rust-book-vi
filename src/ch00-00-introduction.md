@@ -141,51 +141,46 @@ Cargo sâu hơn và nói về các phương pháp hay nhất để chia sẻ th�
 khác. Chương 15 thảo luận về các con trỏ thông minh mà các thư viện chuẩn cung cấp, đồng thời
 nói về các trait cho phép chúng hoạt động.
 
-In Chapter 16, we’ll walk through different models of concurrent programming
-and talk about how Rust helps you to program in multiple threads fearlessly.
-Chapter 17 looks at how Rust idioms compare to object-oriented programming
-principles you might be familiar with.
+Trong chương 16, chúng ta sẽ dạo qua các mô hình khác nhau của lập trình song song và nói 
+về cách Rust hỗ trợ bạn viết đa luồng một cách dễ dàng. Chương 17 so sánh một số thành phần trong 
+Rust với các khái niệm hướng đối tượng mà có lẽ bạn đã quen thuộc.
 
-Chapter 18 is a reference on patterns and pattern matching, which are powerful
-ways of expressing ideas throughout Rust programs. Chapter 19 contains a
-smorgasbord of advanced topics of interest, including unsafe Rust, macros, and
-more about lifetimes, traits, types, functions, and closures.
+Chương 18 là phần tham khảo về mẫu và khớp mẫu, vốn là những cách thức mạnh mẽ để
+biểu đạt các ý tưởng trong suốt các chương trình Rust. Chương 19 là một bữa đại tiệc với
+nhiều chủ đề nâng cao khác nhau, bao gồm unsafe Rust, macro, và nói thêm về vòng đời, trait,
+type, function và closure.
 
-In Chapter 20, we’ll complete a project in which we’ll implement a low-level
-multithreaded web server!
+Trong chương 20, chúng ta sẽ hoàn thành một máy chủ web đa luồng cấp thấp.
 
-Finally, some appendices contain useful information about the language in a
-more reference-like format. Appendix A covers Rust’s keywords, Appendix B
-covers Rust’s operators and symbols, Appendix C covers derivable traits
-provided by the standard library, Appendix D covers some useful development
-tools, and Appendix E explains Rust editions.
+Cuối cùng, các phụ lục sẽ chứa nhiều thông tin hữu ích về ngôn ngữ theo dạng liệt kê dễ dàng để
+tham khảo. Phụ lục A chứa các từ khóa của Rust, phụ lục B chứa các toán từ và ký hiệu, phụ lục C 
+chứa các trait có thể dẫn xuất lại được cung cấp bởi thư viện chuẩn, phụ lục D nói về các công cụ
+phát triển hữu ích, và phụ lục E nói về các phiên bản của Rust.
 
-There is no wrong way to read this book: if you want to skip ahead, go for it!
-You might have to jump back to earlier chapters if you experience any
-confusion. But do whatever works for you.
+Sẽ không có một cách sai để đọc quyển sách này: nếu bạn muốn nhảy qua một vài phần, cứ việc! Bạn 
+cũng có thể nhảy ngược lại các chương trước khi gặp phải điều gì khó hiểu. Cứ đơn giản làm cái 
+gì bạn cảm thấy hiệu quả.
 
 <span id="ferris"></span>
 
-An important part of the process of learning Rust is learning how to read the
-error messages the compiler displays: these will guide you toward working code.
-As such, we’ll provide many examples that don’t compile along with the error
-message the compiler will show you in each situation. Know that if you enter
-and run a random example, it may not compile! Make sure you read the
-surrounding text to see whether the example you’re trying to run is meant to
-error. Ferris will also help you distinguish code that isn’t meant to work:
+Một phần quan trọng khi học Rust là học cách đọc các thông báo lỗi mà trình biên dịch hiển thị: 
+Chúng sẽ giúp bạn tạo ra các code làm việc được. Do đó, chúng tôi sẽ cung cấp nhiều ví dụ không
+thể dịch được cùng với thông báo lỗi trình dịch sẽ hiển thị trong trường hợp tương ứng. Hãy nhớ 
+nếu bạn nhập và chạy một ví dụ ngẫu nhiên, nó có thể bị lỗi! Hãy đảm bảo bạn đã đọc những nội dung 
+xung quanh để xem liệu code bạn đang thử chạy có tạo ra lỗi hay không. Ferris cũng sẽ giúp bạn phân 
+biệt những code nào sẽ không chạy:
 
 | Ferris                                                                                                           | Meaning                                          |
 |------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|
-| <img src="img/ferris/does_not_compile.svg" class="ferris-explain" alt="Ferris with a question mark"/>            | This code does not compile!                      |
-| <img src="img/ferris/panics.svg" class="ferris-explain" alt="Ferris throwing up their hands"/>                   | This code panics!                                |
-| <img src="img/ferris/not_desired_behavior.svg" class="ferris-explain" alt="Ferris with one claw up, shrugging"/> | This code does not produce the desired behavior. |
+| <img src="img/ferris/does_not_compile.svg" class="ferris-explain" alt="Ferris with a question mark"/>            | Code này không dịch được!                        |
+| <img src="img/ferris/panics.svg" class="ferris-explain" alt="Ferris throwing up their hands"/>                   | Code này trông phát ớn!                          |
+| <img src="img/ferris/not_desired_behavior.svg" class="ferris-explain" alt="Ferris with one claw up, shrugging"/> | Code này sẽ không tạo ra kết quả mong muốn.      |
 
-In most situations, we’ll lead you to the correct version of any code that
-doesn’t compile.
+Trong hầu hết trường hợp, chúng tôi sẽ dẫn bạn đến phiên bản đúng của bất kỳ code nào không dịch được.
 
-## Source Code
+## Mã nguồn
 
-The source files from which this book is generated can be found on
+Các file nguồn của để tạo ra cuốn sách này có thể tìm thấy tại
 [GitHub][book].
 
 [book]: https://github.com/rust-lang/book/tree/main/src
