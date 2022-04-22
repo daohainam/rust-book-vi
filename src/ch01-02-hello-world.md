@@ -159,7 +159,7 @@ $ ls
 main  main.rs
 ```
 
-Với CMD trê Windows, Bạn có thể nhập vào:
+Với CMD trên Windows, Bạn có thể nhập vào:
 
 ```cmd
 > dir /B %= tùy chọn /B chỉ ra bạn chỉ muốn hiển thị các file =%
@@ -168,30 +168,30 @@ main.pdb
 main.rs
 ```
 
-This shows the source code file with the *.rs* extension, the executable file
-(*main.exe* on Windows, but *main* on all other platforms), and, when using
-Windows, a file containing debugging information with the *.pdb* extension.
-From here, you run the *main* or *main.exe* file, like this:
+Câu lệnh này sẽ hiển thị file mã nguồn với phần mở rộng *.rs*, file thực thi 
+(*main.exe* trên Windows, nhưng là *main* trên các nền tảng khác), và, khi 
+sử dụng Windows, một file chứa thông tin debug với đuôi *.pdb*. Từ đây, bạn chạy
+file *main.exe* hay *main* như sau:
 
 ```console
 $ ./main # or .\main.exe on Windows
 ```
 
-If *main.rs* was your “Hello, world!” program, this line would print `Hello,
-world!` to your terminal.
+Nếu *main.rs* là chương trình “Hello, world!” của bạn, dòng này sẽ in ra `Hello, world!` 
+trên cửa sổ terminal.
 
-If you’re more familiar with a dynamic language, such as Ruby, Python, or
-JavaScript, you might not be used to compiling and running a program as
-separate steps. Rust is an *ahead-of-time compiled* language, meaning you can
-compile a program and give the executable to someone else, and they can run it
-even without having Rust installed. If you give someone a *.rb*, *.py*, or
-*.js* file, they need to have a Ruby, Python, or JavaScript implementation
-installed (respectively). But in those languages, you only need one command to
-compile and run your program. Everything is a trade-off in language design.
+Nếu bạn thân thuộc hơn với một ngôn ngữ động (dynamic language), như Ruby, Python, hay
+JavaScript, có thể bạn chưa từng dịch và chạy chương trình trong các bước riêng như trên. 
+Rust là một ngôn ngữ *biên dịch sẵn* (*ahead-of-time compiled*), có nghĩa là bạn có thể
+dịch một chương trình và đưa file thực thi cho một ai đó, và họ có thể chạy nó 
+mà thậm chí không cần cài đặt Rust. Nếu bạn đưa ai đó một file *.rb*, *.py*, hay
+*.js*, họ sẽ cần có Ruby, Python hay JavaScript cài đặt sẵn trên máy. Nhưng trong
+các ngôn ngữ đó bạn chỉ cần một câu lệnh để dịch và chạy chương trình. Nói chung
+trong thiết kế ngôn ngữ thì cái gì cũng có cái giá của nó.
 
-Just compiling with `rustc` is fine for simple programs, but as your project
-grows, you’ll want to manage all the options and make it easy to share your
-code. Next, we’ll introduce you to the Cargo tool, which will help you write
-real-world Rust programs.
+Chỉ biên dịch với `rustc` thì không có vấn đề gì với các chương trình đơn giản,
+nhưng khi chương trình phát triển lên, bạn sẽ muốn quản lý tất cả các cài đặt
+và làm cho việc chia sẻ code trở nên dễ dàng. Tiếp theo, chúng tôi sẽ giới thiệu
+một công cụ có tên Cargo, thứ sẽ giúp bạn tạo nên các chương trình thực sự.
 
 [troubleshooting]: ch01-01-installation.html#troubleshooting
