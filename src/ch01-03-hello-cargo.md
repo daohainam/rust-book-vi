@@ -118,9 +118,8 @@ thư mục src và tạo một file *Cargo.toml* tương ứng.
 
 ### Dịch và chạy một dự án Cargo
 
-Now let’s look at what’s different when we build and run the “Hello, world!”
-program with Cargo! From your *hello_cargo* directory, build your project by
-entering the following command:
+Giờ cùng xem thử có gì khác khi dịch và chạy chương trình “Hello, world!” với
+Cargo! Từ thư mục *hello_cargo*, dịch chương trình của bạn với lệnh sau:
 
 ```console
 $ cargo build
@@ -128,25 +127,24 @@ $ cargo build
     Finished dev [unoptimized + debuginfo] target(s) in 2.85 secs
 ```
 
-This command creates an executable file in *target/debug/hello_cargo* (or
-*target\debug\hello_cargo.exe* on Windows) rather than in your current
-directory. You can run the executable with this command:
+Câu lệnh này tạo ra một file thực thi trong *target/debug/hello_cargo* (hoặc
+*target\debug\hello_cargo.exe* nếu chạy trên Windows) thay vì trong thư mục 
+hiện tại của bạn. Bạn có thể chạy file này với lệnh sau:
 
 ```console
 $ ./target/debug/hello_cargo # or .\target\debug\hello_cargo.exe on Windows
 Hello, world!
 ```
 
-If all goes well, `Hello, world!` should print to the terminal. Running `cargo
-build` for the first time also causes Cargo to create a new file at the top
-level: *Cargo.lock*. This file keeps track of the exact versions of
-dependencies in your project. This project doesn’t have dependencies, so the
-file is a bit sparse. You won’t ever need to change this file manually; Cargo
-manages its contents for you.
+Nếu mọi thứ đều ổn, dòng `Hello, world!` sẽ được in ra màn hình. Khi chạy câu 
+lệnh `cargo build` lần đầu, Cargo cũng sẽ tạo ra một file có tên *Cargo.lock*
+trong thư mục gốc của dự án. File này được dùng để theo dõi phiên bản chính xác
+của các phụ thuộc mà chương trình của bạn sử dụng, do dự án này không có các phụ thuộc
+nên nội dung của nó cũng khá đơn giản. Bạn sẽ không cần sửa đổi file này bằng tay;
+Cargo sẽ quản lý nó giúp bạn.
 
-We just built a project with `cargo build` and ran it with
-`./target/debug/hello_cargo`, but we can also use `cargo run` to compile the
-code and then run the resulting executable all in one command:
+Chúng ta vừa build một dự án với `cargo build` và chạy nó với `./target/debug/hello_cargo`, 
+nhưng chúng ta cũng có thể dùng `cargo run` để vừa dịch code vừa chạy trong cùng một câu lệnh:
 
 ```console
 $ cargo run
@@ -155,10 +153,10 @@ $ cargo run
 Hello, world!
 ```
 
-Notice that this time we didn’t see output indicating that Cargo was compiling
-`hello_cargo`. Cargo figured out that the files hadn’t changed, so it just ran
-the binary. If you had modified your source code, Cargo would have rebuilt the
-project before running it, and you would have seen this output:
+Để ý là lần này bạn sẽ không thấy các thông báo khi Cargo biên dịch `hello_cargo`.
+Cargo kiểm tra và thấy mã nguồn không bị thay đổi, do vậy nó chỉ chạy file đã
+biên dịch. Nếu bạn đã sửa đổi mã nguồn, Cargo sẽ dịch lại trước khi chạy và bạn
+sẽ thấy thông báo tương tự như sau:
 
 ```console
 $ cargo run
@@ -168,8 +166,9 @@ $ cargo run
 Hello, world!
 ```
 
-Cargo also provides a command called `cargo check`. This command quickly checks
-your code to make sure it compiles but doesn’t produce an executable:
+Cargo cũng cung cấp một lệnh có tên `cargo check`. Lệnh này được dùng để kiểm tra 
+nhanh xem code của bạn có thể dịch được không mà không cần tạo ra một file thực
+thi.
 
 ```console
 $ cargo check
@@ -184,19 +183,28 @@ speed up the process! As such, many Rustaceans run `cargo check` periodically
 as they write their program to make sure it compiles. Then they run `cargo
 build` when they’re ready to use the executable.
 
-Let’s recap what we’ve learned so far about Cargo:
+Tại sao bạn lại không cần một file thực thi? Thông thường, `cargo check` nhanh
+hơn nhiều so với `cargo build`, vì nó bỏ qua bước tạo file thực thi. Nếu bạn có 
+thói quen kiểm tra khả năng biên dịch liên tục khi viết code, dùng `cargo check` 
+sẽ giúp tăng tốc đáng kể! Do vậy nhiều Rustacean chạy `cargo check` định kỳ khi 
+viết làm việc để đảm bảo code có thể dịch được. Sau đó họ sẽ dùng `cargo build`
+khi muốn chạy chương trình.
 
-* We can create a project using `cargo new`.
-* We can build a project using `cargo build`.
-* We can build and run a project in one step using `cargo run`.
-* We can build a project without producing a binary to check for errors using
-  `cargo check`.
-* Instead of saving the result of the build in the same directory as our code,
-  Cargo stores it in the *target/debug* directory.
+Hãy cũng điểm qua những thứ ta đã học được về Cargo:
+
+* Chúng ta có thể dùng `cargo new` để tạo dự án mới. 
+* Chúng ta có thể dịch chương trình bằng cách dùng `cargo build` .
+* Chúng ta có thể dịch và chạy chương trình chỉ với một bước bằng `cargo run`.
+* Chúng ta có thể dịch mà không cần tạo ra file thực thi bằng `cargo check`.
+* Thay vì lưu kết quả dịch vào cùng thư mục code, Cargo lưu chúng trong thư 
+mục *target/debug*.
 
 An additional advantage of using Cargo is that the commands are the same no
 matter which operating system you’re working on. So, at this point, we’ll no
 longer provide specific instructions for Linux and macOS versus Windows.
+
+Một lợi nữa của Cargo là các lệnh của nó hoàn toàn giống nhau, không phụ thuộc 
+vào hệ điều hành mà bạn dùng. Do vậy 
 
 ### Building for Release
 
