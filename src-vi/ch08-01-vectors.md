@@ -1,251 +1,162 @@
-## Storing Lists of Values with Vectors
+## Lưu danh sách giá trị bằng Vector
 
-The first collection type we’ll look at is `Vec<T>`, also known as a *vector*.
-Vectors allow you to store more than one value in a single data structure that
-puts all the values next to each other in memory. Vectors can only store values
-of the same type. They are useful when you have a list of items, such as the
-lines of text in a file or the prices of items in a shopping cart.
+Loại tập hợp đầu tiên chúng ta sẽ xem xét là `Vec<T>`, còn được gọi là *vector*.
+Vector cho phép bạn lưu trữ nhiều giá trị trong một cấu trúc dữ liệu đơn lẻ mà nó
+đặt tất cả các giá trị nằm cạnh nhau trong bộ nhớ. Vector chỉ có thể lưu trữ các giá trị
+cùng loại. Chúng hữu ích khi bạn có một danh sách các hạng mục, chẳng hạn như
+những dòng văn bản trong một tập tin hoặc giá cả của các mặt hàng trong giỏ hàng.
 
-### Creating a New Vector
+### Tạo mới Vector
 
-To create a new empty vector, we call the `Vec::new` function, as shown in
-Listing 8-1.
+Để tạo mới một vector rỗng, chúng ta thực thi hàm `Vec::new`, như hiển thị trong mục 8-1
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-01/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-1: Creating a new, empty vector to hold values
-of type `i32`</span>
+<span class="caption">Mục 8-1: Tạo mới vector rỗng để lưu trữ giá trị loại `i32`</span>
 
-Note that we added a type annotation here. Because we aren’t inserting any
-values into this vector, Rust doesn’t know what kind of elements we intend to
-store. This is an important point. Vectors are implemented using generics;
-we’ll cover how to use generics with your own types in Chapter 10. For now,
-know that the `Vec<T>` type provided by the standard library can hold any type.
-When we create a vector to hold a specific type, we can specify the type within
-angle brackets. In Listing 8-1, we’ve told Rust that the `Vec<T>` in `v` will
-hold elements of the `i32` type.
+Lưu ý rằng chúng ta đã có thêm chú thích kiểu dữ liệu ở đây. Bởi vì nếu không chèn bất kỳ
+giá trị nào vào vector này, Rust sẽ không biết loại phần tử nào chúng ta dự định lưu vào.
+Đây là điểm quan trọng. Vector được triển khai bằng cách sử dụng kiểu generic;
+chúng tôi sẽ trình bày cách sử dụng generic với kiểu dữ liệu riêng của bạn trong Chương 10. Hiện tại, chỉ cần biết rằng kiểu `Vec<T>` được cung cấp bởi thư viện chuẩn, nó có thể chứa bất kỳ kiểu dữ liệu nào cũng được. Khi tạo một vector để chứa một kiểu dữ liệu cụ thể nào đó, chúng ta có thể chỉ định chúng bên trong dấu ngoặc nhọn (`<>`). Trong mục 8-1, chúng ta đã khai báo với Rust rằng `Vec<T>` trong `v` sẽ chứa các phần tử của kiểu `i32`.
 
-More often, you’ll create a `Vec<T>` with initial values and Rust will infer
-the type of value you want to store, so you rarely need to do this type
-annotation. Rust conveniently provides the `vec!` macro, which will create a
-new vector that holds the values you give it. Listing 8-2 creates a new
-`Vec<i32>` that holds the values `1`, `2`, and `3`. The integer type is `i32`
-because that’s the default integer type, as we discussed in the [“Data
-Types”][data-types]<!-- ignore --> section of Chapter 3.
+Thông thường hơn, khi bạn tạo một `Vec<T>` với các giá trị khởi tạo, Rust sẽ suy ra
+kiểu dữ liệu của giá trị bạn muốn lưu trữ vào, vì vậy hiếm khi bạn phải khai báo chú thích kiểu dữ liệu thế này. Rust cung cấp macro `vec!` một cách tiện dụng, nó sẽ tạo ra một
+vector mới chứa các giá trị bạn cung cấp cho nó. Mục 8-2 tạo ra một
+`Vec<i32>` chứa các giá trị `1`, `2` và `3`. Kiểu số nguyên là `i32`
+bởi vì đó là kiểu số nguyên mặc định như chúng ta đã thảo luận trong [“Kiểu dữ liệu”][data-types]<!-- ignore --> của Chương 3.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-02/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-2: Creating a new vector containing
-values</span>
+<span class="caption">Mục 8-2: Tạo mới vector có chứa dữ liệu</span>
 
-Because we’ve given initial `i32` values, Rust can infer that the type of `v`
-is `Vec<i32>`, and the type annotation isn’t necessary. Next, we’ll look at how
-to modify a vector.
+Vì chúng ta đã khởi tạo các giá trị ban đầu là kiểu dữ liệu `i32`, nên Rust có thể suy ra rằng kiểu dữ liệu của `v` là `Vec<i32>`, nên việc chú thích kiểu dữ liệu là không cần thiết nữa. Tiếp theo, chúng ta sẽ xem xét cách để sửa đổi một vector.
 
-### Updating a Vector
+### Cập nhật Vector
 
-To create a vector and then add elements to it, we can use the `push` method,
-as shown in Listing 8-3.
+Để tạo một vector và sau đó thêm các phần tử vào nó, chúng ta có thể sử dụng phương thức `push`,
+như được hiển thị trong mục 8-3.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-03/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-3: Using the `push` method to add values to a
-vector</span>
+<span class="caption">Mục 8-3: Sử dụng phương thức `push` để thêm giá trị vào vector</span>
 
-As with any variable, if we want to be able to change its value, we need to
-make it mutable using the `mut` keyword, as discussed in Chapter 3. The numbers
-we place inside are all of type `i32`, and Rust infers this from the data, so
-we don’t need the `Vec<i32>` annotation.
+Như với bất kỳ biến nào, nếu chúng ta muốn có thể thay đổi giá trị của nó, chúng ta cần
+làm cho nó có thể thay đổi bằng cách sử dụng từ khóa `mut`, như đã thảo luận trong Chương 3. Các con số chúng tôi đặt bên trong tất cả đều thuộc loại `i32` và Rust suy ra điều này từ dữ liệu, vì vậy chúng ta không cần chú thích `Vec<i32>`.
 
-### Reading Elements of Vectors
+### Truy xuất các phần tử của Vector
 
-There are two ways to reference a value stored in a vector: via indexing or
-using the `get` method. In the following examples, we’ve annotated the types of
-the values that are returned from these functions for extra clarity.
+Có hai cách để tham chiếu một giá trị được lưu trữ trong một vector: thông qua chỉ mục (index) hoặc
+sử dụng phương thức `get`. Trong các ví dụ sau, chúng tôi đã thêm chú thích kiểu của những
+giá trị được trả về từ các hàm này để làm rõ nghĩa hơn.
 
-Listing 8-4 shows both methods of accessing a value in a vector, with indexing
-syntax and the `get` method.
+Mục 8-4 thể hiện cả hai phương pháp truy cập giá trị trong một vector, với cú pháp index và phương thức `get`.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-04/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-4: Using indexing syntax or the `get` method to
-access an item in a vector</span>
+<span class="caption">Mục 8-4: Sử dụng cú pháp index hoặc phương thức `get` để truy cập một phần tử trong vector</span>
 
-Note a few details here. We use the index value of `2` to get the third element
-because vectors are indexed by number, starting at zero. Using `&` and `[]`
-gives us a reference to the element at the index value. When we use the `get`
-method with the index passed as an argument, we get an `Option<&T>` that we can
-use with `match`.
+Lưu ý một vài chi tiết ở đây. Chúng ta sử dụng giá trị index là `2` để lấy phần tử thứ ba
+bởi vì các phần tử của vector được lập theo cách đánh số chỉ mục (index), bắt đầu từ số 0. Sử dụng `&` và `[]` sẽ cung cấp cho chúng ta một tham chiếu đến phần tử tại giá trị index chỉ định. Khi chúng ta sử dụng phương thức `get` với đối số index chỉ định, chúng ta nhận được một `Option<&T>` mà chúng ta có thể sử dụng với `match`.
 
-The reason Rust provides these two ways to reference an element is so you can
-choose how the program behaves when you try to use an index value outside the
-range of existing elements. As an example, let’s see what happens when we have
-a vector of five elements and then we try to access an element at index 100
-with each technique, as shown in Listing 8-5.
+Lý do Rust cung cấp hai cách này để tham chiếu đến một phần tử là vì bạn có thể
+lựa chọn cách thức chương trình hoạt động khi bạn cố sử dụng một giá trị index bên ngoài
+phạm vi của các phần tử hiện có. Ví dụ, hãy xem điều gì sẽ xảy ra khi chúng ta có
+một vector gồm 5 phần tử và sau đó chúng ta cố ý truy cập một phần tử ở index 100
+với mỗi cách, như được hiển thị trong mục 8-5.
 
 ```rust,should_panic,panics
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-05/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-5: Attempting to access the element at index
-100 in a vector containing five elements</span>
+<span class="caption">Mục 8-5: Cố gắng truy cập phần tử tại index 100 trong vector chỉ có 5 phần tử</span>
 
-When we run this code, the first `[]` method will cause the program to panic
-because it references a nonexistent element. This method is best used when you
-want your program to crash if there’s an attempt to access an element past the
-end of the vector.
+Khi chúng ta chạy đoạn mã này, phương thức sử dụng index `[]` đầu tiên sẽ khiến chương trình bị lỗi
+bởi vì nó tham chiếu đến một phần tử không tồn tại. Phương pháp này được sử dụng tốt nhất khi bạn
+muốn chương trình của bạn gặp sự cố nếu có nỗ lực truy cập vào một phần tử sau phần tử cuối vector.
 
-When the `get` method is passed an index that is outside the vector, it returns
-`None` without panicking. You would use this method if accessing an element
-beyond the range of the vector may happen occasionally under normal
-circumstances. Your code will then have logic to handle having either
-`Some(&element)` or `None`, as discussed in Chapter 6. For example, the index
-could be coming from a person entering a number. If they accidentally enter a
-number that’s too large and the program gets a `None` value, you could tell the
-user how many items are in the current vector and give them another chance to
-enter a valid value. That would be more user-friendly than crashing the program
-due to a typo!
+Khi phương thức `get` được truyền vào một chỉ mục index nằm ngoài vector, nó sẽ trả về `None` mà không bị lỗi. Bạn sẽ sử dụng phương pháp này nếu việc truy cập một phần tử nằm ngoài phạm vi của vector có thể thỉnh thoảng xảy ra trong các tình huống bình thường. Khi đó, bạn sẽ có logic để xử lý cả hai trường hợp `Some(&element)` hoặc `None`, như đã thảo luận trong Chương 6. Ví dụ, chỉ mục index có thể phát sinh từ một người nhập liệu chỉ số đó. Nếu họ vô tình nhập một số quá lớn, thì chương trình nhận giá trị trả về là `None`, khi đó bạn có thể cho người dùng biết có bao nhiêu phần tử trong vector hiện tại và cho họ một cơ hội khác để nhập lại giá trị hợp lệ. Điều đó sẽ thân thiện với người dùng hơn, hơn là làm hỏng chương trình do lỗi đánh máy!
 
-When the program has a valid reference, the borrow checker enforces the
-ownership and borrowing rules (covered in Chapter 4) to ensure this reference
-and any other references to the contents of the vector remain valid. Recall the
-rule that states you can’t have mutable and immutable references in the same
-scope. That rule applies in Listing 8-6, where we hold an immutable reference
-to the first element in a vector and try to add an element to the end. This
-program won’t work if we also try to refer to that element later in the
-function:
-
+Khi chương trình có tham chiếu hợp lệ, trình kiểm tra mượn tham chiếu (borrow) thực thi các quy tắc về quyền sở hữu (ownership) và những quy tắc về mượn tham chiếu (được đề cập trong Chương 4) để đảm bảo tham chiếu này và mọi tham chiếu khác đến nội dung của vector vẫn hợp lệ. Nhắc lại quy tắc về trạng thái, bạn không thể có cùng trạng thái: tham chiếu có thể thay đổi (mutable) và tham chiếu bất biến (immutable) trong cùng một phạm vi. Quy tắc đó áp dụng trong mục 8-6, trong đó chúng ta giữ một tham chiếu immutable đến phần tử đầu tiên trong một vector và cố gắng thêm một phần tử vào cuối. Chương trình này cũng sẽ không chạy được nếu chúng ta cố tham chiếu đến phần tử này sau đó trong hàm sau:
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-06/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-6: Attempting to add an element to a vector
-while holding a reference to an item</span>
+<span class="caption">Mục 8-6: Cố gắng thêm một phần tử vào vector trong khi đang giữ tham chiếu đến một phần tử </span>
 
-Compiling this code will result in this error:
-
+Biên dịch đoạn mã này sẽ bị lỗi:
 
 ```console
 {{#include ../listings/ch08-common-collections/listing-08-06/output.txt}}
 ```
 
-The code in Listing 8-6 might look like it should work: why should a reference
-to the first element care about changes at the end of the vector? This error is
-due to the way vectors work: because vectors put the values next to each other
-in memory, adding a new element onto the end of the vector might require
-allocating new memory and copying the old elements to the new space, if there
-isn’t enough room to put all the elements next to each other where the vector
-is currently stored. In that case, the reference to the first element would be
-pointing to deallocated memory. The borrowing rules prevent programs from
-ending up in that situation.
+Đoạn mã trong mục 8-6 có thể trông giống như: tại sao một tham chiếu đến phần tử đầu tiên phải quan tâm đến những thay đổi ở cuối vector? Lỗi này là do cách hoạt động của vector: vì vector đặt các giá trị cạnh nhau trong bộ nhớ, việc thêm một phần tử mới vào cuối vector có thể yêu cầu cấp phát bộ nhớ mới, nếu không có đủ chỗ để đặt tất cả các phần tử bên cạnh nhau tại nơi mà vector hiện đang được lưu trữ, thì nó sẽ sao chép tất cả các phần tử cũ vào không gian mới trong bộ nhớ. Trong trường hợp đó, tham chiếu đến phần tử đầu tiên sẽ trỏ đến bộ nhớ đã bị giải phóng. Các quy tắc mượn tham chiếu sẽ ngăn cản các chương trình kết thúc trong tình huống đó.
 
-> Note: For more on the implementation details of the `Vec<T>` type, see [“The
+> Lưu ý: Để biết thêm về chi tiết triển khai của kiểu `Vec<T>`, hãy tham khảo [“The
 > Rustonomicon”][nomicon].
 
-### Iterating over the Values in a Vector
+### Duyệt qua những giá trị trong Vector
 
-To access each element in a vector in turn, we would iterate through all of the
-elements rather than use indices to access one at a time. Listing 8-7 shows how
-to use a `for` loop to get immutable references to each element in a vector of
-`i32` values and print them.
+Để truy cập lần lượt từng phần tử trong một vector, chúng ta sẽ lặp qua tất cả các phần tử thay vì sử dụng các chỉ mục để truy cập từng phần tử một. Mục 8-7 thể hiện cách sử dụng vòng lặp `for` để nhận các tham chiếu immutable đến từng phần tử trong một vector có kiểu giá trị `i32` và in chúng ra.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-07/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-7: Printing each element in a vector by
-iterating over the elements using a `for` loop</span>
+<span class="caption">Mục 8-7: In từng phần tử trong một vector bằng cách lặp qua các phần tử sử dụng một vòng lặp `for`</span>
 
-We can also iterate over mutable references to each element in a mutable vector
-in order to make changes to all the elements. The `for` loop in Listing 8-8
-will add `50` to each element.
+Chúng ta cũng có thể lặp qua các tham chiếu mutable đến từng phần tử trong một vector mutable để thực hiện thay đổi đối với tất cả các phần tử. Vòng lặp `for` trong mục 8-8 sẽ thêm `50` vào mỗi phần tử.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-08/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-8: Iterating over mutable references to
-elements in a vector</span>
+<span class="caption">Mục 8-8: Lặp qua các tham chiếu mutable đến từng phần tử trong một vector</span>
 
-To change the value that the mutable reference refers to, we have to use the
-`*` dereference operator to get to the value in `i` before we can use the `+=`
-operator. We’ll talk more about the dereference operator in the [“Following the
-Pointer to the Value with the Dereference Operator”][deref]<!-- ignore -->
-section of Chapter 15.
+Để thay đổi giá trị mà tham chiếu mutable đang tham chiếu đến, chúng ta phải sử dụng toán tử tham chiếu giá trị `*` để đi đến giá trị mà `i` đang trở tới trước khi chúng ta có thể sử dụng toán tử `+=`. Chúng ta sẽ nói thêm về toán tử tham chiếu giá trị trong phần [“Theo con trỏ đến giá trị với toán tử tham chiếu deref”][deref]<!-- ignore --> của Chương 15.
 
-Iterating over a vector, whether immutably or mutably, is safe because of the
-borrow checker's rules. If we attempted to insert or remove items in the `for`
-loop bodies in Listing 8-7 and Listing 8-8, we would get a compiler error
-similar to the one we got with the code in Listing 8-6. The reference to the
-vector that the `for` loop holds prevents simultaneous modification of the
-whole vector.
+Duyệt qua một vector, cho dù là loại immutable hoặc mutable, đều an toàn với các quy tắc của trình kiểm tra mượn tham chiếu. Nếu chúng tôi cố thử chèn hoặc xóa các mục trong phần thân của vòng lặp `for` ở mục 8-7 và mục 8-8, chúng tôi sẽ gặp lỗi trình biên dịch tương tự như lỗi mà chúng tôi gặp phải với đoạn mã trong mục 8-6. Tham chiếu đến vector mà vòng lặp `for` đang nắm giữ sẽ ngăn cản việc sửa đổi đồng thời toàn bộ vector.
 
-### Using an Enum to Store Multiple Types
+### Sử dụng Enum để lưu nhiều kiểu dữ liệu
 
-Vectors can only store values that are the same type. This can be inconvenient;
-there are definitely use cases for needing to store a list of items of
-different types. Fortunately, the variants of an enum are defined under the
-same enum type, so when we need one type to represent elements of different
-types, we can define and use an enum!
+Các vector chỉ có thể lưu trữ các giá trị có cùng kiểu dữ liệu. Điều này có thể gây bất tiện; chắc chắn có những trường hợp sử dụng cần lưu trữ một danh sách các hạng mục có kiểu dữ liệu khác loại nhau. May mắn thay, các biến thể (variants) của một enum được định nghĩa dưới cùng một kiểu enum, vì vậy khi chúng ta cần một cái nào đó để đại diện cho các phần tử có kiểu dữ liệu khác nhau, chúng ta có thể định nghĩa và sử dụng một enum!
 
-For example, say we want to get values from a row in a spreadsheet in which
-some of the columns in the row contain integers, some floating-point numbers,
-and some strings. We can define an enum whose variants will hold the different
-value types, and all the enum variants will be considered the same type: that
-of the enum. Then we can create a vector to hold that enum and so, ultimately,
-holds different types. We’ve demonstrated this in Listing 8-9.
+Ví dụ: chúng ta muốn nhận các giá trị từ một dòng trong bảng tính, trong đó một số cột của dòng đó chứa số nguyên, số dấu chấm động và chuỗi. Chúng ta có thể định nghĩa một enum mà các biến thể của nó sẽ chứa các kiểu giá trị khác nhau và tất cả các biến thể enum sẽ được coi là cùng một kiểu: kiểu của enum. Sau đó, chúng ta có thể tạo một vector để chứa enum đó và cuối cùng, chứa các kiểu dữ liệu khác nhau. Chúng tôi đã biểu diễn điều này trong mục 8-9.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-09/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-9: Defining an `enum` to store values of
-different types in one vector</span>
+<span class="caption">Mục 8-9: Định nghĩa một `enum` lưu giá trị của những kiểu dữ liệu khác nhau trong một vector</span>
 
-Rust needs to know what types will be in the vector at compile time so it knows
-exactly how much memory on the heap will be needed to store each element. We
-must also be explicit about what types are allowed in this vector. If Rust
-allowed a vector to hold any type, there would be a chance that one or more of
-the types would cause errors with the operations performed on the elements of
-the vector. Using an enum plus a `match` expression means that Rust will ensure
-at compile time that every possible case is handled, as discussed in Chapter 6.
+Rust cần biết những kiểu dữ liệu nào sẽ có trong vector tại thời điểm biên dịch để nó biết chính xác sẽ cần bao nhiêu bộ nhớ trên heap để lưu trữ mỗi phần tử. Chúng ta cũng phải rõ ràng về những kiểu dữ liệu được phép trong vector này. Nếu Rust cho phép một vector chứa bất kỳ kiểu dữ liệu nào, sẽ có khả năng một hoặc nhiều kiểu dữ liệu sẽ gây ra lỗi với các phép toán được thực hiện trên các phần tử của vector. Sử dụng một enum cộng với một biểu thức `match` có nghĩa là Rust sẽ đảm bảo tại thời điểm biên dịch rằng mọi trường hợp có khả năng xảy ra đều được xử lý, như đã thảo luận trong Chương 6.
 
-If you don’t know the exhaustive set of types a program will get at runtime to
-store in a vector, the enum technique won’t work. Instead, you can use a trait
-object, which we’ll cover in Chapter 17.
+Nếu bạn không biết đầy đủ tập hợp các loại dữ liệu mà một chương trình sẽ nhận được tại thời điểm thực thi để lưu trữ trong một vector, thì kỹ thuật enum sẽ không hoạt động tốt. Thay vào đó, bạn có thể sử dụng một đối tượng đặc tả (trait), mà chúng ta sẽ đề cập trong Chương 17.
 
-Now that we’ve discussed some of the most common ways to use vectors, be sure
-to review [the API documentation][vec-api]<!-- ignore --> for all the many
-useful methods defined on `Vec<T>` by the standard library. For example, in
-addition to `push`, a `pop` method removes and returns the last element.
+Bây giờ chúng ta đã thảo luận về một số cách phổ biến nhất để sử dụng vector, hãy nhớ xem lại [tài liệu API][vec-api]<!-- ignore --> để biết thêm nhiều phương thức hữu ích được định nghĩa trong `Vec<T>` bởi thư viện chuẩn. Ví dụ, ngoài `push`, một phương thức `pop` sẽ loại bỏ và trả về phần tử cuối cùng.
 
-### Dropping a Vector Drops Its Elements
+### Loại bỏ một vector cũng sẽ giải phóng luôn các phần tử của nó
 
-Like any other `struct`, a vector is freed when it goes out of scope, as
-annotated in Listing 8-10.
+Giống như bất kỳ `struct` nào khác, một vector được giải phóng khi nó ra khỏi phạm vi, như
+được chú thích trong mục 8-10.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-10/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-10: Showing where the vector and its elements
-are dropped</span>
+<span class="caption">Mục 8-10: Chỉ ra nơi mà vector và các phần tử của nó bị giải phóng</span>
 
-When the vector gets dropped, all of its contents are also dropped, meaning the
-integers it holds will be cleaned up. The borrow checker ensures that any
-references to contents of a vector are only used while the vector itself is
-valid.
+Khi vector bị loại bỏ, tất cả nội dung của nó cũng bị loại bỏ, có nghĩa là các số nguyên mà nó giữ sẽ bị xóa sạch. Trình kiểm tra mượn tham chiếu sẽ đảm bảo rằng bất kỳ tham chiếu nào đến nội dung của vector chỉ được sử dụng khi chính vector đó còn hợp lệ.
 
-Let’s move on to the next collection type: `String`!
+Hãy chuyển sang loại tập hợp tiếp theo: `String`!
 
 [data-types]: ch03-02-data-types.html#data-types
 [nomicon]: ../nomicon/vec/vec.html

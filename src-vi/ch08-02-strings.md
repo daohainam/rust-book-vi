@@ -1,329 +1,202 @@
-## Storing UTF-8 Encoded Text with Strings
+## Lưu trữ văn bản được mã hóa UTF-8 bằng chuỗi (String)
 
-We talked about strings in Chapter 4, but we’ll look at them in more depth now.
-New Rustaceans commonly get stuck on strings for a combination of three
-reasons: Rust’s propensity for exposing possible errors, strings being a more
-complicated data structure than many programmers give them credit for, and
-UTF-8. These factors combine in a way that can seem difficult when you’re
-coming from other programming languages.
+Chúng ta đã nói về chuỗi trong Chương 4, nhưng bây giờ chúng ta sẽ xem xét chúng sâu hơn. Những tín đồ mới của Rust thường bị mắc kẹt khi làm việc với string vì ba lý do: Rust có xu hướng tìm ra các lỗi có khả năng xảy ra, chuỗi là một cấu trúc dữ liệu phức tạp hơn nhiều lập trình viên nghĩ và thứ ba là về UTF-8. Những yếu tố này kết hợp theo cách có vẻ khó khăn khi bạn hiểu theo cách các ngôn ngữ lập trình khác.
 
-We discuss strings in the context of collections because strings are
-implemented as a collection of bytes, plus some methods to provide useful
-functionality when those bytes are interpreted as text. In this section, we’ll
-talk about the operations on `String` that every collection type has, such as
-creating, updating, and reading. We’ll also discuss the ways in which `String`
-is different from the other collections, namely how indexing into a `String` is
-complicated by the differences between how people and computers interpret
-`String` data.
+Chúng ta sẽ thảo luận về string theo khía cạnh các tập hợp bởi vì string được triển khai dưới dạng tập hợp các byte, được thêm vào một số phương thức để cung cấp chức năng hữu ích khi các byte đó được diễn dịch thành văn bản. Trong phần này, chúng ta sẽ nói về các thao tác trên `String` mà mọi loại tập hợp đều có, chẳng hạn như tạo, cập nhật và truy xuất. Chúng ta cũng sẽ thảo luận về những cách mà một `String` khác với các tập hợp khác, cụ thể là cách lập chỉ mục index trong `String` là phức tạp bởi sự khác biệt giữa cách con người và máy tính diễn giải dữ liệu `String`.
 
-### What Is a String?
+### String là gì?
 
-We’ll first define what we mean by the term *string*. Rust has only one string
-type in the core language, which is the string slice `str` that is usually seen
-in its borrowed form `&str`. In Chapter 4, we talked about *string slices*,
-which are references to some UTF-8 encoded string data stored elsewhere. String
-literals, for example, are stored in the program’s binary and are therefore
-string slices.
+Trước tiên, chúng ta sẽ xác định những gì chúng ta hiểu về khái niệm *string*. Rust chỉ có một kiểu chuỗi trong phần lõi của ngôn ngữ, đó là đoạn chuỗi `str` thường được thấy ở dạng mượn tham chiếu `&str`. Trong Chương 4, chúng ta đã nói về *string slices*, là các tham chiếu đến một số dữ liệu chuỗi mã hóa UTF-8 được lưu trữ ở một nơi nào đó. Ví dụ: các chuỗi ký tự được lưu trữ cố định trong tập tin nhị phân của chương trình và do đó được gọi là các đoạn chuỗi (string slices).
 
-The `String` type, which is provided by Rust’s standard library rather than
-coded into the core language, is a growable, mutable, owned, UTF-8 encoded
-string type. When Rustaceans refer to “strings” in Rust, they might be
-referring to either the `String` or the string slice `&str` types, not just one
-of those types. Although this section is largely about `String`, both types are
-used heavily in Rust’s standard library, and both `String` and string slices
-are UTF-8 encoded.
+Loại `String`, được cung cấp bởi thư viện tiêu chuẩn của Rust thay vì được lập trình như là thành phần lõi của ngôn ngữ, là loại chuỗi được mã hóa UTF-8 có thể tăng kích cỡ, có thể thay đổi, có thể sở hữu. Khi các tín đồ Rust đề cập đến “strings” trong Rust, họ có thể đang đề cập đến cả 2 loại `String` hoặc `&str`, không chỉ là một loại cụ thể trong 2 loại đó. Mặc dù phần này chủ yếu nói về `String`, nhưng cả hai loại đều được sử dụng nhiều trong thư viện tiêu chuẩn của Rust và cả `String` và `&str` đều được mã hóa UTF-8.
 
-### Creating a New String
+### Tạo mới một String
 
-Many of the same operations available with `Vec<T>` are available with `String`
-as well, because `String` is actually implemented as a wrapper around a vector
-of bytes with some extra guarantees, restrictions, and capabilities. An example
-of a function that works the same way with `Vec<T>` and `String` is the `new`
-function to create an instance, shown in Listing 8-11.
+Nhiều thao tác tương tự có sẵn trong `Vec<T>` cũng có sẵn với `String`, bởi vì `String` thực sự bọc lại một vector kiểu byte và có bổ sung thêm sự đảm bảo, sự hạn chế và khả năng lưu trữ. Ví dụ về một hàm hoạt động theo cùng một cách với `Vec<T>` và `String` là hàm `new` để tạo một đối tượng mới, được thể hiện trong mục 8-11.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-11/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-11: Creating a new, empty `String`</span>
+<span class="caption">Mục 8-11: Tạo mới một `String` rỗng.</span>
 
-This line creates a new empty string called `s`, which we can then load data
-into. Often, we’ll have some initial data that we want to start the string
-with. For that, we use the `to_string` method, which is available on any type
-that implements the `Display` trait, as string literals do. Listing 8-12 shows
-two examples.
+Dòng này tạo một mới một chuỗi rỗng có tên là `s`, sau đó chúng ta có thể tải dữ liệu vào. Thông thường, chúng ta sẽ có dữ liệu khởi tạo mà chúng ta muốn bắt đầu. Để làm điều này, chúng ta sử dụng phương thức `to_string`, có sẵn trên bất kỳ kiểu nào triển khai đối tượng đặc tả `Display`, như các ký tự chuỗi thực hiện. Mục 8-12 cho thấy hai ví dụ.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-12/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-12: Using the `to_string` method to create a
-`String` from a string literal</span>
+<span class="caption">Mục 8-12: Dùng phương thức `to_string` để tạo mới `String` từ một chuỗi ký tự</span>
 
-This code creates a string containing `initial contents`.
+Đoạn mã này tạo một string chứa `initial contents`.
 
-We can also use the function `String::from` to create a `String` from a string
-literal. The code in Listing 8-13 is equivalent to the code from Listing 8-12
-that uses `to_string`.
+Chúng ta cũng có thể dùng hàm `String::from` để tạo một `String` từ chuỗi ký tự. Đoạn code ở mục 8-13 tương đương với đoạn code của mục 8-12 sử dụng `to_string`.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-13/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-13: Using the `String::from` function to create
-a `String` from a string literal</span>
+<span class="caption">Mục 8-13: Dùng hàm `String::from` để tạo một `String` từ một chuỗi ký tự</span>
 
-Because strings are used for so many things, we can use many different generic
-APIs for strings, providing us with a lot of options. Some of them can seem
-redundant, but they all have their place! In this case, `String::from` and
-`to_string` do the same thing, so which you choose is a matter of style and
-readability.
+Bởi vì chuỗi được sử dụng cho rất nhiều thứ, chúng ta có thể sử dụng nhiều API chung khác nhau cho chuỗi, cung cấp cho chúng ta rất nhiều tùy chọn. Một số trong đó có vẻ thừa, nhưng chúng đều có vị trí của chúng! Trong trường hợp này, `String::from` và `to_string` làm tương tự nhau, vì vậy bạn chọn cái nào là do phong cách và tính dễ đọc của chương trình.
 
-Remember that strings are UTF-8 encoded, so we can include any properly encoded
-data in them, as shown in Listing 8-14.
+Hãy nhớ rằng chuỗi cơ bản được mã hóa bằng UTF-8, vì vậy chúng có thể bao gồm bất kỳ dữ liệu nào được mã hóa đúng cách, như được hiển thị trong mục 8-14.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-14/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-14: Storing greetings in different languages in
-strings</span>
+<span class="caption">Mục 8-14: Lưu các lời chào bằng nhiều ngôn ngữ khác nhau trong chuỗi</span>
 
-All of these are valid `String` values.
+Tất cả đều là `String` hợp lệ.
 
-### Updating a String
+### Cập nhật một String
 
-A `String` can grow in size and its contents can change, just like the contents
-of a `Vec<T>`, if you push more data into it. In addition, you can conveniently
-use the `+` operator or the `format!` macro to concatenate `String` values.
+Một `String` có khả năng tăng kích thước và nội dung của nó có thể thay đổi, nó giống như nội dung của `Vec<T>` nếu bạn đưa nhiều dữ liệu hơn vào đó. Ngoài ra, bạn có thể sử dụng toán tử `+` hoặc macro `format!` để nối các giá trị `String` một cách thuận tiện.
 
-#### Appending to a String with `push_str` and `push`
+#### Thêm vào cuối (append) chuỗi bằng `push_str` và `push`
 
-We can grow a `String` by using the `push_str` method to append a string slice,
-as shown in Listing 8-15.
+Chúng ta có thể tăng kích thước một `String` bằng cách sử dụng phương thức `push_str` để nối thêm một đoạn chuỗi, như được hiển thị trong mục 8-15.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-15/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-15: Appending a string slice to a `String`
-using the `push_str` method</span>
+<span class="caption">Mục 8-15: Nối chuỗi vào một `String` sử dụng phương thức `push_str`</span>
 
-After these two lines, `s` will contain `foobar`. The `push_str` method takes a
-string slice because we don’t necessarily want to take ownership of the
-parameter. For example, in the code in Listing 8-16, we want to be able to use
-`s2` after appending its contents to `s1`.
+Sau hai dòng này, `s` sẽ chứa `foobar`. Phương thức `push_str` có tham số là một đoạn chuỗi (`&str`) vì chúng ta không nhất thiết chiếm quyền sở hữu tham số đó. Ví dụ, trong mã trong mục 8-16, chúng ta muốn có thể sử dụng lại `s2` sau khi thêm nội dung của nó vào `s1`.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-16/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-16: Using a string slice after appending its
-contents to a `String`</span>
+<span class="caption">Mục 8-16: Sử dụng lại một đoạn chuỗi sau khi thêm nội dung của nó vào một `String` khác</span>
 
-If the `push_str` method took ownership of `s2`, we wouldn’t be able to print
-its value on the last line. However, this code works as we’d expect!
+Nếu phương thức `push_str` chiếm quyền sở hữu của `s2`, chúng ta sẽ không thể in giá trị của nó tại dòng cuối. Tuy nhiên, đoạn mã này hoạt động như mong đợi!
 
-The `push` method takes a single character as a parameter and adds it to the
-`String`. Listing 8-17 adds the letter “l” to a `String` using the `push`
-method.
+Phương thức `push` nhận ký tự đơn làm tham số và thêm nó vào `String`. Mục 8-17 thêm ký tự “l” vào một `String` bằng phương thức `push`
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-17/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-17: Adding one character to a `String` value
-using `push`</span>
+<span class="caption">Mục 8-17: Thêm một ký tự vào giá trị `String` bằng cách dùng phương thức `push`</span>
 
-As a result, `s` will contain `lol`.
+Kết quả là, `s` sẽ chứa `lol`.
 
-#### Concatenation with the `+` Operator or the `format!` Macro
+#### Nối chuỗi với toán tử `+` hoặc macro `format!`
 
-Often, you’ll want to combine two existing strings. One way to do so is to use
-the `+` operator, as shown in Listing 8-18.
+Thông thường, bạn sẽ muốn kết hợp hai chuỗi hiện có. Có một cách để làm điều này là dùng toán tử `+`, được thể hiện ở mục 8-18
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-18/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-18: Using the `+` operator to combine two
-`String` values into a new `String` value</span>
+<span class="caption">Mục 8-18: dùng toán tử `+` để kết hợp hai chuỗi thành một chuỗi mới</span>
 
-The string `s3` will contain `Hello, world!`. The reason `s1` is no longer
-valid after the addition, and the reason we used a reference to `s2`, has to do
-with the signature of the method that’s called when we use the `+` operator.
-The `+` operator uses the `add` method, whose signature looks something like
-this:
+Chuỗi `s3` sẽ chứa `Hello, world!`. Lý do `s1` không còn hợp lệ nữa sau khi thêm và lý do chúng ta sử dụng tham chiếu đến `s2` có liên quan đến phương thức bên dưới thực sự của toán tử `+`. Toán tử `+` sử dụng phương thức `add`, có cách biểu diễn trông giống như sau:
 
 ```rust,ignore
 fn add(self, s: &str) -> String {
 ```
 
-In the standard library, you'll see `add` defined using generics and associated
-types. Here, we’ve substituted in concrete types, which is what happens when we
-call this method with `String` values. We’ll discuss generics in Chapter 10.
-This signature gives us the clues we need to understand the tricky bits of the
-`+` operator.
+Trong thư viện chuẩn, bạn sẽ thấy `add` được định nghĩa bằng cách sử dụng generic và các loại liên quan. Ở đây, chúng ta đã thay thế bằng các loại cụ thể, đó là điều xảy ra khi chúng ta gọi phương thức này bằng các giá trị `String`. Chúng ta sẽ thảo luận về generic trong Chương 10. Thông qua phương thức bên dưới này, sẽ cho chúng ta những manh mối để hiểu về những điểm phức tạp của toán tử `+`.
 
-First, `s2` has an `&`, meaning that we’re adding a *reference* of the second
-string to the first string. This is because of the `s` parameter in the `add`
-function: we can only add a `&str` to a `String`; we can’t add two `String`
-values together. But wait—the type of `&s2` is `&String`, not `&str`, as
-specified in the second parameter to `add`. So why does Listing 8-18 compile?
+Đầu tiên, `s2` có dấu `&`, nghĩa là chúng ta đang thêm một *tham chiếu* của chuỗi thứ hai vào chuỗi đầu tiên. Điều này là do tham số `s` trong hàm `add`: chúng ta chỉ có thể thêm một kiểu `&str` vào một `String`; chúng ta không thể thêm hai giá trị `String` lại với nhau. Nhưng chờ đã - kiểu của `&s2` là `&String`, không phải là `&str` như được chỉ định trong tham số thứ hai của `add`. Vậy tại sao đoạn code của mục 8-18 biên dịch được?
 
-The reason we’re able to use `&s2` in the call to `add` is that the compiler
-can *coerce* the `&String` argument into a `&str`. When we call the `add`
-method, Rust uses a *deref coercion*, which here turns `&s2` into `&s2[..]`.
-We’ll discuss deref coercion in more depth in Chapter 15. Because `add` does
-not take ownership of the `s` parameter, `s2` will still be a valid `String`
-after this operation.
+Lý do chúng ta có thể sử dụng `&s2` trong lệnh gọi tới `add` là trình biên dịch có thể *ép kiểu* đối số `&String` thành một `&str`. Khi chúng ta gọi phương thức `add`, Rust sử dụng một *ép kiểu tự động*, mà cụ thể ở đây sẽ biến`&s2` thành `&s2[..]`. Chúng ta sẽ thảo luận sâu hơn về ép kiểu tự động trong Chương 15. Bởi vì `add` không chiếm quyền sở hữu tham số `s` nên `s2` sẽ vẫn là một `String` hợp lệ sau thao tác này.
 
-Second, we can see in the signature that `add` takes ownership of `self`,
-because `self` does *not* have an `&`. This means `s1` in Listing 8-18 will be
-moved into the `add` call and will no longer be valid after that. So although
-`let s3 = s1 + &s2;` looks like it will copy both strings and create a new one,
-this statement actually takes ownership of `s1`, appends a copy of the contents
-of `s2`, and then returns ownership of the result. In other words, it looks
-like it’s making a lot of copies but isn’t; the implementation is more
-efficient than copying.
+Thứ hai, chúng ta có thể thấy trong phương thức đại diện rằng, `add` chiếm quyền sở hữu `self` bởi vì `self` *không* có dấu `&`. Điều này có nghĩa là quyền sở hữu của `s1` trong mục 8-18 sẽ được chuyển vào lệnh gọi `add` và sẽ không còn hợp lệ sau lời gọi đó nữa. Vì vậy, mặc dù `let s3 = s1 + & s2;` có vẻ như nó sẽ sao chép cả hai chuỗi và tạo một chuỗi mới, nhưng câu lệnh này thực sự chiếm quyền sở hữu của biến `s1`, thêm vào cuối nội dung bản sao của `s2` và sau đó trả về tham chiếu quyền sở hữu của kết quả. Nói cách khác, có vẻ như nó đang tạo ra rất nhiều bản sao nhưng không phải vậy; việc thực hiện hiệu quả hơn sao chép.
 
-If we need to concatenate multiple strings, the behavior of the `+` operator
-gets unwieldy:
+Nếu chúng ta cần nối nhiều chuỗi, hành vi của toán tử `+` sẽ khó sử dụng:
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/no-listing-01-concat-multiple-strings/src/main.rs:here}}
 ```
 
-At this point, `s` will be `tic-tac-toe`. With all of the `+` and `"`
-characters, it’s difficult to see what’s going on. For more complicated string
-combining, we can instead use the `format!` macro:
+Lúc này, `s` sẽ là `tic-tac-toe`. Với các ký tự `+` và `"`, rất khó để biết điều gì đang xảy ra. Thay vào đó, để kết hợp những chuỗi phức tạp hơn, chúng ta có thể sử dụng macro `format!`:
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/no-listing-02-format/src/main.rs:here}}
 ```
 
-This code also sets `s` to `tic-tac-toe`. The `format!` macro works like
-`println!`, but instead of printing the output to the screen, it returns a
-`String` with the contents. The version of the code using `format!` is much
-easier to read, and the code generated by the `format!` macro uses references
-so that this call doesn’t take ownership of any of its parameters.
+Mã này cũng thiết lập `s` thành `tic-tac-toe`. Macro `format!` hoạt động giống như `println!`, nhưng thay vì in kết quả ra màn hình, nó trả về một `String` kèm với nội dung. Phiên bản của đoạn mã sử dụng `format!` dễ đọc hơn nhiều và mã được tạo bởi macro `format!` sử dụng các tham chiếu để lệnh gọi này không chiếm quyền sở hữu bất kỳ tham số nào của nó.
 
-### Indexing into Strings
+### Chỉ mục index đến String
 
-In many other programming languages, accessing individual characters in a
-string by referencing them by index is a valid and common operation. However,
-if you try to access parts of a `String` using indexing syntax in Rust, you’ll
-get an error. Consider the invalid code in Listing 8-19.
+Trong nhiều ngôn ngữ lập trình khác, truy cập đến các ký tự riêng lẻ trong một chuỗi bằng cách tham chiếu theo chỉ mục là một thao tác hợp lệ và phổ biến. Tuy nhiên, nếu bạn cố truy cập các phần của `String` bằng cú pháp chỉ mục index trong Rust, bạn sẽ gặp lỗi. Xem xét mã không hợp lệ trong mục 8-19.
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-19/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-19: Attempting to use indexing syntax with a
-String</span>
+<span class="caption">Mục 8-19: Cố dùng cú pháp index trong String</span>
 
-This code will result in the following error:
+Đoạn mã này sẽ trả về kết quả lỗi sau:
 
 ```console
 {{#include ../listings/ch08-common-collections/listing-08-19/output.txt}}
 ```
 
-The error and the note tell the story: Rust strings don’t support indexing. But
-why not? To answer that question, we need to discuss how Rust stores strings in
-memory.
+Lỗi và ghi chú về việc lỗi này là: chuỗi trong Rust không hỗ trợ chỉ mục index. Nhưng tại sao không? Để trả lời câu hỏi đó, chúng ta cần thảo luận về cách Rust lưu trữ các chuỗi trong bộ nhớ.
 
-#### Internal Representation
+#### Mô tả cách hoạt động bên trong
 
-A `String` is a wrapper over a `Vec<u8>`. Let’s look at some of our properly
-encoded UTF-8 example strings from Listing 8-14. First, this one:
+`String` là một kiểu bọc lại kiểu `Vec<u8>`. Hãy xem xét một số chuỗi UTF-8 được mã hóa đúng cách từ mục 8-14. Đầu tiên là dòng này:
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-14/src/main.rs:spanish}}
 ```
 
-In this case, `len` will be 4, which means the vector storing the string “Hola”
-is 4 bytes long. Each of these letters takes 1 byte when encoded in UTF-8. The
-following line, however, may surprise you. (Note that this string begins with
-the capital Cyrillic letter Ze, not the Arabic number 3.)
+Trong trường hợp này, `len` sẽ là 4, có nghĩa là vector lưu trữ chuỗi “Hola” dài 4 byte. Mỗi chữ cái này chiếm 1 byte khi được mã hóa bằng UTF-8. Tuy nhiên, dòng sau đây có thể làm bạn ngạc nhiên. (Lưu ý rằng chuỗi này bắt đầu bằng chữ cái Cyrillic viết hoa Ze, không phải số 3 trong tiếng Ả Rập)
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-14/src/main.rs:russian}}
 ```
 
-Asked how long the string is, you might say 12. In fact, Rust’s answer is 24:
-that’s the number of bytes it takes to encode “Здравствуйте” in UTF-8, because
-each Unicode scalar value in that string takes 2 bytes of storage. Therefore,
-an index into the string’s bytes will not always correlate to a valid Unicode
-scalar value. To demonstrate, consider this invalid Rust code:
+Khi được hỏi chuỗi dài bao nhiêu, bạn có thể trả lời là 12. Thực tế, câu trả lời của Rust là 24: đó là số byte cần thiết để mã hóa “Здравствуйте” trong UTF-8, bởi vì mỗi giá trị vô hướng Unicode trong chuỗi đó chiếm 2 byte dung lượng lưu trữ . Do đó, một chỉ mục index trỏ đến các byte của chuỗi sẽ không phải lúc nào cũng tương ứng với một giá trị vô hướng Unicode hợp lệ. Để chứng minh, hãy xem xét mã Rust không hợp lệ này:
 
 ```rust,ignore,does_not_compile
 let hello = "Здравствуйте";
 let answer = &hello[0];
 ```
 
-You already know that `answer` will not be `З`, the first letter. When encoded
-in UTF-8, the first byte of `З` is `208` and the second is `151`, so it would
-seem that `answer` should in fact be `208`, but `208` is not a valid character
-on its own. Returning `208` is likely not what a user would want if they asked
-for the first letter of this string; however, that’s the only data that Rust
-has at byte index 0. Users generally don’t want the byte value returned, even
-if the string contains only Latin letters: if `&"hello"[0]` were valid code
-that returned the byte value, it would return `104`, not `h`.
+Bạn biết rằng `câu trả lời` của chữ cái đầu tiên sẽ không phải là `З`. Khi được mã hóa bằng UTF-8, byte đầu tiên của `З` là `208` và byte thứ hai là `151`, vì vậy, có vẻ như `câu trả lời` trên thực tế phải là `208`, nhưng `208` không phải là ký tự hợp lệ theo riêng nó. Trả về `208` có thể không phải là những gì người dùng muốn nếu họ yêu cầu ký tự đầu tiên của chuỗi này; tuy nhiên, đó là dữ liệu duy nhất mà Rust có ở chỉ mục byte số 0. Người dùng thường không muốn giá trị byte được trả về, ngay cả khi chuỗi chỉ chứa các chữ cái Latinh: nếu `&"hello"[0]` là mã hợp lệ trả về giá trị byte, nó sẽ trả về `104`, không phải `h`.
 
-The answer, then, is that to avoid returning an unexpected value and causing
-bugs that might not be discovered immediately, Rust doesn’t compile this code
-at all and prevents misunderstandings early in the development process.
+Vì vậy, để tránh trả về một giá trị không mong muốn và gây ra các lỗi mà có thể không được phát hiện ngay lập tức, câu trả lời là: Rust không biên dịch mã này gì hết và ngăn chặn sự hiểu lầm sớm trong quá trình phát triển.
 
-#### Bytes and Scalar Values and Grapheme Clusters! Oh My!
+#### Byte, giá trị vô hướng (scalar) và các cụm ký tự kết hợp (grapheme)! Ôi trời!
 
-Another point about UTF-8 is that there are actually three relevant ways to
-look at strings from Rust’s perspective: as bytes, scalar values, and grapheme
-clusters (the closest thing to what we would call *letters*).
+Một điểm khác về UTF-8 là trên thực tế có ba cách liên quan để xem xét chuỗi từ quan điểm của Rust: dưới dạng byte, giá trị vô hướng (scalar) và cụm ký tự kết hợp (grapheme) (thứ gần nhất với những gì chúng ta gọi là *chữ cái*).
 
-If we look at the Hindi word “नमस्ते” written in the Devanagari script, it is
-stored as a vector of `u8` values that looks like this:
+Nếu chúng ta nhìn vào từ tiếng Hindi “नमस्ते” được viết bằng chữ viết Devanagari, nó được lưu trữ dưới dạng vector của các giá trị `u8` trông giống như sau:
 
 ```text
 [224, 164, 168, 224, 164, 174, 224, 164, 184, 224, 165, 141, 224, 164, 164,
 224, 165, 135]
 ```
 
-That’s 18 bytes and is how computers ultimately store this data. If we look at
-them as Unicode scalar values, which are what Rust’s `char` type is, those
-bytes look like this:
+Đó là 18 byte và là cách máy tính cuối cùng lưu trữ dữ liệu này. Nếu chúng ta xem chúng dưới dạng giá trị vô hướng Unicode, là kiểu `char` của Rust, thì những byte đó trông như thế này:
 
 ```text
 ['न', 'म', 'स', '्', 'त', 'े']
 ```
 
-There are six `char` values here, but the fourth and sixth are not letters:
-they’re diacritics that don’t make sense on their own. Finally, if we look at
-them as grapheme clusters, we’d get what a person would call the four letters
-that make up the Hindi word:
+Có sáu giá trị `char` ở đây, nhưng giá trị thứ tư và thứ sáu không phải là chữ cái thực sự: chúng là những dấu phụ không có ý nghĩa nếu đứng riêng. Cuối cùng, nếu chúng ta xem chúng dưới dạng các cụm ký tự kết hợp (grapheme), chúng ta sẽ hiểu một người sẽ gọi bốn chữ cái tạo nên từ tiếng Hindi:
 
 ```text
 ["न", "म", "स्", "ते"]
 ```
 
-Rust provides different ways of interpreting the raw string data that computers
-store so that each program can choose the interpretation it needs, no matter
-what human language the data is in.
+Rust cung cấp những cách khác nhau để diễn giải dữ liệu chuỗi thô mà máy tính lưu trữ để mỗi chương trình có thể chọn cách diễn giải mà nó cần, bất kể dữ liệu đó bằng ngôn ngữ con người nào.
 
-A final reason Rust doesn’t allow us to index into a `String` to get a
-character is that indexing operations are expected to always take constant time
-(O(1)). But it isn’t possible to guarantee that performance with a `String`,
-because Rust would have to walk through the contents from the beginning to the
-index to determine how many valid characters there were.
+Lý do cuối cùng là Rust không cho phép chúng ta lập chỉ mục cho `String` để truy cập một ký tự là, các hoạt động lập chỉ mục được xem là luôn mất chi phí thời gian không đổi (O(1)). Nhưng không thể đảm bảo hiệu suất đó bằng `String`, vì Rust sẽ phải lặp qua hết các nội dung từ đầu chuỗi đến vị trí index chỉ định để xác định xem có bao nhiêu ký tự hợp lệ.
 
-### Slicing Strings
+### Cắt chuỗi
 
-Indexing into a string is often a bad idea because it’s not clear what the
-return type of the string-indexing operation should be: a byte value, a
-character, a grapheme cluster, or a string slice. If you really need to use
-indices to create string slices, therefore, Rust asks you to be more specific.
+Lập chỉ mục cho một chuỗi thường là một ý tưởng tồi vì nó không biết rõ kiểu trả về của thao tác lấy giá trị theo index trong chuỗi là gì: giá trị byte, ký tự, một cụm grapheme hay một đoạn chuỗi. Do đó, nếu bạn thực sự cần sử dụng các chỉ số để tạo các đoạn chuỗi, Rust yêu cầu bạn phải cụ thể hơn nữa.
 
-Rather than indexing using `[]` with a single number, you can use `[]` with a
-range to create a string slice containing particular bytes:
+Thay vì lập chỉ mục bằng cách sử dụng `[]` với một số đơn lẻ, bạn có thể sử dụng `[]` với một dãy phạm vi để tạo một đoạn chuỗi chứa các byte cụ thể:
 
 ```rust
 let hello = "Здравствуйте";
@@ -331,27 +204,20 @@ let hello = "Здравствуйте";
 let s = &hello[0..4];
 ```
 
-Here, `s` will be a `&str` that contains the first 4 bytes of the string.
-Earlier, we mentioned that each of these characters was 2 bytes, which means
-`s` will be `Зд`.
+Ở đây, `s` sẽ là một `&str` chứa 4 byte đầu tiên của chuỗi.
+Trước đó, chúng tôi đã đề cập rằng mỗi ký tự này là 2 byte, có nghĩa là `s` sẽ là `Зд`.
 
-If we were to try to slice only part of a character’s bytes with something like
-`&hello[0..1]`, Rust would panic at runtime in the same way as if an invalid
-index were accessed in a vector:
+Nếu chúng ta cố thử cắt chuỗi chỉ một phần byte của một ký tự, đại loại một thứ gì đó như `&hello[0..1]`, Rust sẽ gây lỗi lúc chạy giống như trường hợp dùng chỉ mục index không hợp lệ truy cập phần tử trong một vector:
 
 ```console
 {{#include ../listings/ch08-common-collections/output-only-01-not-char-boundary/output.txt}}
 ```
 
-You should use ranges to create string slices with caution, because doing so
-can crash your program.
+Bạn nên sử dụng các dãy phạm vi để tạo các đoạn chuỗi một cách thận trọng, vì làm như vậy có thể làm hỏng chương trình của bạn.
 
-### Methods for Iterating Over Strings
+### Cách duyệt qua các phần tử của chuỗi
 
-The best way to operate on pieces of strings is to be explicit about whether
-you want characters or bytes. For individual Unicode scalar values, use the
-`chars` method. Calling `chars` on “Зд” separates out and returns two values
-of type `char`, and you can iterate over the result to access each element:
+Cách tốt nhất để thao tác trên các phần của chuỗi là phải rõ ràng về việc bạn mong muốn: kiểu ký tự hay kiểu byte. Đối với các giá trị vô hướng Unicode riêng lẻ, hãy sử dụng phương thức `chars`. Việc gọi `chars` trên “Зд” sẽ tách chuỗi ra và trả về hai giá trị kiểu `char` và bạn có thể lặp qua kết quả này để truy cập từng phần tử:
 
 ```rust
 for c in "Зд".chars() {
@@ -359,15 +225,14 @@ for c in "Зд".chars() {
 }
 ```
 
-This code will print the following:
+Đoạn mã này sẽ in ra như sau:
 
 ```text
 З
 д
 ```
 
-Alternatively, the `bytes` method returns each raw byte, which might be
-appropriate for your domain:
+Ngoài ra, phương thức `bytes` trả về từng byte thô, có thể phù hợp với lĩnh vực của bạn:
 
 ```rust
 for b in "Зд".bytes() {
@@ -375,7 +240,7 @@ for b in "Зд".bytes() {
 }
 ```
 
-This code will print the four bytes that make up this string:
+Đoạn mã này sẽ in ra bốn byte đã tạo nên chuỗi này:
 
 ```text
 208
@@ -384,29 +249,14 @@ This code will print the four bytes that make up this string:
 180
 ```
 
-But be sure to remember that valid Unicode scalar values may be made up of more
-than 1 byte.
+Nhưng hãy nhớ rằng các giá trị vô hướng Unicode hợp lệ có thể được tạo thành từ nhiều hơn 1 byte.
 
-Getting grapheme clusters from strings as with the Devanagari script is
-complex, so this functionality is not provided by the standard library. Crates
-are available on [crates.io](https://crates.io/)<!-- ignore --> if this is the
-functionality you need.
+Việc lấy các cụm ký tự kết hợp (grapheme) từ chuỗi giống như với chữ viết Devanagari rất phức tạp, vì vậy chức năng này không cung cấp sẵn trong thư viện chuẩn. Có nhiều thư viện có sẵn trên [crates.io](https://crates.io/)<!-- ignore --> nếu bạn cần những chức năng này.
 
-### Strings Are Not So Simple
+### Kiểu chuỗi không đơn giản như vậy
 
-To summarize, strings are complicated. Different programming languages make
-different choices about how to present this complexity to the programmer. Rust
-has chosen to make the correct handling of `String` data the default behavior
-for all Rust programs, which means programmers have to put more thought into
-handling UTF-8 data upfront. This trade-off exposes more of the complexity of
-strings than is apparent in other programming languages, but it prevents you
-from having to handle errors involving non-ASCII characters later in your
-development life cycle.
+Tóm lại, kiểu chuỗi rất phức tạp. Các ngôn ngữ lập trình khác nhau tạo ra các lựa chọn khác nhau về cách thể hiện sự phức tạp cho lập trình viên. Rust đã chọn việc xử lý chính xác dữ liệu `String` làm hành vi mặc định cho tất cả các chương trình Rust, điều đó có nghĩa là các lập trình viên phải suy nghĩ nhiều hơn về việc xử lý dữ liệu UTF-8 từ trước. Sự đánh đổi này cho thấy kiểu chuỗi có tính phức tạp hơn các ngôn ngữ lập trình khác, nhưng nó lại giúp bạn khỏi phải xử lý các lỗi liên quan đến các ký tự không phải ASCII sau này trong vòng đời phát triển của mình.
 
-The good news is that the standard library offers a lot of functionality built
-off the `String` and `&str` types to help handle these complex situations
-correctly. Be sure to check out the documentation for useful methods like
-`contains` for searching in a string and `replace` for substituting parts of a
-string with another string.
+Tin tốt là thư viện chuẩn cung cấp rất nhiều chức năng được xây dựng dựa trên các loại `String` và `&str` để giúp xử lý các tình huống phức tạp này một cách chính xác. Nhớ xem tài liệu để biết các phương thức hữu ích như `contains` để tìm kiếm trong một chuỗi và `replace` để thay thế các phần của một chuỗi bằng một chuỗi khác.
 
-Let’s switch to something a bit less complex: hash maps!
+Hãy chuyển sang một thứ ít phức tạp hơn một chút: bản đồ băm!
