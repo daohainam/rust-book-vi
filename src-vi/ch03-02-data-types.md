@@ -101,15 +101,6 @@ sẽ dùng tới `isize` hay `usize` là khi sử dụng chỉ số trong các t
 > [“Unrecoverable Errors with `panic!`”][unrecoverable-errors-with-panic]<!-- ignore --> 
 > ở chương 9.
 >
-> When you’re compiling in release mode with the `--release` flag, Rust does
-> *not* include checks for integer overflow that cause panics. Instead, if
-> overflow occurs, Rust performs *two’s complement wrapping*. In short, values
-> greater than the maximum value the type can hold “wrap around” to the minimum
-> of the values the type can hold. In the case of a `u8`, the value 256 becomes
-> 0, the value 257 becomes 1, and so on. The program won’t panic, but the
-> variable will have a value that probably isn’t what you were expecting it to
-> have. Relying on integer overflow’s wrapping behavior is considered an error.
->
 > To explicitly handle the possibility of overflow, you can use these families
 > of methods provided by the standard library for primitive numeric types:
 >
@@ -120,6 +111,15 @@ sẽ dùng tới `isize` hay `usize` là khi sử dụng chỉ số trong các t
 > - Saturate at the value’s minimum or maximum values with `saturating_*`
 >   methods
 
+
+> Khi dịch chương trình ở chế độ release với tùy chọn `--release`, Rust *không* 
+> thêm vào các phép kiểm tra tràn số gây dừng chương trình. Thay vào đó, nếu xảy ra
+> tràn số, Rust sẽ thực hiện *two’s complement wrapping*. Nói một cách ngắn gọn, các 
+> giá trị lớn hơn giá trị lớn nhất mà kiểu dữ liệu có thể chứa được sẽ bị "xoay vòng"
+> lại từ giá trị nhỏ nhất. Trong trường hợp của `u8`, giá trị 256 sẽ quay vòng lại 0, 
+> 257 trở thành 1, và tiếp tục như vậy. Chương trình sẽ không dừng do lỗi, nhưng biến
+> có thể chứa một giá trị mà bạn có thể không mong muốn. Khi xảy ra "xoay vòng" lại 
+> giá trị, ta có thể coi như một lỗi.
 
 
 #### Floating-Point Types
