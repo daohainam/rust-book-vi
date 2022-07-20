@@ -101,9 +101,6 @@ sẽ dùng tới `isize` hay `usize` là khi sử dụng chỉ số trong các t
 > [“Unrecoverable Errors with `panic!`”][unrecoverable-errors-with-panic]<!-- ignore --> 
 > ở chương 9.
 >
-> To explicitly handle the possibility of overflow, you can use these families
-> of methods provided by the standard library for primitive numeric types:
->
 > - Wrap in all modes with the `wrapping_*` methods, such as `wrapping_add`
 > - Return the `None` value if there is overflow with the `checked_*` methods
 > - Return the value and a boolean indicating whether there was overflow with
@@ -120,7 +117,9 @@ sẽ dùng tới `isize` hay `usize` là khi sử dụng chỉ số trong các t
 > 257 trở thành 1, và tiếp tục như vậy. Chương trình sẽ không dừng do lỗi, nhưng biến
 > có thể chứa một giá trị mà bạn có thể không mong muốn. Khi xảy ra "xoay vòng" lại 
 > giá trị, ta có thể coi như một lỗi.
-
+>
+> Bạn có thể dùng các nhóm phương thức sau nếu muốn xử lý việc tràn số, các nhóm phương 
+> thức này hỗ trợ các kiểu dữ liêu số nguyên thủy và được cung cấp bởi thư viện chuẩn.
 
 #### Floating-Point Types
 
