@@ -121,15 +121,15 @@ sẽ dùng tới `isize` hay `usize` là khi sử dụng chỉ số trong các t
 > Bạn có thể dùng các nhóm phương thức sau nếu muốn xử lý việc tràn số, các nhóm phương 
 > thức này hỗ trợ các kiểu dữ liêu số nguyên thủy và được cung cấp bởi thư viện chuẩn.
 
-#### Floating-Point Types
+#### Các kiểu số dấu chấm động
 
-Rust also has two primitive types for *floating-point numbers*, which are
-numbers with decimal points. Rust’s floating-point types are `f32` and `f64`,
-which are 32 bits and 64 bits in size, respectively. The default type is `f64`
-because on modern CPUs it’s roughly the same speed as `f32` but is capable of
-more precision. All floating-point types are signed.
+Rust cũng có hai kiểu nguyên thủy cho các *số dấu chấm động* (floating-point numbers),
+là các kiểu số có phần thập phân. Các kiểu số dấu chấm động của Rust gồm có `f32` và `f64`,
+tương ứng với các kích cỡ 32 bit và 64 bit. Kiểu mặc nhiên là `f64`, vì trên các bộ xử lý 
+hiện đại tốc độ xử lý của nó tương đương với `f32` nhưng có độ chính xác cao hơn. Tất cả 
+các kiểu dấu chấm động đều là có dấu.
 
-Here’s an example that shows floating-point numbers in action:
+Đây là một ví dụ về việc dùng các dấu chấm động:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -137,15 +137,14 @@ Here’s an example that shows floating-point numbers in action:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-06-floating-point/src/main.rs}}
 ```
 
-Floating-point numbers are represented according to the IEEE-754 standard. The
-`f32` type is a single-precision float, and `f64` has double precision.
+Các kiểu dấu chấm động được biểu diễn dựa trên tiêu chuẩn IEEE-754. Kiểu `f32` là 
+kiểu dấu chấm động chính xác đơn, và `f64` có độ chính xác kép.
 
-#### Numeric Operations
+#### Các toán tử số
 
-Rust supports the basic mathematical operations you’d expect for all of the
-number types: addition, subtraction, multiplication, division, and remainder.
-Integer division rounds down to the nearest integer. The following code shows
-how you’d use each numeric operation in a `let` statement:
+Rust hỗ trợ các phép toán toán học cơ bản: cộng, trừ, nhân, chia và lấy phần dư. 
+Các kiểu số nguyên khi chia sẽ trả về một số nguyên gần nhất với thương. Đoạn code
+sau đây biểu diễn cách bạn sẽ dùng các toán tử trong một phát biểu `let`:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -153,15 +152,15 @@ how you’d use each numeric operation in a `let` statement:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-07-numeric-operations/src/main.rs}}
 ```
 
-Each expression in these statements uses a mathematical operator and evaluates
-to a single value, which is then bound to a variable. [Appendix B][appendix_b]<!-- ignore --> contains a
-list of all operators that Rust provides.
+Mỗi biểu thức trong các phát biểu đó dùng một toán tử toán học và trả về một giá trị 
+đơn, giá trị này sau đó lại được gán cho một biến. [Appendix B][appendix_b]<!-- ignore --> chứa
+một danh sách tất cả các toán tử có trong Rust.
 
-#### The Boolean Type
+#### Kiểu Boolean 
 
-As in most other programming languages, a Boolean type in Rust has two possible
-values: `true` and `false`. Booleans are one byte in size. The Boolean type in
-Rust is specified using `bool`. For example:
+Tương tự trong các ngôn ngữ lập trình khác, một kiểu Boolean có thể chứa một trong 
+hai giá trị `true` và `false`. Boolean có kích cỡ một byte. Một biếu kiểu Boolean trong Rust 
+được khai báo sử dụng `bool`. Ví dụ:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -169,14 +168,14 @@ Rust is specified using `bool`. For example:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-08-boolean/src/main.rs}}
 ```
 
-The main way to use Boolean values is through conditionals, such as an `if`
-expression. We’ll cover how `if` expressions work in Rust in the [“Control
-Flow”][control-flow]<!-- ignore --> section.
+Các chính để dùng Boolean là thông qua các điều kiện, kiểu như phát biểu `if`.
+Chúng ta sẽ xem thêm về cách `if` làm việc trong Rust trong phần [“Control
+Flow”][control-flow]<!-- ignore -->.
 
-#### The Character Type
+#### Kiểu ký tự
 
-Rust’s `char` type is the language’s most primitive alphabetic type. Here’s
-some examples of declaring `char` values:
+Kiểu `char` trong Rust là kiểu ký tự nguyên thủy nhất. Sau đây là một số ví dụ về 
+cách khai báo các giá trị kiểu `char`:
 
 <span class="filename">Filename: src/main.rs</span>
 
