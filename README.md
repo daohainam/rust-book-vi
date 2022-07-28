@@ -21,10 +21,10 @@ releases are updated less frequently.
 
 [releases]: https://github.com/rust-lang/book/releases
 
-## Requirements
+## Yêu cầu
 
-Building the book requires [mdBook], ideally the same version that
-rust-lang/rust uses in [this file][rust-mdbook]. To get it:
+Để dịch sang định dạng sách online bạn sẽ cần [mdBook], tốt nhất là cùng phiên bản
+mà rust-lang/rust dùng trong [this file][rust-mdbook]. Để tải về:
 
 [mdBook]: https://github.com/rust-lang-nursery/mdBook
 [rust-mdbook]: https://github.com/rust-lang/rust/blob/master/src/tools/rustbook/Cargo.toml
@@ -35,14 +35,14 @@ $ cargo install mdbook --vers [version-num]
 
 ## Building
 
-To build the book, type:
+Để dịch thành sách online, gõ:
 
 ```bash
 $ mdbook build
 ```
 
-The output will be in the `book` subdirectory. To check it out, open it in
-your web browser.
+Kết quả sẽ được lưu lại trong thư mục con `book`. Bạn có thể mở ra đọc bằng trình
+duyệt web của bạn.
 
 _Firefox:_
 ```bash
@@ -60,7 +60,7 @@ $ Start-Process "chrome.exe" .\book\index.html  # Windows (PowerShell)
 $ start chrome.exe .\book\index.html            # Windows (Cmd)
 ```
 
-To run the tests:
+Để chạy phần kiểm tra:
 
 ```bash
 $ mdbook test
