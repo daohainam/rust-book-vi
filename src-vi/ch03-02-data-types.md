@@ -183,32 +183,27 @@ cách khai báo các giá trị kiểu `char`:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-09-char/src/main.rs}}
 ```
 
-Note that we specify `char` literals with single quotes, as opposed to string
-literals, which use double quotes. Rust’s `char` type is four bytes in size and
-represents a Unicode Scalar Value, which means it can represent a lot more than
-just ASCII. Accented letters; Chinese, Japanese, and Korean characters; emoji;
-and zero-width spaces are all valid `char` values in Rust. Unicode Scalar
-Values range from `U+0000` to `U+D7FF` and `U+E000` to `U+10FFFF` inclusive.
-However, a “character” isn’t really a concept in Unicode, so your human
-intuition for what a “character” is may not match up with what a `char` is in
-Rust. We’ll discuss this topic in detail in [“Storing UTF-8 Encoded Text with
-Strings”][strings]<!-- ignore --> in Chapter 8.
+Lưu ý là chúng ta chỉ ra một dữ liệu nào đó là kiểu `char` bằng cách dùng dấu nháy đơn, trong khi đó 
+với string thì ta dùng dấu nháy kép. Kiểu `char` trong Rust có kích cỡ 4 byte và biểu diễn một ký tự
+Unicode, do nó nó có thể biểu diễn nhiều hơn nhiều so với ASCII. Các ký tự cổ, các ký tự tiếng Trung, 
+tiếng Nhật, tiếng Hàn; các biểu tượng cảm xúc (emoji); và cả các khoảng trống có chiều rộng bằng 0 
+đều là các ký tự kiểu `char` hợp lệ. Các ký tự Unicode cũng bao gồm cả từ `U+0000` đến `U+D7FF` 
+và từ `U+E000` đến `U+10FFFF`. Tuy nhiên, "ký tự" là một khái niệm không thực sự được dùng trong 
+Unicode, do vậy cách mà bạn nghĩ về "ký tự" có thể không hoàn toàn giống với `char` trong Rust.
+Chúng ta sẽ thảo luận thêm về chủ đề này trong phần [“Storing UTF-8 Encoded Text with
+Strings”][strings]<!-- ignore --> in Chương 8.
 
-### Compound Types
+### Các kiểu phức
 
-*Compound types* can group multiple values into one type. Rust has two
-primitive compound types: tuples and arrays.
+*Kiểu phức* có thể nhóm nhiều giá trị vào chung một kiểu. Rust có hai kiểu phức chính: tuple và array.
 
-#### The Tuple Type
+#### Kiểu tuple
 
-A tuple is a general way of grouping together a number of values with a variety
-of types into one compound type. Tuples have a fixed length: once declared,
-they cannot grow or shrink in size.
-
-We create a tuple by writing a comma-separated list of values inside
-parentheses. Each position in the tuple has a type, and the types of the
-different values in the tuple don’t have to be the same. We’ve added optional
-type annotations in this example:
+Một kiểu tuple là một cách chung để nhóm các giá trị khác nhau vào làm một. Các tupble có kích thước cố
+định: một khi đã khai báo, chúng sẽ không thể tăng hay giảm kích cỡ. Chúng ta tạo một tuble bằng cách viết 
+một danh sách các giá trị cách nhau bởi dấu phẩy, bao bọc lại bởi một cặp ngoặc tròn. Mỗi vị trí trong tuble 
+có một kiểu, và các giá trị khác nhau trong một tuble không nhất thiết phải cùng kiểu. Chúng ta cũng đã 
+thêm một số phụ chú kiểu trong ví dụ sau:
 
 <span class="filename">Filename: src/main.rs</span>
 
