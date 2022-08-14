@@ -211,9 +211,9 @@ thêm một số phụ chú kiểu trong ví dụ sau:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-10-tuples/src/main.rs}}
 ```
 
-The variable `tup` binds to the entire tuple, because a tuple is considered a
-single compound element. To get the individual values out of a tuple, we can
-use pattern matching to destructure a tuple value, like this:
+Biến `tup` đại diện cho toàn bộ tuple, vì mỗi một tuple được coi như một biến đơn. Để lấy giá trị của từng
+thành phần riêng lẻ bên trong một tuple, chúng ta có thể dùng cách khớp mẫu để phân tách một giá trị kiểu 
+tuple, giống trong ví dụ sau:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -221,14 +221,13 @@ use pattern matching to destructure a tuple value, like this:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-11-destructuring-tuples/src/main.rs}}
 ```
 
-This program first creates a tuple and binds it to the variable `tup`. It then
-uses a pattern with `let` to take `tup` and turn it into three separate
-variables, `x`, `y`, and `z`. This is called *destructuring*, because it breaks
-the single tuple into three parts. Finally, the program prints the value of
-`y`, which is `6.4`.
+Chương trình này đầu tiên sẽ tạo ra một tuple và gắn kết nó với biến `tup`. 
+Sau đó nó dùng một mẫu với `let` để lấy ra ba giá trị riêng lẻ từ các thành phần 
+của `tup`, `x`, `y` và `z`. Ta gọi quá trình này là phá hủy (*destructuring*), vì nó sẽ tách một
+tuple đơn ra thành ba phần riêng biệt. Cuối cùng, chương trình in ra giá trị của `y` la `6.4`.
 
-We can also access a tuple element directly by using a period (`.`) followed by
-the index of the value we want to access. For example:
+Ta cũng có thể truy cập trực tiếp vào một thành phần bên trong tuple bằng cách dùng 
+dấu chấm (`.`), theo sau bởi chỉ mục của giá trị mà bạn muốn đọc hay ghi. Ví dụ:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -236,14 +235,14 @@ the index of the value we want to access. For example:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-12-tuple-indexing/src/main.rs}}
 ```
 
-This program creates the tuple `x` and then accesses each element of the tuple
-using their respective indices. As with most programming languages, the first
-index in a tuple is 0.
+Chương trình này tạo một tuple `x` và sau đó truy cập vào từng thành phần của tuple 
+thông qua các giá trị chỉ mục tương ứng. Tương tự với hầu hết ngôn ngữ lập trình khác,
+chỉ mục đầu tiên sẽ mang giá trị 0.
 
-The tuple without any values has a special name, *unit*. This value and its
-corresponding type are both written `()` and represent an empty value or an
-empty return type. Expressions implicitly return the unit value if they don’t
-return any other value.
+Một tuple mà không có giá trị nào có một cái tên đặc biệt, *unit*. Giá trị này và kiểu 
+tương ứng của nó được viết là `()` và đại diện cho một giá trị rỗng hay một kiểu trả 
+về rỗng. Các biểu thức được ngầm hiểu là trả về *unit* nếu chúng không trả về một giá
+trị nào khác.
 
 #### The Array Type
 
