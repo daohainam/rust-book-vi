@@ -244,14 +244,14 @@ tương ứng của nó được viết là `()` và đại diện cho một gi�
 về rỗng. Các biểu thức được ngầm hiểu là trả về *unit* nếu chúng không trả về một giá
 trị nào khác.
 
-#### The Array Type
+#### Kiểu mảng (array)
 
-Another way to have a collection of multiple values is with an *array*. Unlike
-a tuple, every element of an array must have the same type. Unlike arrays in
-some other languages, arrays in Rust have a fixed length.
+Một cách khác để khai báo một biến chứa được nhiều giá trị là *array* (mảng). Không như
+tuple, các thành phần của mảng phải có cùng kiểu. Cũng không giống mảng trong nhiều ngôn
+ngữ khác, mảng trong Rust có chiều dài cố định.
 
-We write the values in an array as a comma-separated list inside square
-brackets:
+Chúng ta viết các giá trị của mảng như một danh sách các giá trị cách nhau bởi dấu phẩy, 
+được bao bọc bởi cặp dấu ngoặc vuông:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -259,52 +259,48 @@ brackets:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-13-arrays/src/main.rs}}
 ```
 
-Arrays are useful when you want your data allocated on the stack rather than
-the heap (we will discuss the stack and the heap more in [Chapter
-4][stack-and-heap]<!-- ignore -->) or when you want to ensure you always have a
-fixed number of elements. An array isn’t as flexible as the vector type,
-though. A vector is a similar collection type provided by the standard library
-that *is* allowed to grow or shrink in size. If you’re unsure whether to use an
-array or a vector, chances are you should use a vector. [Chapter
-8][vectors]<!-- ignore --> discusses vectors in more detail.
+Các mảng sẽ hữu ích hơn khi chúng ta phân bố chúng trên stack thay vì heap (chúng ta sẽ 
+thảo luận về stack và heap trong [Chương 4][stack-and-heap]<!-- ignore -->) hoặc 
+khi chúng ta muốn đảm bảo luôn có một số phần tử cố định. Dù vậy kiểu array không 
+được mềm dẻo như vector. Một vector là một kiểu tập hợp tương tự được cung cấp 
+bởi thư viện chuẩn, và nó cho phép thay đổi kích thước. Nếu bạn không chắc nên dùng
+array hay vector, vậy thì hãy dùng vector. [Chương 8][vectors]<!-- ignore --> sẽ
+thảo luận kỹ hơn về vector.
 
-However, arrays are more useful when you know the number of elements will not
-need to change. For example, if you were using the names of the month in a
-program, you would probably use an array rather than a vector because you know
-it will always contain 12 elements:
+Tuy nhiên, các mảng sẽ hữu ích hơn nếu bạn biết số phần tử sẽ không thay đổi. Ví dụ,
+nếu bạn muốn lưu danh sách tên các tháng trong năm, sẽ tốt hơn khi dùng array thay vì
+vector vì bạn biết nó luôn có 12 phần tử:
 
 ```rust
 let months = ["January", "February", "March", "April", "May", "June", "July",
               "August", "September", "October", "November", "December"];
 ```
 
-You write an array’s type using square brackets with the type of each element,
-a semicolon, and then the number of elements in the array, like so:
+Bạn viết một kiểu của mảng sử dụng cặp dấu ngoặc vuông với kiểu của mỗi phần tử,
+một dấu chấm phẩy, và số phần tử của mảng, giống như sau:
 
 ```rust
 let a: [i32; 5] = [1, 2, 3, 4, 5];
 ```
 
-Here, `i32` is the type of each element. After the semicolon, the number `5`
-indicates the array contains five elements.
+Ở đây, `i32` là kiểu của mỗi phần tử. Sau dấu chấm phẩy, số `5` chỉ ra mang này có 5
+phần tử.
 
-You can also initialize an array to contain the same value for each element by
-specifying the initial value, followed by a semicolon, and then the length of
-the array in square brackets, as shown here:
+Bạn cũng có thể khởi tạo một mảng để chứa các phần tử cùng giá trị bằng cách chỉ ra
+giá trị ban đầu, theo sau bởi một dấu chấm phẩy, và sau đó là chiều dai của mảng, tất
+cả bao trong cặp dấu ngoặc vuông, như ví dụ dưới đây:
 
 ```rust
 let a = [3; 5];
 ```
 
-The array named `a` will contain `5` elements that will all be set to the value
-`3` initially. This is the same as writing `let a = [3, 3, 3, 3, 3];` but in a
-more concise way.
+Mảng tên `a` sẽ chứa `5` phần tử với giá trị ban đầu là `3`. Điều này hoàn toàn giống
+với khi bạn viết `let a = [3, 3, 3, 3, 3];` nhưng theo một cách ngắn gọn hơn.
 
-##### Accessing Array Elements
+##### Truy cập các phần tử của mảng
 
-An array is a single chunk of memory of a known, fixed size that can be
-allocated on the stack. You can access elements of an array using indexing,
-like this:
+Một mảng là một đoạn bộ nhớ có kích thước cố định, xác định trước và có thể được cấp
+phát trên stack. Bạn có thể truy cập các phần tử của mảng dùng chỉ số, giống như sau:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -312,15 +308,14 @@ like this:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-14-array-indexing/src/main.rs}}
 ```
 
-In this example, the variable named `first` will get the value `1`, because
-that is the value at index `[0]` in the array. The variable named `second` will
-get the value `2` from index `[1]` in the array.
+Trong ví dụ này, một biến có tên `first` sẽ có giá trị `1`, vì nó là giá trị tại vị trí 
+`[0]` trong mảng. Biến có tên `second` sẽ có giá trị `2` từ phần tử `[1]` trong mảng.
 
-##### Invalid Array Element Access
+##### Việc truy cập mảng không hợp lệ
 
-Let’s see what happens if you try to access an element of an array that is past
-the end of the array. Say you run this code, similar to the guessing game in
-Chapter 2, to get an array index from the user:
+Hãy xem điều gì sẽ xảy ra nếu bạn thử truy cập vào một phần tử vượt quá phần tử cuối của
+mảng. Chúng ta sẽ chạy đoạn code sau, tương tự trong trò chơi đoán chữ trong chương 2, để 
+lấy một chỉ mục từ người dùng:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -328,10 +323,9 @@ Chapter 2, to get an array index from the user:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-15-invalid-array-access/src/main.rs}}
 ```
 
-This code compiles successfully. If you run this code using `cargo run` and
-enter 0, 1, 2, 3, or 4, the program will print out the corresponding value at
-that index in the array. If you instead enter a number past the end of the
-array, such as 10, you’ll see output like this:
+Đoạn code này được dịch thành công. Nếu bạn chạy nó bằng cách dùng `cargo run` và nhập
+vào 0,1, 2, 3, hay 4, chương trình sẽ in ra giá trị tương ứng tại vị trí trong mảng. Nếu
+bạn nhập một giá trị vượt quá kích thước mảng, chẳng hạn 10, bạn sẽ thấy xuất ra như sau:
 
 <!-- manual-regeneration
 cd listings/ch03-common-programming-concepts/no-listing-15-invalid-array-access
@@ -344,21 +338,21 @@ thread 'main' panicked at 'index out of bounds: the len is 5 but the index is 10
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 ```
 
-The program resulted in a *runtime* error at the point of using an invalid
-value in the indexing operation. The program exited with an error message and
-didn’t execute the final `println!` statement. When you attempt to access an
-element using indexing, Rust will check that the index you’ve specified is less
-than the array length. If the index is greater than or equal to the length,
-Rust will panic. This check has to happen at runtime, especially in this case,
-because the compiler can’t possibly know what value a user will enter when they
-run the code later.
+Chương trình sinh ra một lỗi *runtime* ngay tại nơi mà chúng ta dùng một giá trị không 
+hợp lệ khi dùng chỉ số mảng. Chương trình kết thúc với một thông báo lỗi và đã không
+thực thi đến câu lệnh `println!` cuối cùng. Khi bạn thử truy cập một phần tử bằng cách 
+dùng chỉ số, Rust sẽ kiểm tra xem liệu chỉ số đó có nhỏ hơn chiều dài của mảng hay không.
+Nếu chỉ số này lớn hơn hay bằng chiều dài mảng, chương trình sẽ bị lỗi và kết thúc 
+ngay lập tức (panic). Việc kiểm tra này phải được thực hiện khi chạy chương trình, đặc
+biệt trong trường hợp này, vì trình dịch không thể biết giá trị mà người dùng sẽ nhập
+vào khi chạy chương trình sau này.
 
-This is an example of Rust’s memory safety principles in action. In many
-low-level languages, this kind of check is not done, and when you provide an
-incorrect index, invalid memory can be accessed. Rust protects you against this
-kind of error by immediately exiting instead of allowing the memory access and
-continuing. Chapter 9 discusses more of Rust’s error handling and how you can
-write readable, safe code that neither panics nor allows invalid memory access.
+Đây là một ví dụ về các nguyên tắc an toàn của Rust khi hoạt động. Trong nhiều ngôn ngữ 
+cấp thấp, việc kiểm tra này không được thực hiện, và khi bạn cung cấp một chỉ số không 
+hợp lệ, vùng bộ nhớ không hợp lệ sẽ bị truy cập. Rust bảo vệ bạn khỏi loại lỗi này bằng 
+cách thoát ra ngay lập tức thay vì cho phép truy cập vào vùng nhớ và tiếp tục chạy. 
+Chương 9 sẽ thảo luận thêm về việc xử lý lỗi trong Rust, cách viết code dễ đọc, an toàn
+và tránh các lỗi panic hay truy cập vùng nhớ không hợp lệ.
 
 [comparing-the-guess-to-the-secret-number]:
 ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number
