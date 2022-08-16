@@ -1,13 +1,12 @@
-## Functions
+## Hàm - Functions
 
-Functions are prevalent in Rust code. You’ve already seen one of the most
-important functions in the language: the `main` function, which is the entry
-point of many programs. You’ve also seen the `fn` keyword, which allows you to
-declare new functions.
+Các hàm khá phổ biến trong Rust. Bạn đã gặp một trong những hàm quan quan trọng
+nhất của ngôn ngữ: hàm `main`, vốn là điểm bắt đầu cho nhiều chương trình. Bạn cũng đã thấy 
+từ khóa `fn`, vốn cho phép bạn khai báo các hàm mới.
 
-Rust code uses *snake case* as the conventional style for function and variable
-names, in which all letters are lowercase and underscores separate words.
-Here’s a program that contains an example function definition:
+Mã Rust dùng *snake case* như quy ước đặt tên hàm và biến, trong đó tất cả các ký tự
+được viết chữ thường, các từ cách nhau bởi dấu gạch dưới. Đây là một chương trình 
+chứa một ví dụ về cách khai báo hàm:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -15,9 +14,9 @@ Here’s a program that contains an example function definition:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-16-functions/src/main.rs}}
 ```
 
-We define a function in Rust by entering `fn` followed by a function name and a
-set of parentheses. The curly brackets tell the compiler where the function
-body begins and ends.
+Chúng ta định nghĩa một hàm trong Rust bằng cách dùng từ khóa `fn` theo sau bởi 
+tên hàm và một tập các dấu ngoặc tròn. Cặp dấu ngoặc nhọn theo sau đó chỉ ra vị 
+trí bắt đầu và kết thúc của thân hàm.
 
 We can call any function we’ve defined by entering its name followed by a set
 of parentheses. Because `another_function` is defined in the program, it can be

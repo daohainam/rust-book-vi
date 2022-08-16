@@ -8,10 +8,10 @@ Repository chứa mã nguồn cho cuốn sách "Ngôn ngữ lập trình Rust".
 
 [nostarch]: https://nostarch.com/rust
 
-Bạn cũng có thể đọc trực tuyến miễn phí. Please see the book as shipped with
-the latest [stable], [beta], or [nightly] Rust releases. Be aware that issues
-in those versions may have been fixed in this repository already, as those
-releases are updated less frequently.
+Xin lưu ý sách có thể được phát hành theo các kênh phát hành Rust khác nhau, bao 
+gồm [stable], [beta], or [nightly]. Cũng xin lưu ý các vấn đề trong những phiên bản 
+trên cũng có thể đã được sửa trên repository, vì các bản phát hành thường được cập nhập
+ít thường xuyên hơn.
 
 [stable]: https://doc.rust-lang.org/stable/book/
 [beta]: https://doc.rust-lang.org/beta/book/
@@ -66,17 +66,16 @@ $ start chrome.exe .\book\index.html            # Windows (Cmd)
 $ mdbook test
 ```
 
-## Contributing
+## Đóng góp
 
-We'd love your help! Please see [CONTRIBUTING.md][contrib] to learn about the
-kinds of contributions we're looking for.
+Chúng tôi trân trọng sự trợ giúp của các bạn! Xin đọc thêm [CONTRIBUTING.md][contrib]
+để tìm hiểu về những cách đóng góp cho dự án.
 
 [contrib]: https://github.com/rust-lang/book/blob/main/CONTRIBUTING.md
 
-Because the book is [printed](https://nostarch.com/rust), and because we want
-to keep the online version of the book close to the print version when
-possible, it may take longer than you're used to for us to address your issue
-or pull request.
+Vì bộ sách này đã được [in](https://nostarch.com/rust), và cũng vì chúng tôi muốn giữ 
+cho phiên bản trực tuyến gần với phiên bản in nhất có thể, do vậy có thể mất nhiều thời
+gian để chúng giải quyết các vấn đề hoặc pull request của bạn.
 
 So far, we've been doing a larger revision to coincide with [Rust
 Editions](https://doc.rust-lang.org/edition-guide/). Between those larger
@@ -85,21 +84,27 @@ isn't strictly fixing an error, it might sit until the next time that we're
 working on a large revision: expect on the order of months or years. Thank you
 for your patience!
 
-### Translations
+Cho đến nay, chúng tôi đang thực hiện một bản sửa đổi lớn hơn để khớp với 
+[Phiên bản Rust] (https://doc.rust-lang.org/edition-guide/). Giữa những bản chỉnh sửa
+lớn, chúng tôi sẽ chỉ đưa ra các bản sửa lỗi. Nếu vấn đề hoặc pull request của bạn 
+không nghiêm trọng, có thể bạn sẽ phải chờ đến lần chúng tôi làm việc trên một bản sửa 
+đổi lớn tiếp theo: dự kiến là theo tháng hoặc năm. 
+Rất cảm ơn vì sự kiên nhẫn của bạn!
 
-We'd love help translating the book! See the [Translations] label to join in
-efforts that are currently in progress. Open a new issue to start working on
-a new language! We're waiting on [mdbook support] for multiple languages
-before we merge any in, but feel free to start!
+### Dịch thuật
+
+Chúng tôi rất trân trọng việc trợ giúp dịch bộ sách này sang các ngôn ngữ khác! Xin
+xem nhãn [Translations] để tham gia vào những nỗ lực đang được thực hiện. Mở một issue 
+mới để bắt đầu một bản dịch mới cho một ngôn ngữ. Chúng tôi đang chờ [mdbook support] 
+để hỗ trợ đa ngôn ngữ trước khi merge, nhưng hiện tại các bạn hãy cứ thoải mái bắt đầu!
 
 [Translations]: https://github.com/rust-lang/book/issues?q=is%3Aopen+is%3Aissue+label%3ATranslations
 [mdbook support]: https://github.com/rust-lang-nursery/mdBook/issues/5
 
-## Spellchecking
+## Kiểm tra chính tả 
 
-To scan source files for spelling errors, you can use the `spellcheck.sh`
-script available in the `ci` directory. It needs a dictionary of valid words,
-which is provided in `ci/dictionary.txt`. If the script produces a false
-positive (say, you used word `BTreeMap` which the script considers invalid),
-you need to add this word to `ci/dictionary.txt` (keep the sorted order for
-consistency).
+Để quét các file mã nguồn để dò lỗi chính tả, bạn có thể dùng `spellcheck.sh` có trong 
+thư mục `ci`. Nó cần một từ điển các từ hợp lệ, được chứa trong `ci/dictionary.txt`. Nếu 
+script trên sinh ra một lỗi (ví dụ như khi bạn dùng từ `BTreeMap` vối đối với script là 
+không hợp lệ), bạn cần thêm từ này vào `ci/dictionary.txt` (đưa vào đúng vị trí để giữ
+đúng thứ tự sắp xếp sẵn có).
