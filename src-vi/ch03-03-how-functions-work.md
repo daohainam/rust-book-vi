@@ -173,15 +173,14 @@ Các biểu thức không có dấu chấm phẩy kết thúc. Nếu bạn thêm
 biến nó thành một phát biểu, và nó sẽ không trả về giá trị. Hãy lưu ý điều này khi 
 bạn xem đến phần kế tiếp nói về giá trị và biểu thức trả về của hàm.
 
-### Functions with Return Values
+### Hàm với kết quả trả về
 
-Functions can return values to the code that calls them. We don’t name return
-values, but we must declare their type after an arrow (`->`). In Rust, the
-return value of the function is synonymous with the value of the final
-expression in the block of the body of a function. You can return early from a
-function by using the `return` keyword and specifying a value, but most
-functions return the last expression implicitly. Here’s an example of a
-function that returns a value:
+Các hàm có thể trả về các giá trị cho đoạn code gọi chúng. Chúng ta không cần đặt 
+tên cho kết quả trả về, nhưng ta phải khai báo kiểu dữ liệu của chúng phía sau dấu 
+mũi tên (`->`). Trong Rust, giá trị trả về của hàm đồng nghĩa với giá trị của biểu 
+thức cuối cùng trong thân hàm. Bạn có thể dùng từ khóa `return` để trả về một giá trị 
+sớm hơn, nhưng hầu hết các hàm sẽ lấy giá trị trả về là câu lệnh cuối cùng. Sau đây
+là một ví dụ về hàm có trả về giá trị:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -189,30 +188,30 @@ function that returns a value:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-21-function-return-values/src/main.rs}}
 ```
 
-There are no function calls, macros, or even `let` statements in the `five`
-function—just the number `5` by itself. That’s a perfectly valid function in
-Rust. Note that the function’s return type is specified too, as `-> i32`. Try
-running this code; the output should look like this:
+Không có các lời gọi hàm, macro, hay thậm chí phát biểu `let` trong hàm `five`
+ngoài chính số `5`. Đó hoàn toàn là một hàm hợp lệ trong Rust. Lưu ý là kiểu trả
+về của hàm cũng được chỉ định, là `-> i32`. Thử chạy đoạn code; kết xuất sẽ giống
+như sau:
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-21-function-return-values/output.txt}}
 ```
 
-The `5` in `five` is the function’s return value, which is why the return type
-is `i32`. Let’s examine this in more detail. There are two important bits:
-first, the line `let x = five();` shows that we’re using the return value of a
-function to initialize a variable. Because the function `five` returns a `5`,
-that line is the same as the following:
+Số `5` trong `five` là giá trị trả về của hàm, đó là lý do vì sao hàm này phải có
+kiểu là `i32`. Hãy xem xét một cách chi tiết hơn. Có hai thông tin quan trọng:
+đầu tiên, dòng `let x = five();` cho thấy chúng ta đang dùng kết quả trả về của 
+một hàm để khởi tạo một biến. Vì hàm `five` trả về giá trị `5`, do vậy dòng lệnh 
+đó cũng tương tự như sau:
 
 ```rust
 let x = 5;
 ```
 
-Second, the `five` function has no parameters and defines the type of the
-return value, but the body of the function is a lonely `5` with no semicolon
-because it’s an expression whose value we want to return.
+Thứ hai, hàm `five` không có tham số và định nghĩa kiểu của giá trị trả về, mà
+thân hàm chỉ bao gồm một số `5` không có dấu chấm phẩy, vì đó chính là biểu thức 
+chúng ta muốn trả về.
 
-Let’s look at another example:
+Hãy cùng xem một ví dụ khác:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -220,9 +219,9 @@ Let’s look at another example:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-22-function-parameter-and-return/src/main.rs}}
 ```
 
-Running this code will print `The value of x is: 6`. But if we place a
-semicolon at the end of the line containing `x + 1`, changing it from an
-expression to a statement, we’ll get an error.
+Chạy đoạn code này sẽ in ra `The value of x is: 6`. Nhưng nếu ta thêm một dấu 
+chấm phẩy vào cuối dòng chứa `x + 1`, biến nó từ một biểu thức thành một phát
+biểu, chúng ta sẽ nhận được một lỗi.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -230,16 +229,16 @@ expression to a statement, we’ll get an error.
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-23-statements-dont-return-values/src/main.rs}}
 ```
 
-Compiling this code produces an error, as follows:
+Dịch đoạn code sinh ra lỗi, giống như sau:
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-23-statements-dont-return-values/output.txt}}
 ```
 
-The main error message, “mismatched types,” reveals the core issue with this
-code. The definition of the function `plus_one` says that it will return an
-`i32`, but statements don’t evaluate to a value, which is expressed by `()`,
-the unit type. Therefore, nothing is returned, which contradicts the function
-definition and results in an error. In this output, Rust provides a message to
-possibly help rectify this issue: it suggests removing the semicolon, which
-would fix the error.
+Thông báo lỗi chính, “mismatched types,”, cho thấy gốc rễ vấn đề của đoạn code. 
+Định nghĩa hàm `plus_one` nói rằng nó sẽ trả về một `i32`, nhưng các phát biểu 
+lại không trả về một giá trị, tương đương với việc trả về một giá trị rỗng `()`. 
+Do không có giá trị nào được trả về, điều này trái ngược với định nghĩa của 
+hàm và gây ra lỗi. Trong kết xuất này, Rust cũng cung cấp thêm một thông báo có 
+thể giúp sửa được lỗi: nó đề xuất việc xóa dấu chấm phẩy, và có thể loại bỏ được
+lỗi.
