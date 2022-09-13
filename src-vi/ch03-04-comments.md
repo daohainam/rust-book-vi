@@ -1,27 +1,27 @@
-## Comments
+## Ghi chú
 
-All programmers strive to make their code easy to understand, but sometimes
-extra explanation is warranted. In these cases, programmers leave *comments* in
-their source code that the compiler will ignore but people reading the source
-code may find useful.
+Tất cả các lập trình viên khi viết code đều cố gắng viết sao cho dễ hiểu, nhưng 
+đôi khi vẫn cần các đoạn giải thích thêm. Trong trường hợp đo, họ sẽ để lại các 
+*ghi chú* trong mã nguồn, các ghi chú này sẽ bị bỏ qua bởi trình biên dịch nhưng 
+sẽ hữu ích cho người đọc code.
 
-Here’s a simple comment:
+Đây là một ghi chú đơn giản:
 
 ```rust
 // hello, world
 ```
 
-In Rust, the idiomatic comment style starts a comment with two slashes, and the
-comment continues until the end of the line. For comments that extend beyond a
-single line, you’ll need to include `//` on each line, like this:
+Trong Rust, các ghi chú bắt đầu bằng cặp dấu slash (`//`), và ký hiệu ghi chú đó 
+sẽ có giá trị cho đến hết dòng. Với những ghi chú trên nhiều hàng, bạn sẽ cần 
+bao gồm `//` trên từng dòng ghi chú.
 
 ```rust
-// So we’re doing something complicated here, long enough that we need
-// multiple lines of comments to do it! Whew! Hopefully, this comment will
-// explain what’s going on.
+// Ở đây chúng ta đang làm một số điều phức tạp, dài đủ để ta phải cần nhiều 
+// dòng ghi chú để hoàn thành! Whew! Hi vọng là ghi chú này sẽ giải thích được 
+// về những điều đang diễn ra.
 ```
 
-Comments can also be placed at the end of lines containing code:
+Ghi chú cũng có thể được đặt ở cuối dòng code:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -29,8 +29,8 @@ Comments can also be placed at the end of lines containing code:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-24-comments-end-of-line/src/main.rs}}
 ```
 
-But you’ll more often see them used in this format, with the comment on a
-separate line above the code it’s annotating:
+Nhưng bạn sẽ thấy chúng được dùng ở dạng sau thường xuyên hơn, với ghi chú
+trên một dòng riêng biệt phía trên đoạn code nó đang giải thích:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -38,5 +38,5 @@ separate line above the code it’s annotating:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-25-comments-above-line/src/main.rs}}
 ```
 
-Rust also has another kind of comment, documentation comments, which we’ll
-discuss in the “Publishing a Crate to Crates.io” section of Chapter 14.
+Rust cũng có một kiểu ghi chú khác, được gọi là các ghi chú tài liệu, chúng
+ta sẽ thảo luận thêm trong phần “Publishing a Crate to Crates.io” ở chương 14.
