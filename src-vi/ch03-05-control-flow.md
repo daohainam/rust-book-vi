@@ -1,18 +1,18 @@
-## Control Flow
+## Các khối điều khiển
 
-The ability to run some code depending on if a condition is true, or run some
-code repeatedly while a condition is true, are basic building blocks in most
-programming languages. The most common constructs that let you control the flow
-of execution of Rust code are `if` expressions and loops.
+Khả năng chạy một số đoạn lệnh dựa trên một điều kiện nào đó, hoặc chạy lặp lại một
+lệnh khi một điều kiện nào đó là đúng, là các khối điều khiển cơ bản có trong hầu 
+hết các ngôn ngữ lập trình. Khối điều khiển phổ biến nhất cho phép bạn kiểm soát việc
+thực thi các đoạn code trong Rust là các biểu thức `if` và các lệnh lặp.
 
-### `if` Expressions
+### Biểu thức `if` 
 
-An `if` expression allows you to branch your code depending on conditions. You
-provide a condition and then state, “If this condition is met, run this block
-of code. If the condition is not met, do not run this block of code.”
+Một biểu thức `if` cho phép bạn rẽ nhánh thực thi dựa trên các điều kiện nào đó.
+Bạn cung cấp một điều kiện và phát biểu: "Nếu điều kiện này đúng, hãy chạy đoạn lệnh
+này. Nếu không đạt, đừng chạy nó".
 
-Create a new project called *branches* in your *projects* directory to explore
-the `if` expression. In the *src/main.rs* file, input the following:
+Tạo một dự án mới được gọi là *branches* trong thư mục *projects* để khảo sát biểu
+thức `if`. Trong file *src/main.rs*, hãy nhập vào nội dung sau:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -20,43 +20,41 @@ the `if` expression. In the *src/main.rs* file, input the following:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-26-if-true/src/main.rs}}
 ```
 
-All `if` expressions start with the keyword `if`, followed by a condition. In
-this case, the condition checks whether or not the variable `number` has a
-value less than 5. We place the block of code to execute if the condition is true
-immediately after the condition inside curly brackets. Blocks of code
-associated with the conditions in `if` expressions are sometimes called *arms*,
-just like the arms in `match` expressions that we discussed in the [“Comparing
-the Guess to the Secret Number”][comparing-the-guess-to-the-secret-number]<!--
+Tất cả các phát biểu `if` sẽ bắt đầu bằng từ khóa `if`, theo sau bởi một điều kiện.
+Trong trường hợp này, điều kiện là kiểm tra xem liệu biến `number` có giá trị nhỏ
+hơn 5 hay không. Chúng ta đặt khối lệnh để thực thi nếu điều kiện là đúng ngay sau
+dấu ngoặc đóng của điều kiện. Các khối lệnh kết hợp với `if` đôi khi được gọi là 
+*arm*, giống như *arms* trong phát biểu `match` mà ta đã thảo luận trong phần 
+[“Comparing the Guess to the Secret Number”][comparing-the-guess-to-the-secret-number]<!--
 ignore --> section of Chapter 2.
 
-Optionally, we can also include an `else` expression, which we chose
-to do here, to give the program an alternative block of code to execute should
-the condition evaluate to false. If you don’t provide an `else` expression and
-the condition is false, the program will just skip the `if` block and move on
-to the next bit of code.
+Chúng ta cũng có thể tùy chọn thêm một phát biểu `else`, giống như chúng ta đã
+làm ở đây, để cung cấp một đoạn code mà sẽ được thực thi nếu điều kiện trả về
+giá trị false. Nếu bạn không cung cấp `else`, chương trình sẽ chỉ đơn giản bỏ qua
+khối lệnh `if` và tiếp tục thực thi các lệnh tiếp sau đó.
 
-Try running this code; you should see the following output:
+Thử chạy đoạn lệnh này, bạn sẽ thấy kết xuất như sau:
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-26-if-true/output.txt}}
 ```
 
-Let’s try changing the value of `number` to a value that makes the condition
-`false` to see what happens:
+Hãy thử thay đổi `number` sang một giá trị làm cho điều kiện trả về kết quả false
+để xem điều gì xảy ra:
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-27-if-false/src/main.rs:here}}
 ```
 
-Run the program again, and look at the output:
+Chạy lại chương trình, và xem kết xuất:
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-27-if-false/output.txt}}
 ```
 
-It’s also worth noting that the condition in this code *must* be a `bool`. If
-the condition isn’t a `bool`, we’ll get an error. For example, try running the
-following code:
+Một điểm quan trọng cần lưu ý là điều kiện trong đoạn code này bắt buộc *phải* có 
+kiểu `bool`. Nếu điều kiện này không phải là bool, bạn sẽ nhận một lỗi. Ví dụ, thử 
+chạy đoạn lệnh sau:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -64,19 +62,17 @@ following code:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-28-if-condition-must-be-bool/src/main.rs}}
 ```
 
-The `if` condition evaluates to a value of `3` this time, and Rust throws an
-error:
+Trong trường hợp này biểu thức trong `if` trả về giá trị `3`, và Rust phát ra một
+lỗi:
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-28-if-condition-must-be-bool/output.txt}}
 ```
 
-The error indicates that Rust expected a `bool` but got an integer. Unlike
-languages such as Ruby and JavaScript, Rust will not automatically try to
-convert non-Boolean types to a Boolean. You must be explicit and always provide
-`if` with a Boolean as its condition. If we want the `if` code block to run
-only when a number is not equal to `0`, for example, we can change the `if`
-expression to the following:
+Lỗi này chỉ ra Rust cần một `bool` nhưng lại nhận được một integer. Không như
+các ngôn ngữ như Ruby hay JavaScript, Rust không tự động thử chuyển các giá trị
+không phải boolean sang boolean. Nếu bạn muốn đoạn `if` chỉ chạy khi một số bằng
+với `0`, bạn có thể viết lại như sau:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -84,12 +80,12 @@ expression to the following:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-29-if-not-equal-0/src/main.rs}}
 ```
 
-Running this code will print `number was something other than zero`.
+Chạy đoạn code này sẽ trả về kết xuất sau: `number was something other than zero`.
 
-#### Handling Multiple Conditions with `else if`
+#### Xử lý nhiều điều kiện với `else if`
 
-You can use multiple conditions by combining `if` and `else` in an `else if`
-expression. For example:
+Bạn có thể dùng nhiều điều kiện khác nhau bằng cách kết hợp `if` với `else` trong
+một biểu thức `else if`. Ví dụ:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -97,23 +93,22 @@ expression. For example:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-30-else-if/src/main.rs}}
 ```
 
-This program has four possible paths it can take. After running it, you should
-see the following output:
+Chương trình này có bốn nhánh có thể thực thi. Sau khi chạy bạn sẽ thấy kết xuất sau:
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-30-else-if/output.txt}}
 ```
 
-When this program executes, it checks each `if` expression in turn and executes
-the first body for which the condition holds true. Note that even though 6 is
-divisible by 2, we don’t see the output `number is divisible by 2`, nor do we
-see the `number is not divisible by 4, 3, or 2` text from the `else` block.
-That’s because Rust only executes the block for the first true condition, and
-once it finds one, it doesn’t even check the rest.
+Khi chạy chương trình này, nó sẽ kiểm tra lần lượt mỗi biểu thức `if` và thực
+thi thân `if` đầu tiên mà biểu thức trả về `true`. Lưu ý rằng tuy 6 chia hết cho 2, 
+chúng ta vẫn không thấy câu `number is divisible by 2` được in ra, cũng như không
+thấy câu `number is not divisible by 4, 3, or 2` trong khối `else`. Đó là vì Rust 
+chỉ thực thi đoạn lệnh trong thân `if` đầu tiên mà nó thấy trả về true, và một khi
+tìm thấy, nó sẽ thậm chí không kiểm tra các biểu thức phía sau.
 
-Using too many `else if` expressions can clutter your code, so if you have more
-than one, you might want to refactor your code. Chapter 6 describes a powerful
-Rust branching construct called `match` for these cases.
+Sử dụng quá nhiều `else if` làm cho code của bạn lộn xộn, do vậy nếu bạn có nhiều 
+hơn một, bạn có thể sẽ cần refactor code. Chương 6 mô tả một cấu trúc rẽ nhánh mạnh
+mẽ trong Rust được gọi là `match` phù hợp với trường hợp này.
 
 #### Using `if` in a `let` Statement
 
