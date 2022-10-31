@@ -110,10 +110,10 @@ Sử dụng quá nhiều `else if` làm cho code của bạn lộn xộn, do v�
 hơn một, bạn có thể sẽ cần refactor code. Chương 6 mô tả một cấu trúc rẽ nhánh mạnh
 mẽ trong Rust được gọi là `match` phù hợp với trường hợp này.
 
-#### Using `if` in a `let` Statement
+#### Sử dụng `if` bên trong phát biểu `let`
 
-Because `if` is an expression, we can use it on the right side of a `let`
-statement to assign the outcome to a variable, as in Listing 3-2.
+Vì `if` là một biểu thức, vậy nên ta có thể dùng nó bên phải của một phát biểu `let`
+để gán giá trị trả về cho một biến, như trong Listing 3-2.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -121,23 +121,21 @@ statement to assign the outcome to a variable, as in Listing 3-2.
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-02/src/main.rs}}
 ```
 
-<span class="caption">Listing 3-2: Assigning the result of an `if` expression
-to a variable</span>
+<span class="caption">Listing 3-2: Gán kết quả của một biểu thức `if` vào một biến</span>
 
-The `number` variable will be bound to a value based on the outcome of the `if`
-expression. Run this code to see what happens:
+Biến `number` sẽ được gán một giá trị dựa trên kết quả của một biểu thức `if`. Chạy 
+đoạn code sau để xem điều gì xảy ra:
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/listing-03-02/output.txt}}
 ```
 
-Remember that blocks of code evaluate to the last expression in them, and
-numbers by themselves are also expressions. In this case, the value of the
-whole `if` expression depends on which block of code executes. This means the
-values that have the potential to be results from each arm of the `if` must be
-the same type; in Listing 3-2, the results of both the `if` arm and the `else`
-arm were `i32` integers. If the types are mismatched, as in the following
-example, we’ll get an error:
+Hãy nhớ là các khối lệnh sẽ được định giá trị bằng với giá trị của biểu thức cuối
+cùng bên trong nó, và bản thân các con số cũng là các biểu thức. Trong trường hợp này,
+giá trị của toàn bộ biểu thức `if` phụ thuộc vào nhánh nào được thực thi. Có nghĩa là
+các nhánh của `if` phải có cùng kiểu; trong Listing 3-2, kết quả của cả hai nhánh 
+của `if` đều có kiểu số nguyên `i32`. Nếu các kiểu không khớp nhau, như trong ví dụ 
+dưới đây, chúng ta sẽ nhận về một lỗi.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -145,9 +143,9 @@ example, we’ll get an error:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-31-arms-must-return-same-type/src/main.rs}}
 ```
 
-When we try to compile this code, we’ll get an error. The `if` and `else` arms
-have value types that are incompatible, and Rust indicates exactly where to
-find the problem in the program:
+Khi chúng ta thử dịch đoạn code này, chúng ta sẽ nhận về một lỗi. Các nhánh `if`
+và `else` có các kiểu không tương thích, và Rust chỉ ra chính xác vị trí nơi phát 
+sinh lỗi trong chương trình:
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-31-arms-must-return-same-type/output.txt}}
