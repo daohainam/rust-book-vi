@@ -77,13 +77,6 @@ Vì bộ sách này đã được [in](https://nostarch.com/rust), và cũng vì
 cho phiên bản trực tuyến gần với phiên bản in nhất có thể, do vậy có thể mất nhiều thời
 gian để chúng giải quyết các vấn đề hoặc pull request của bạn.
 
-So far, we've been doing a larger revision to coincide with [Rust
-Editions](https://doc.rust-lang.org/edition-guide/). Between those larger
-revisions, we will only be correcting errors. If your issue or pull request
-isn't strictly fixing an error, it might sit until the next time that we're
-working on a large revision: expect on the order of months or years. Thank you
-for your patience!
-
 Cho đến nay, chúng tôi đang thực hiện một bản sửa đổi lớn hơn để khớp với 
 [Phiên bản Rust] (https://doc.rust-lang.org/edition-guide/). Giữa những bản chỉnh sửa
 lớn, chúng tôi sẽ chỉ đưa ra các bản sửa lỗi. Nếu vấn đề hoặc pull request của bạn 
