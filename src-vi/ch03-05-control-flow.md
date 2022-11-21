@@ -150,16 +150,14 @@ sinh lỗi trong chương trình:
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-31-arms-must-return-same-type/output.txt}}
 ```
-
-The expression in the `if` block evaluates to an integer, and the expression in
-the `else` block evaluates to a string. This won’t work because variables must
-have a single type, and Rust needs to know at compile time what type the
-`number` variable is, definitively. Knowing the type of `number` lets the
-compiler verify the type is valid everywhere we use `number`. Rust wouldn’t be
-able to do that if the type of `number` was only determined at runtime; the
-compiler would be more complex and would make fewer guarantees about the code
-if it had to keep track of multiple hypothetical types for any variable.
-
+Biểu thức trong khối `if` trả về một giá trị integer, trong khi biểu thức trong khối `else` 
+trả về một string. Điều này không thể hoạt động được vì các biến chỉ có thể có một kiểu
+duy nhất, và Rust cần biết kiểu của biến `number` là gì ngay khi dịch. Việc biết 
+kiểu của biến `number` cho phép trình dịch xác định tính hợp lệ về kiểu bất cứ khi nào
+ta truy xuất đến nó. Rust sẽ không thể làm được điều này nếu nó chỉ có thể xác định kiểu
+của `number` vào lúc chạy chương trình; trình dịch có lẽ sẽ phức tạp hơn nhiều cũng như
+khó đảm bảo về đoạn code hơn nếu nó phải lưu giữ thông tin về tất cả các kiểu dữ liệu 
+`giả tưởng` cho bất kỳ biến nào.
 ### Repetition with Loops
 
 It’s often useful to execute a block of code more than once. For this task,
