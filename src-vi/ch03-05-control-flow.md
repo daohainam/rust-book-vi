@@ -158,22 +158,28 @@ ta truy xuất đến nó. Rust sẽ không thể làm được điều này n�
 của `number` vào lúc chạy chương trình; trình dịch có lẽ sẽ phức tạp hơn nhiều cũng như
 khó đảm bảo về đoạn code hơn nếu nó phải lưu giữ thông tin về tất cả các kiểu dữ liệu 
 `giả tưởng` cho bất kỳ biến nào.
-### Repetition with Loops
+
+### Sử dụng vòng lặp (loops)
 
 It’s often useful to execute a block of code more than once. For this task,
 Rust provides several *loops*, which will run through the code inside the loop
 body to the end and then start immediately back at the beginning. To
 experiment with loops, let’s make a new project called *loops*.
 
-Rust has three kinds of loops: `loop`, `while`, and `for`. Let’s try each one.
+Chúng ta thường xuyên phải thực thi một đoạn code nào đó nhiều lần. Để làm điều này,
+Rust cung cấp một số dạng *vòng lặp*, nó cho phép chạy đến cuối đoạn code bên trong 
+thân vòng lặp , sau đó quay trở lại vị trí bắt đầu. Để trải nghiệm thử các vòng lặp,
+chúng ta sẽ cùng tạo một dự án mới có tên *loops*.
 
-#### Repeating Code with `loop`
+Rust có ba dạng lặp: `loop`, `while`, và `for`. Hãy cùng thử qua từng cái.
 
-The `loop` keyword tells Rust to execute a block of code over and over again
-forever or until you explicitly tell it to stop.
+#### Lặp lại một đoạn code sử dụng `loop`
 
-As an example, change the *src/main.rs* file in your *loops* directory to look
-like this:
+Từ khóa `loop` sẽ yêu cầu Rust thực thi một đoạn code lặp đi lặp lại cho đến 
+khi bạn yêu cầu nó kết thúc.
+
+Để ví dụ, hãy thay đổi file *src/main.rs* trong thư mục *loops* của bạn để nó trông
+như sau:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -181,10 +187,10 @@ like this:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-32-loop/src/main.rs}}
 ```
 
-When we run this program, we’ll see `again!` printed over and over continuously
-until we stop the program manually. Most terminals support the keyboard shortcut
-<span class="keystroke">ctrl-c</span> to interrupt a program that is stuck in
-a continual loop. Give it a try:
+Khi chạy chương trình này, chúng ta sẽ thấy dòng `again!` được in lên màn hình
+liên tục cho đến khi bạn ngừng chạy chương trình. Hầu hết các terminal hỗ trợ 
+tổ hợp phím <span class="keystroke">ctrl-c</span> để ngắt một chương trình đang 
+bị kẹt trong một vòng lặp. Hãy cùng chạy thử:
 
 <!-- manual-regeneration
 cd listings/ch03-common-programming-concepts/no-listing-32-loop
@@ -204,21 +210,20 @@ again!
 ^Cagain!
 ```
 
-The symbol `^C` represents where you pressed <span class="keystroke">ctrl-c
-</span>. You may or may not see the word `again!` printed after the `^C`,
-depending on where the code was in the loop when it received the interrupt
-signal.
+Ký hiệu `^C` đại diện cho vị trí bạn nhấn <span class="keystroke">ctrl-c
+</span>. Bạn có thể nhìn thấy dòng `again!` được in phía sau `^C` hoặc không,
+phụ thuộc vào nơi đoạn code đang thực thi bên trong vòng lặp khi nó nhận được
+tín hiệu ngắt.
 
-Fortunately, Rust also provides a way to break out of a loop using code. You
-can place the `break` keyword within the loop to tell the program when to stop
-executing the loop. Recall that we did this in the guessing game in the
-[“Quitting After a Correct Guess”][quitting-after-a-correct-guess]<!-- ignore
---> section of Chapter 2 to exit the program when the user won the game by
-guessing the correct number.
+May mắn là Rust cũng cung cấp một cách để thoát khỏi vòng lặp bằng code. Bạn có 
+thể đặt một từ khóa `break` bên trong vòng lặp để nói với chương trình khi nào 
+cần thoát khỏi vòng lặp. Hãy nhớ lại chúng ta đã làm điều này trong [“Quitting 
+After a Correct Guess”][quitting-after-a-correct-guess]<!-- ignore --> trong 
+chương 2 để thoát khỏi chương trình khi người dùng chiến thắng bằng cách đoán đúng
+con số.
 
-We also used `continue` in the guessing game, which in a loop tells the program
-to skip over any remaining code in this iteration of the loop and go to the
-next iteration.
+Chúng ta cũng dùng `continue` trong trò chơi đoán số, để yêu cầu chương trình bỏ
+qua phần còn lại trong thân vòng lặp hiện tại và bắt đầu một vòng lặp mới.
 
 #### Returning Values from Loops
 
