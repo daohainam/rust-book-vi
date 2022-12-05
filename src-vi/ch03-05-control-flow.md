@@ -161,11 +161,6 @@ khó đảm bảo về đoạn code hơn nếu nó phải lưu giữ thông tin 
 
 ### Sử dụng vòng lặp (loops)
 
-It’s often useful to execute a block of code more than once. For this task,
-Rust provides several *loops*, which will run through the code inside the loop
-body to the end and then start immediately back at the beginning. To
-experiment with loops, let’s make a new project called *loops*.
-
 Chúng ta thường xuyên phải thực thi một đoạn code nào đó nhiều lần. Để làm điều này,
 Rust cung cấp một số dạng *vòng lặp*, nó cho phép chạy đến cuối đoạn code bên trong 
 thân vòng lặp , sau đó quay trở lại vị trí bắt đầu. Để trải nghiệm thử các vòng lặp,
@@ -227,32 +222,32 @@ qua phần còn lại trong thân vòng lặp hiện tại và bắt đầu mộ
 
 #### Returning Values from Loops
 
-One of the uses of a `loop` is to retry an operation you know might fail, such
-as checking whether a thread has completed its job. You might also need to pass
-the result of that operation out of the loop to the rest of your code. To do
-this, you can add the value you want returned after the `break` expression you
-use to stop the loop; that value will be returned out of the loop so you can
-use it, as shown here:
+Một trong những lý do dùng `loop` là để thực thi lại một tác vụ nào đó bạn biết
+có thể sẽ thất bại, kiểu như khi kiểm tra xem một thread đã hoàn thành công việc
+hay chưa. Bạn cũng cần trả về kết quả của tác vụ đó cho phần còn lại của chương 
+trình khi kết thúc vòng lặp. Để làm điểu này bạn có thể thêm giá trị muốn trả về 
+sau phát biểu `break` mà bạn dùng để kết thúc vòng lặp; giá trị đó sẽ được trả 
+về ra ngoài vòng lặp và bạn có thể dùng được nó như trong ví dụ dưới đây:
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-33-return-value-from-loop/src/main.rs}}
 ```
+Trước khi lặp, bạn khai báo một biến tên `counter` và khởi tạo giá trị của nó là
+`0`. Sau đó bạn khai báo tiếp một biến tên là `result` để lưu lại giá trị trả về 
+từ vòng lặp. Cứ mỗi lần lặp ta lại cộng thêm `1` vào biến `counter` và kiểm tra 
+giá trị của `counter` với `10`, khi điểu này xảy ra, ta dùng từ khóa `break` với
+giá trị trả về là `counter `* 2`. Sau vòng lặp, ta dùng một dấu chấm phẩy để kết 
+thúc phát biểu gán giá trị vào cho `result`. Cuối cùng, ta in ra giá trị của `result`,
+trong trường hợp này sẽ là 20.
 
-Before the loop, we declare a variable named `counter` and initialize it to
-`0`. Then we declare a variable named `result` to hold the value returned from
-the loop. On every iteration of the loop, we add `1` to the `counter` variable,
-and then check whether the counter is equal to `10`. When it is, we use the
-`break` keyword with the value `counter * 2`. After the loop, we use a
-semicolon to end the statement that assigns the value to `result`. Finally, we
-print the value in `result`, which in this case is 20.
+#### Gán nhãn để phân biệt giữa các vòng lặp
 
-#### Loop Labels to Disambiguate Between Multiple Loops
-
-If you have loops within loops, `break` and `continue` apply to the innermost
-loop at that point. You can optionally specify a *loop label* on a loop that we
-can then use with `break` or `continue` to specify that those keywords apply to
-the labeled loop instead of the innermost loop. Loop labels must begin with a
-single quote. Here’s an example with two nested loops:
+Nếu bạn có nhiều vòng lặp lồng nhau, `break` và `continue` được áp dụng cho vòng 
+lặp bên trong nhất tại nơi bạn gọi. Bạn cũng có thể đặt *nhãn* cho một vòng lặp
+để sau đó khi gọi `break` hoặc `continue`, ta có thể chỉ ra chính xác ta muốn
+áp dụng những từ khóa đó cho vòng lặp đã được gán nhãn thay vì vòng lặp trong cùng.
+Các nhãn vòng lặp phải bắt đầu với một dấu nháy đơn. Sau đây là một ví dụ về hai
+vòng lặp lồng nhau:
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-32-5-loop-labels/src/main.rs}}
@@ -267,16 +262,16 @@ doesn’t specify a label will exit the inner loop only. The `break
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-32-5-loop-labels/output.txt}}
 ```
 
-#### Conditional Loops with `while`
+#### Lặp theo điều kiện với `while`
 
-A program will often need to evaluate a condition within a loop. While the
-condition is true, the loop runs. When the condition ceases to be true, the
-program calls `break`, stopping the loop. It’s possible to implement behavior
-like this using a combination of `loop`, `if`, `else`, and `break`; you could
-try that now in a program, if you’d like. However, this pattern is so common
-that Rust has a built-in language construct for it, called a `while` loop. In
-Listing 3-3, we use `while` to loop the program three times, counting down each
-time, and then, after the loop, print a message and exit.
+Một chương trình sẽ thường phải kiểm tra điều kiện bên trong một vòng lặp. Khi điều
+kiện là true, tiếp tục vòng lặp. Khi điều kiện không còn là true, chương trình sẽ
+gọi `break` và ngưng vòng lặp. Bạn hoàn toàn có thể làm những điều trên bằng việc
+kết hợp `loop`, `if`, `else` và `break`; bạn có thể thử ngay nếu muốn. Tuy nhiên,
+cấu trúc này rất phổ biến, do vậy Rust tạo ra một cấu trúc lặp riêng cho nó, gọi 
+vòng lặp `while`. Trong Listing 3-3, chúng ta sẽ dùng `while` để lặp chương trình
+3 lần, đếm ngược mỗi lần lặp, in ra một thông báo và kết thúc sau khi hoàn thành 
+vòng lặp.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -284,12 +279,12 @@ time, and then, after the loop, print a message and exit.
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-03/src/main.rs}}
 ```
 
-<span class="caption">Listing 3-3: Using a `while` loop to run code while a
-condition holds true</span>
+<span class="caption">Listing 3-3: Dùng một vòng lặp `while` để chạy code trong khi một
+điều kiện vẫn còn đúng</span>
 
-This construct eliminates a lot of nesting that would be necessary if you used
-`loop`, `if`, `else`, and `break`, and it’s clearer. While a condition holds
-true, the code runs; otherwise, it exits the loop.
+Vòng lặp này cho phép loại bỏ nhiều cấu trúc lồng nhau như khi bạn kết hợp
+`loop`, `if`, `else`, và `break`, giúp code của bạn sáng sủa hơn. Trong khi một
+điều kiện vẫn là `true`, chạy vòng lặp; ngược lại, kết thúc vòng lặp.
 
 #### Looping Through a Collection with `for`
 
