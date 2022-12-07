@@ -253,10 +253,10 @@ vòng lặp lồng nhau:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-32-5-loop-labels/src/main.rs}}
 ```
 
-The outer loop has the label `'counting_up`, and it will count up from 0 to 2.
-The inner loop without a label counts down from 10 to 9. The first `break` that
-doesn’t specify a label will exit the inner loop only. The `break
-'counting_up;` statement will exit the outer loop. This code prints:
+Vòng lặp bên ngoài có nhãn `'counting_up`, và nó sẽ đếm từ 0 đến 2. Vòng lặp bên trong
+không có nhãn và đếm ngược từ 10 xuống 9. Phát biểu `break` đầu tiên không chỉ ra nhãn 
+nên chỉ thoát ra khỏi vòng lặp bên trong. Trong khi đó, phát biểu `break 'counting_up;`
+sẽ thoát ra vòng lặp bên ngoài. Đoạn code này sẽ in ra:
 
 ```console
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-32-5-loop-labels/output.txt}}
@@ -286,11 +286,11 @@ Vòng lặp này cho phép loại bỏ nhiều cấu trúc lồng nhau như khi 
 `loop`, `if`, `else`, và `break`, giúp code của bạn sáng sủa hơn. Trong khi một
 điều kiện vẫn là `true`, chạy vòng lặp; ngược lại, kết thúc vòng lặp.
 
-#### Looping Through a Collection with `for`
+#### Lặp qua một tập hợp với `for`
 
-You can choose to use the `while` construct to loop over the elements of a
-collection, such as an array. For example, the loop in Listing 3-4 prints each
-element in the array `a`.
+Bạn có thể chọn dùng `while` để duyệt qua các thành phần của một tập hợp, kiểu 
+như một mảng. Ví dụ, vòng lặp trong Listing 3-4 in ra các phần tử có trong mảng
+`a`.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -298,31 +298,31 @@ element in the array `a`.
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-04/src/main.rs}}
 ```
 
-<span class="caption">Listing 3-4: Looping through each element of a collection
-using a `while` loop</span>
+<span class="caption">Listing 3-4: Lặp qua từng phần tử trong một tập hợp sử dụng 
+vòng lặp `while`</span>
 
-Here, the code counts up through the elements in the array. It starts at index
-`0`, and then loops until it reaches the final index in the array (that is,
-when `index < 5` is no longer true). Running this code will print every element
-in the array:
+Ở đây, đoạn code đếm qua các phần tử có trong mảng. Nó bắt đầu từ chỉ số `0`, và 
+tiếp tục lặp cho đến khi gặp chỉ số cuối cùng của mảng (là khi `index < 5` không 
+còn trả về true). Chạy đoạn code này sẽ in ra tất cả các phần tử trong mảng:
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/listing-03-04/output.txt}}
 ```
 
-All five array values appear in the terminal, as expected. Even though `index`
-will reach a value of `5` at some point, the loop stops executing before trying
-to fetch a sixth value from the array.
+Tất cả năm giá trị trong mảng đều được xuất ra cửa sổ chạy chương trình. Mặc dù
+`index` sẽ đạt giá trị `5` vào một thời điểm nào đó, vòng lặp sẽ ngừng thực thi 
+trước khi cố lấy giá trị thứ sáu (không tồn tại) từ mảng.
 
-However, this approach is error prone; we could cause the program to panic if
-the index value or test condition are incorrect. For example, if you changed
-the definition of the `a` array to have four elements but forgot to update the
-condition to `while index < 4`, the code would panic. It’s also slow, because
-the compiler adds runtime code to perform the conditional check of whether the
-index is within the bounds of the array on every iteration through the loop.
+Tuy nhiên, các tiếp cận này ẩn chứa lỗi; chúng ta có thể làm chương trình về trạng
+thái panic nếu giá trị chỉ số hay điều kiện lặp không chính xác. Ví dụ, nếu bạn 
+thay đổi định nghĩa mảng `a` thành một mảng chỉ có bốn phần tử nhưng lại quên thay
+đổi điều kiện thành `while index < 4`, đoạn code sẽ bị lỗi. Và nó cũng chạy chậm
+bởi trình dịch phải thêm code để kiểm tra mỗi lần lặp xem chỉ số có nằm trong 
+phạm vi hợp lệ hay không.
 
-As a more concise alternative, you can use a `for` loop and execute some code
-for each item in a collection. A `for` loop looks like the code in Listing 3-5.
+Như một cách tiếp cận chính xác hơn, bạn có thể dùng một vòng `for` và thực thi
+code cho mỗi phần tử trong tập hợp. Một vòng lặp `for` sẽ trông như đoạn code 
+trong Listing 3-5.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -333,25 +333,23 @@ for each item in a collection. A `for` loop looks like the code in Listing 3-5.
 <span class="caption">Listing 3-5: Looping through each element of a collection
 using a `for` loop</span>
 
-When we run this code, we’ll see the same output as in Listing 3-4. More
-importantly, we’ve now increased the safety of the code and eliminated the
-chance of bugs that might result from going beyond the end of the array or not
-going far enough and missing some items.
+Khi chạy đoạn code này, bạn sẽ thấy cùng kết xuất như trong Listing 3-4. Quan trọng
+hơn, giờ độ an toàn của code cao hơn và loại bỏ cơ hội phát sinh bug khi cố truy
+cập một phần tử vượt ra ngoài phạm vi của mảng.
 
-Using the `for` loop, you wouldn’t need to remember to change any other code if
-you changed the number of values in the array, as you would with the method
-used in Listing 3-4.
+Sử dụng vòng `for`, bạn cũng không cần phải nhớ thay đổi các đoạn code khác nếu bạn thay
+đổi số giá trị có trong mảng, như cách bạn cần làm nếu sử dụng cách thức trong 
+Listing 3-4.
 
-The safety and conciseness of `for` loops make them the most commonly used loop
-construct in Rust. Even in situations in which you want to run some code a
-certain number of times, as in the countdown example that used a `while` loop
-in Listing 3-3, most Rustaceans would use a `for` loop. The way to do that
-would be to use a `Range`, provided by the standard library, which generates
-all numbers in sequence starting from one number and ending before another
-number.
+Sự an toàn và chính xác của các vòng `for` làm cho chúng trở thành cấu trúc lặp
+phổ biến nhất trong Rust. Ngay cả khi bạn muốn chạy một số code một số lần nhất
+định, giống trong ví dụ đếm ngược mà chúng ta dùng vòng lặp `while`trong Listing 3-3,
+hầu hết Rustaceans sẽ chọn dùng `for`. Để làm điều này ta có thể dùng một `Range`,
+vốn được cung cấp bởi thư viện chuẩn, và sẽ tạo ra tất cả các con số tuần tự bắt 
+đầu từ một giá trị và kết thúc trước một giá trị khác.
 
-Here’s what the countdown would look like using a `for` loop and another method
-we’ve not yet talked about, `rev`, to reverse the range:
+Đây là ví dụ countdown được viết lại dùng vòng `for` và một phương thức khác ta chưa 
+nhắc đến, `rev`, để đảo ngược `Range`:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -359,22 +357,21 @@ we’ve not yet talked about, `rev`, to reverse the range:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-34-for-range/src/main.rs}}
 ```
 
-This code is a bit nicer, isn’t it?
+Đoạn code này trông rõ ràng sáng sủa hơn phải không?
 
-## Summary
+## Tổng kết
 
-You made it! That was a sizable chapter: you learned about variables, scalar
-and compound data types, functions, comments, `if` expressions, and loops!
-To practice with the concepts discussed in this chapter, try building
-programs to do the following:
+Bạn đã làm được! Đây thật là một chương với rất nhiều thông tin: bạn học về biến,
+các kiểu dữ liệu vô hướng và kết hợp, hàm, ghi chú, phát biểu `if`, và cả các
+vòng lặp! Để thực hành với các khái niệm được giới thiệu trong chương này, hãy thử
+viết một chương trình làm những việc sau:
 
-* Convert temperatures between Fahrenheit and Celsius.
-* Generate the nth Fibonacci number.
-* Print the lyrics to the Christmas carol “The Twelve Days of Christmas,”
-  taking advantage of the repetition in the song.
+* Chuyển đổi nhiệt độ giữa các hệ Fahrenheit và Celsius.
+* Tạo số Fibonacci thứ n.
+* In ra lời bài hát “The Twelve Days of Christmas,”, ứng dụng các vòng lặp để in ra những đoạn lặp lại trong bài hát.
 
-When you’re ready to move on, we’ll talk about a concept in Rust that *doesn’t*
-commonly exist in other programming languages: ownership.
+Khi bạn đã sẵn sàng để tiếp tục, chúng ta sẽ nói về một khái niệm *không* tồn tại 
+trong hầu hết các ngôn ngữ khác: ownership.
 
 [comparing-the-guess-to-the-secret-number]:
 ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number
