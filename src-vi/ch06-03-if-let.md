@@ -1,81 +1,80 @@
 ## Concise Control Flow with `if let`
 
-The `if let` syntax lets you combine `if` and `let` into a less verbose way to
-handle values that match one pattern while ignoring the rest. Consider the
-program in Listing 6-6 that matches on an `Option<u8>` value in the `config_max`
-variable but only wants to execute code if the value is the `Some` variant.
+Cú pháp `if let` cho phép bạn kết hợp `if` và `let` theo một cách ngắn gọn hơn
+để xử lý các giá trị khớp với một pattern nhất định trong khi bỏ qua các
+pattern còn lại. Hãy xem xét chương trình trong Listing 6-6 với giá trị được
+khớp là kiểu `Option <u8>` trong biến `config_max` nhưng chúng ta chỉ muốn thực
+thi code nếu giá trị là biến thể `Some`.
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-06/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 6-6: A `match` that only cares about executing
-code when the value is `Some`</span>
+<span class="caption">Listing 6-6: Một `match` chỉ quan tâm đến việc thực thi
+code khi giá trị là `Some`</span>
 
-If the value is `Some`, we print out the value in the `Some` variant by binding
-the value to the variable `max` in the pattern. We don’t want to do anything
-with the `None` value. To satisfy the `match` expression, we have to add `_ =>
-()` after processing just one variant, which is annoying boilerplate code to
-add.
+Nếu giá trị là `Some`, chúng ta sẽ in ra giá trị trong biến thể `Some` bằng
+cách gán giá trị cho biến `max` trong pattern. Chúng ta không muốn làm gì với
+giá trị `None`. Để thoả mãn biểu thức `match`, chúng ta phải thêm `_ => ()` sau
+dù chỉ xử lý một biến thể, điều này thật phiền phức khi thêm vào code.
 
-Instead, we could write this in a shorter way using `if let`. The following
-code behaves the same as the `match` in Listing 6-6:
+Thay vào đó, chúng ta có thể viết code ngắn gọn hơn bằng cách sử dụng `if let`.
+Code dưới đây sẽ hoạt động tương tự như `match` trong Listing 6-6:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-12-if-let/src/main.rs:here}}
 ```
 
-The syntax `if let` takes a pattern and an expression separated by an equal
-sign. It works the same way as a `match`, where the expression is given to the
-`match` and the pattern is its first arm. In this case, the pattern is
-`Some(max)`, and the `max` binds to the value inside the `Some`. We can then
-use `max` in the body of the `if let` block in the same way as we used `max` in
-the corresponding `match` arm. The code in the `if let` block isn’t run if the
-value doesn’t match the pattern.
+Cú pháp `if let` sẽ nhận một pattern và một biểu thức được phân tách bằng dấu
+bằng. Nó hoạt động tương như `match`, trong đó biểu thức được gửi vào `match`
+và pattern là nhánh đầu tiên của nó. Trong trường hợp này, pattern là `Some(max)`, và `max` được gán cho giá trị bên trong `Some`. Chúng ta sau đó có thể sử
+dụng `max` trong thân của code block, `if let` cũng hoạt đọng theo cách tương
+tự như chúng ta sử dụng `max` trong nhánh của `match`. Code trong block `if let` sẽ không được chạy nếu giá trị không khớp với pattern.
 
-Using `if let` means less typing, less indentation, and less boilerplate code.
-However, you lose the exhaustive checking that `match` enforces. Choosing
-between `match` and `if let` depends on what you’re doing in your particular
-situation and whether gaining conciseness is an appropriate trade-off for
-losing exhaustive checking.
+Sử dụng `if let` sẽ ít phải gõ, ít phải thụt lề, và ít code dài dòng kiểu mẫu
+hơn. Tuy nhiên, bạn sẽ không đảm bảo tính kiểm tra đầy đủ như `match`. Lựa chọn
+giữa `match` và `if let` phụ thuộc vào bạn đang làm gì trong trường hợp cụ thể
+của bạn và liệu có đáng để giảm thiểu code bằng cách bỏ qua việc kiểm tra đầy
+đủ hay không.
 
-In other words, you can think of `if let` as syntax sugar for a `match` that
-runs code when the value matches one pattern and then ignores all other values.
+Nói cách khác, bạn có thể coi `if let` như là cú pháp bổ sung cho một `match`
+có thể chạy code khi giá trị khớp với một pattern và sau đó bỏ qua tất cả các
+giá trị khác.
 
-We can include an `else` with an `if let`. The block of code that goes with the
-`else` is the same as the block of code that would go with the `_` case in the
-`match` expression that is equivalent to the `if let` and `else`. Recall the
-`Coin` enum definition in Listing 6-4, where the `Quarter` variant also held a
-`UsState` value. If we wanted to count all non-quarter coins we see while also
-announcing the state of the quarters, we could do that with a `match`
-expression like this:
+Chúng ta có thể thêm một `else` với một `if let`. Block code của `else` sẽ
+giống như block code của `_` trong `match`. Nhớ lại định nghĩa enum `Coin`
+trong Listing 6-4, trong đó biến thể `Quarter` cũng có một giá trị `UsState`.
+Nếu chúng ta muốn đếm tất cả các xu không phải là 25 cent mà chúng ta thấy
+trong khi cũng gọi tên tiểu bang của các xu 25 cent, chúng ta có thể làm được
+điều đó với một biểu thức `match` như sau:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-13-count-and-announce-match/src/main.rs:here}}
 ```
 
-Or we could use an `if let` and `else` expression like this:
+Hoặc chúng ta có thể sử dụng một biểu thức `if let` và `else` như sau:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-14-count-and-announce-if-let-else/src/main.rs:here}}
 ```
 
-If you have a situation in which your program has logic that is too verbose to
-express using a `match`, remember that `if let` is in your Rust toolbox as well.
+Nếu bạn có một trường hợp trong đó chương trình của bạn có logic quá dài dòng
+để biểu diễn bằng một `match`, hãy nhớ đến `if let`.
 
 ## Summary
 
-We’ve now covered how to use enums to create custom types that can be one of a
-set of enumerated values. We’ve shown how the standard library’s `Option<T>`
-type helps you use the type system to prevent errors. When enum values have
-data inside them, you can use `match` or `if let` to extract and use those
-values, depending on how many cases you need to handle.
+Chúng ta đã đi qua cách sử dụng enum để tạo ra một kiểu dữ liệu tùy chỉnh thể
+hiện một giá trị có thể có bên trong một tập các giá trị được liệt kê. Chúng ta
+đã thấy cách thư viện chuẩn `Option<T>` giúp bạn sử dụng hệ thống kiểu (type
+system) để ngăn chặn lỗi. Khi các giá trị enum có dữ liệu bên trong chúng, bạn
+có thể sử dụng `match` hoặc `if let` để trích xuất và sử dụng các giá trị đó,
+tùy thuộc vào số lượng trường hợp bạn cần xử lý.
 
-Your Rust programs can now express concepts in your domain using structs and
-enums. Creating custom types to use in your API ensures type safety: the
-compiler will make certain your functions get only values of the type each
-function expects.
+Chương trình Rust của bạn có thể biểu diễn các khái niệm trong lĩnh vực của bạn
+bằng cách sử dụng struct và enum. Tạo kiểu dữ liệu tùy chỉnh để sử dụng trong
+API và đảm bảo an toàn kiểu dữ liệu: trình biên dịch sẽ đảm bảo rằng các hàm
+của bạn chỉ nhận được các giá trị của kiểu mà mỗi hàm mong đợi.
 
-In order to provide a well-organized API to your users that is straightforward
-to use and only exposes exactly what your users will need, let’s now turn to
-Rust’s modules.
+Để cung cấp một API được tổ chức tốt cho người dùng, dễ sử dụng và chỉ tiết lộ
+chính xác những gì người dùng của bạn sẽ cần, chúng ta sẽ bây giờ chuyển sang
+Rust module.
