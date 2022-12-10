@@ -1,57 +1,50 @@
 ## Defining Modules to Control Scope and Privacy
 
-In this section, we’ll talk about modules and other parts of the module system,
-namely *paths* that allow you to name items; the `use` keyword that brings a
-path into scope; and the `pub` keyword to make items public. We’ll also discuss
-the `as` keyword, external packages, and the glob operator.
+Trong phần này, chúng ta sẽ nói về các module và các phần khác của module
+system, đặc biệt là *paths* nó cho phép bạn đặt tên các items; từ khóa `use` để
+đưa một path vào scope; và từ khóa `pub` để làm các items public. Chúng ta cũng
+sẽ thảo luận về từ khóa `as`, các packages bên ngoài, và toán tử glob.
 
-First, we’re going to start with a list of rules for easy reference when you’re
-organizing your code in the future. Then we’ll explain each of the rules in
-detail.
+Đầu tiên, chúng ta sẽ bắt đầu với một danh sách các quy tắc để tham khảo dễ dàng
+khi bạn tổ chức code của bạn trong tương lai. Sau đó, chúng ta sẽ giải thích mỗi
+quy tắc một cách chi tiết.
 
 ### Modules Cheat Sheet
 
-Here we provide a quick reference on how modules, paths, the `use` keyword, and
-the `pub` keyword work in the compiler, and how most developers organize their
-code. We’ll be going through examples of each of these rules throughout this
-chapter, but this is a great place to refer to as a reminder of how modules
-work.
+Đây là một bảng tóm tắt về cách các module, paths, từ khóa `use` và từ khóa `pub` hoạt động trong compiler, và cách hầu hết các lập trình viên tổ chức code của họ. Chúng ta sẽ đi qua các ví dụ của mỗi quy tắc trong chương này, nhưng đây là một nơi tuyệt vời để tham khảo như một lời nhắc về cách các module hoạt động.
 
-- **Start from the crate root**: When compiling a crate, the compiler first
-  looks in the crate root file (usually *src/lib.rs* for a library crate or
-  *src/main.rs* for a binary crate).
-- **Declaring modules**: In the crate root file, you can declare new modules;
-say, you declare a “garden” module with `mod garden;`. The compiler will look
-for the module’s code in these places:
-  - Inline, directly following `mod garden`, within curly brackets instead of
-    the semicolon
-  - In the file *src/garden.rs*
-  - In the file *src/garden/mod.rs*
-- **Declaring submodules**: In any file other than the crate root, you can
-  declare submodules. For example, you might declare `mod vegetables;` in
-  *src/garden.rs*. The compiler will look for the submodule’s code within the
-  directory named for the parent module in these places:
-  - Inline, directly following `mod vegetables`, within curly brackets instead
-    of the semicolon
-  - In the file *src/garden/vegetables.rs*
-  - In the file *src/garden/vegetables/mod.rs*
-- **Paths to code in modules**: Once a module is part of your crate, you can
-  refer to code in that module from anywhere else in that same crate, as long
-  as the privacy rules allow, using the path to the code. For example, an
-  `Asparagus` type in the garden vegetables module would be found at
-  `crate::garden::vegetables::Asparagus`.
-- **Private vs public**: Code within a module is private from its parent
-  modules by default. To make a module public, declare it with `pub mod`
-  instead of `mod`. To make items within a public module public as well, use
-  `pub` before their declarations.
-- **The `use` keyword**: Within a scope, the `use` keyword creates shortcuts to
-  items to reduce repetition of long paths. In any scope that can refer to
-  `crate::garden::vegetables::Asparagus`, you can create a shortcut with `use
-  crate::garden::vegetables::Asparagus;` and from then on you only need to
-  write `Asparagus` to make use of that type in the scope.
+- **Bắt đầu từ crate root**: Khi biên dịch một crate, compiler sẽ đầu tiên tìm
+  trong file crate root (thường là *src/lib.rs* cho một crate library hoặc
+  *src/main.rs* cho một crate binary).
+- **Định nghĩa module**: Trong file crate root, bạn có thể định nghĩa các module
+  mới; nói cách khác, bạn định nghĩa một module “garden” với `mod garden;`. Compiler sẽ tìm kiếm code của module trong những nơi sau:
+  - Trực tiếp, trực tiếp sau `mod garden`, trong dấu ngoặc nhọn thay vì dấu chấm phẩy
+  - Trong file *src/garden.rs*
+  - Trong file *src/garden/mod.rs*
+- **Định nghĩa submodules**: Trong bất kỳ file nào khác file crate root, bạn có
+  thể định nghĩa các submodules. Ví dụ, bạn có thể định nghĩa `mod vegetables;`
+  trong *src/garden.rs*. Compiler sẽ tìm kiếm code của submodule trong thư mục
+  có tên giống với module cha trong những nơi sau:
+  - Trực tiếp, trực tiếp sau `mod vegetables`, trong dấu ngoặc nhọn thay vì dấu chấm phẩy
+  - Trong file *src/garden/vegetables.rs*
+  - Trong file *src/garden/vegetables/mod.rs*
+- **Path dẫn đến code trong module**: Một khi một module là một phần của crate,
+  bạn có thể tham chiếu đến code trong module đó từ bất kỳ nơi nào trong cùng
+  crate, một khi các quy tắc bảo mật cho phép, bằng cách sử dụng đường dẫn (path) đến code. Ví dụ, một kiểu `Asparagus` trong module vegetables của
+  garden sẽ được tìm thấy tại `crate::garden::vegetables::Asparagus`.
+- **Private vs public**: Code trong một module mặc định là private với các module
+  cha của nó. Để làm cho một module public, định nghĩa nó với `pub mod` thay vì
+  `mod`. Để làm cho các item trong một module public, sử dụng `pub` trước các
+  định nghĩa của chúng.
+- **Từ khóa `use`**: Trong một scope, từ khóa `use` tạo các đường dẫn tắt đến các
+  item để giảm thiểu sự lặp lại của các đường dẫn dài. Trong bất kỳ scope nào
+  có thể tham chiếu đến `crate::garden::vegetables::Asparagus`, bạn có thể tạo
+  một đường dẫn tắt với `use crate::garden::vegetables::Asparagus;` và từ đó
+  bạn chỉ cần viết `Asparagus` để sử dụng kiểu đó trong scope.
 
-Here we create a binary crate named `backyard` that illustrates these rules. The
-crate’s directory, also named `backyard`, contains these files and directories:
+Ở đây chúng ta tạo một crate nhị phân có tên `backyard` để minh họa các quy tắc
+trên. Thư mục của crate, cũng được đặt tên là `backyard`, chứa các file và
+thư mục sau:
 
 ```text
 backyard
@@ -64,7 +57,7 @@ backyard
     └── main.rs
 ```
 
-The crate root file in this case is *src/main.rs*, and it contains:
+File crate root trong trường hợp này là *src/main.rs*, và nó chứa:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -72,8 +65,8 @@ The crate root file in this case is *src/main.rs*, and it contains:
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/quick-reference-example/src/main.rs}}
 ```
 
-The `pub mod garden;` line tells the compiler to include the code it finds in
-*src/garden.rs*, which is:
+Dòng `pub mod garden;` nói với trình biên dịch rằng hãy thêm code mà nó tìm
+thấy trong *src/garden.rs*, code là:
 
 <span class="filename">Filename: src/garden.rs</span>
 
@@ -81,40 +74,39 @@ The `pub mod garden;` line tells the compiler to include the code it finds in
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/quick-reference-example/src/garden.rs}}
 ```
 
-Here, `pub mod vegetables;` means the code in *src/garden/vegetables.rs* is
-included too. That code is:
+Ở đây, `pub mod vegetables;` có nghĩa là code trong *src/garden/vegetables.rs*
+cũng được bao gồm. Code đó là:
 
 ```rust,noplayground,ignore
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/quick-reference-example/src/garden/vegetables.rs}}
 ```
 
-Now let’s get into the details of these rules and demonstrate them in action!
+Bây giờ hãy đi vào chi tiết của các quy tắc này và minh họa chúng trong thực tế!
 
 ### Grouping Related Code in Modules
 
-*Modules* let us organize code within a crate for readability and easy reuse.
-Modules also allow us to control the *privacy* of items, because code within a
-module is private by default. Private items are internal implementation details
-not available for outside use. We can choose to make modules and the items
-within them public, which exposes them to allow external code to use and depend
-on them.
+*Modules* cho phép chúng ta tổ chức code trong một crate để dễ đọc và tái sử
+dụng. Modules cũng cho phép chúng ta kiểm soát *bí mật* của các item, vì code
+trong một module là riêng tư theo mặc định. Các item riêng tư là nội bộ và
+không có sẵn cho việc sử dụng bên ngoài. Chúng ta có thể để các modules và các
+item bên trong chúng là public, nó cho phép chúng ta sử dụng chúng.
 
-As an example, let’s write a library crate that provides the functionality of a
-restaurant. We’ll define the signatures of functions but leave their bodies
-empty to concentrate on the organization of the code, rather than the
-implementation of a restaurant.
+Ví dụ, hãy cùng viết một library crate cung cấp các tính năng của một nhà hàng.
+Chúng ta sẽ định nghĩa các hàm nhưng để trống các thân hàm để tập trung vào
+cấu trúc của code, thay vì việc triển khai một nhà hàng.
 
-In the restaurant industry, some parts of a restaurant are referred to as
-*front of house* and others as *back of house*. Front of house is where
-customers are; this encompasses where the hosts seat customers, servers take
-orders and payment, and bartenders make drinks. Back of house is where the
-chefs and cooks work in the kitchen, dishwashers clean up, and managers do
-administrative work.
+Trong ngành ẩm thực, một số bộ phận của một nhà hàng được gọi là *front of
+house* và một số khác là *back of house*. Front of house là nơi khách hàng đến;
+bao gồm nơi chủ nhà hàng tiếp khách, nhân viên phục vụ nhận đơn đặt
+hàng và thanh toán, và nhân viên pha chế làm các loại đồ uống. Back of house là
+nơi nấu ăn và làm bếp, nhân viên vệ sinh dọn dẹp, và quản lý làm việc hành
+chính.
 
-To structure our crate in this way, we can organize its functions into nested
-modules. Create a new library named `restaurant` by running `cargo new --lib
-restaurant`; then enter the code in Listing 7-1 into *src/lib.rs* to define
-some modules and function signatures. Here’s the front of house section:
+Cấu trúc crate của chúng ta theo cách này, chúng ta có thể tổ chức các hàm
+của nó thành các modules lồng nhau. Tạo một library mới tên `restaurant` bằng
+cách chạy `cargo new --lib restaurant`; sau đó nhập code trong Listing 7-1 vào
+*src/lib.rs* để định nghĩa một số modules và chữ ký hàm. Đây là phần front of
+house:
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -122,28 +114,29 @@ some modules and function signatures. Here’s the front of house section:
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-01/src/lib.rs}}
 ```
 
-<span class="caption">Listing 7-1: A `front_of_house` module containing other
-modules that then contain functions</span>
+<span class="caption">Listing 7-1: Một module `front_of_house` chứa các module
+khác sau đó chứa các hàm</span>
 
-We define a module with the `mod` keyword followed by the name of the module
-(in this case, `front_of_house`). The body of the module then goes inside curly
-brackets. Inside modules, we can place other modules, as in this case with the
-modules `hosting` and `serving`. Modules can also hold definitions for other
-items, such as structs, enums, constants, traits, and—as in Listing
-7-1—functions.
+Chúng ta định nghĩa một module với từ khóa `mod` theo sau bởi tên của module
+(trong trường hợp này, `front_of_house`). Thân của module sau đó đi vào trong
+dấu ngoặc nhọn. Trong các module, chúng ta có thể đặt các module khác, như trong
+trường hợp này với các module `hosting` và `serving`. Các module cũng có thể
+chứa các định nghĩa cho các mục khác, chẳng hạn như các cấu trúc, các enum,
+các hằng số, các trait, như trong Listing 7-1—functions.
 
-By using modules, we can group related definitions together and name why
-they’re related. Programmers using this code can navigate the code based on the
-groups rather than having to read through all the definitions, making it easier
-to find the definitions relevant to them. Programmers adding new functionality
-to this code would know where to place the code to keep the program organized.
+Bằng cách sử dụng các module, chúng ta có thể nhóm các định nghĩa liên quan nhau
+vào cùng một nhóm và đặt tên cho lý do đại diện của chúng. Các lập trình viên
+sử dụng code này có thể điều hướng code dựa trên các nhóm thay vì phải đọc qua
+tất cả các định nghĩa, làm cho việc tìm kiếm các định nghĩa liên quan đến dễ
+dàng hơn. Các lập trình viên thêm tính năng mới vào code này sẽ biết nơi để
+đặt giúp cho chương trình được tổ chức tốt.
 
-Earlier, we mentioned that *src/main.rs* and *src/lib.rs* are called crate
-roots. The reason for their name is that the contents of either of these two
-files form a module named `crate` at the root of the crate’s module structure,
-known as the *module tree*.
+Trước đây, chúng ta đã nói rằng *src/main.rs* và *src/lib.rs* được gọi là
+crate roots. Chúng tên vậy vì nội dung của bất kỳ một trong hai tệp này tạo
+ra một module được gọi là `crate` ở gốc của cấu trúc module của crate, được
+gọi là *module tree*.
 
-Listing 7-2 shows the module tree for the structure in Listing 7-1.
+Listing 7-2 cho thấy module tree cho cấu trúc trong Listing 7-1.
 
 ```text
 crate
@@ -157,18 +150,16 @@ crate
          └── take_payment
 ```
 
-<span class="caption">Listing 7-2: The module tree for the code in Listing
-7-1</span>
+<span class="caption">Listing 7-2: Module tree cho code trong Listing 7-1</span>
 
-This tree shows how some of the modules nest inside one another; for example,
-`hosting` nests inside `front_of_house`. The tree also shows that some modules
-are *siblings* to each other, meaning they’re defined in the same module;
-`hosting` and `serving` are siblings defined within `front_of_house`. If module
-A is contained inside module B, we say that module A is the *child* of module B
-and that module B is the *parent* of module A. Notice that the entire module
-tree is rooted under the implicit module named `crate`.
+Cây này cho thấy cách các module lồng nhau; ví dụ, `hosting` lồng trong
+`front_of_house`. Cây cũng cho thấy rằng một số module là *anh em (siblings)* với nhau, nghĩa là chúng được định nghĩa trong cùng một module; `hosting` và
+`serving` là anh em cùng được định nghĩa trong `front_of_house`. Nếu module A
+được chứa bên trong module B, chúng ta nói module A là *con (child)* của module
+B và module B là *cha (parent)* của module A. Lưu ý rằng toàn bộ module tree
+được gốc dưới module ngầm định được gọi là `crate`.
 
-The module tree might remind you of the filesystem’s directory tree on your
-computer; this is a very apt comparison! Just like directories in a filesystem,
-you use modules to organize your code. And just like files in a directory, we
-need a way to find our modules.
+Cây module có thể liên tưởng đến cây thư mục của hệ thống tệp trên máy tính của
+bạn; đây là một so sánh rất chính xác! Giống như các thư mục trong hệ thống
+tệp, bạn sử dụng module để tổ chức code của bạn. Cũng giống như các tệp trong
+thư mục, chúng ta cần một cách để tìm module của chúng ta.
