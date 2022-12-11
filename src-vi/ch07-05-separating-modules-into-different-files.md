@@ -114,8 +114,6 @@ cũng không thay đổi, và `use` cũng không ảnh hưởng gì đến việ
 biên dịch là một phần của crate. Câu lệnh `mod` khai báo module, và Rust sẽ tìm
 file có cùng tên với module để tìm code của module đó.
 
----
-
 ## Summary
 
 Rust cho phép bạn chia một package thành nhiều crate và một crate thành các
@@ -129,7 +127,5 @@ thể làm các item public bằng cách thêm từ khóa `pub`.
 Trong chương tiếp theo, chúng ta sẽ xem một số cấu trúc dữ liệu tập hợp trong
 thư viện chuẩn mà bạn có thể sử dụng trong code của bạn được tổ chức một cách
 rõ ràng.
-
----
 
 [paths]: ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html
