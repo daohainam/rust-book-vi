@@ -20,7 +20,8 @@ tương đương với câu hỏi: đường dẫn của hàm `add_to_waitlist` 
 chứa Listing 7-1 với một số module và hàm bị xóa. Chúng ta sẽ hiển thị hai cách
 gọi hàm `add_to_waitlist` từ một hàm mới `eat_at_restaurant` được định nghĩa
 trong crate root. Hàm `eat_at_restaurant` là một phần của API công khai của
-library crate của chúng ta, vì vậy chúng ta đánh dấu nó với từ khoá `pub`. Trong phần [“Exposing Paths with the `pub` Keyword”][pub]<!-- ignore -->, chúng
+library crate của chúng ta, vì vậy chúng ta đánh dấu nó với từ khoá `pub`.
+Trong phần [“Exposing Paths with the `pub` Keyword”][pub]<!-- ignore -->, chúng
 ta sẽ đi sâu vào chi tiết hơn về `pub`. Lưu ý rằng ví dụ này tạm thời sẽ không
 được biên dịch; chúng ta sẽ giải thích tại trong ít phút nữa.
 
