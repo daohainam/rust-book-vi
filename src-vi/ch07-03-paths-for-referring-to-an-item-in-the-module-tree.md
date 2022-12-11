@@ -212,7 +212,7 @@ lỗi đơn hàng và mang đến cho khách hàng cá nhân. Hàm `fix_incorrec
 nghĩa trong module cha bằng cách chỉ định đường dẫn đến `deliver_order` bắt đầu
 bằng `super`:
 
-<span class="filename">Tên tập tin: src/lib.rs</span>
+<span class="filename">Filename: src/lib.rs</span>
 
 ```rust,noplayground,test_harness
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-08/src/lib.rs}}
