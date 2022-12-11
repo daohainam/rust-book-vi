@@ -53,7 +53,8 @@ bạn nghĩ bạn sẽ không bao giờ có một biến thể `Err` trong văn 
 {{#rustdoc_include ../listings/ch09-error-handling/no-listing-08-unwrap-that-cant-fail/src/main.rs:here}}
 ```
 
-Chúng ta đang tạo một instance `IpAddr` bằng cách truyền vào một chuỗi cố định (hardcode). Chúng ta có thể thấy `127.0.0.1` là một địa chỉ IP hợp lệ, do đó
+Chúng ta đang tạo một instance `IpAddr` bằng cách truyền vào một chuỗi cố định
+(hardcode). Chúng ta có thể thấy `127.0.0.1` là một địa chỉ IP hợp lệ, do đó
 việc sử dụng `expect` ở đây là chấp nhận được. Tuy nhiên, việc có một chuỗi hợp
 lệ cố định không thay đổi kiểu trả về của phương thức `parse`: chúng ta vẫn
 nhận được một giá trị `Result`, và compiler vẫn sẽ yêu cầu chúng ta xử lý
@@ -134,7 +135,8 @@ lệ, hơn nữa là tạo một kiểu tùy chỉnh cho việc xác thực. Nh�
 số trong Chương 2 trong đó code của chúng ta yêu cầu người dùng đoán một số
 giữa 1 và 100. Chúng ta không bao giờ xác thực rằng đoán của người dùng nằm
 giữa hai số này trước khi kiểm tra nó với số bí mật của chúng ta; chúng ta chỉ
-xác thực rằng đoán là dương. Trong trường hợp này, hậu quả không quá nghiêm trọng: output của chúng ta có thể "Quá cao" hoặc "Quá thấp" vẫn sẽ chính xác. Nhưng nó sẽ là một sự cải thiện có ích để hướng dẫn người dùng đến các đoán hợp
+xác thực rằng đoán là dương. Trong trường hợp này, hậu quả không quá nghiêm
+trọng: output của chúng ta có thể "Quá cao" hoặc "Quá thấp" vẫn sẽ chính xác. Nhưng nó sẽ là một sự cải thiện có ích để hướng dẫn người dùng đến các đoán hợp
 lệ và có hành vi khác nhau khi người dùng đoán một số nằm ngoài phạm vi so với
 khi người dùng nhập, ví dụ, các chữ cái thay vì số.
 
@@ -211,10 +213,12 @@ của nó.
 Xử lý lỗi trong Rust được thiết kế để giúp bạn viết mã có tính ổn định cao hơn.
 `panic!` macro cho biết rằng chương trình của bạn đang ở một trạng thái nó không
 thể xử lý và cho phép bạn nói với quá trình dừng thay vì cố gắng tiếp tục với
-giá trị không hợp lệ hoặc không chính xác. `Result` enum sử dụng hệ thống kiểu của Rust để chỉ ra rằng các hoạt động có thể thất bại một cách mà mã của bạn có
+giá trị không hợp lệ hoặc không chính xác. `Result` enum sử dụng hệ thống kiểu
+của Rust để chỉ ra rằng các hoạt động có thể thất bại một cách mà mã của bạn có
 thể khôi phục được. Bạn có thể sử dụng `Result` để nói với mã gọi mã của bạn
 rằng nó cần phải xử lý thành công hoặc thất bại có thể xảy ra. Sử dụng `panic!`
-và `Result` trong các tình huống phù hợp sẽ làm mã của bạn ổn định hơn đối với các vấn đề không thể tránh được.
+và `Result` trong các tình huống phù hợp sẽ làm mã của bạn ổn định hơn đối với
+các vấn đề không thể tránh được.
 
 Bây giờ bạn đã thấy các cách sử dụng hữu ích mà thư viện chuẩn sử dụng với
 `Option` và `Result` enum, chúng ta sẽ nói về cách hoạt động của generics và
