@@ -491,7 +491,7 @@ code từ Listing 9-10 nhưng đã thay đổi kiểu trả về của `main` th
 Code này sẽ bây giờ được biên dịch:
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch09-error-handling/listing-09-12/output.txt}}
+{{#rustdoc_include ../listings/ch09-error-handling/listing-09-12/src/main.rs}}
 ```
 
 <span class="caption">Listing 9-12: Đổi `main` để trả về `Result<(), E>` cho
