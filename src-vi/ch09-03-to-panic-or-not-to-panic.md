@@ -34,7 +34,8 @@ của bạn mạnh cứng cáp hơn.
 
 Nếu một phương thức gọi thất bại trong một test, bạn sẽ muốn toàn bộ test thất
 bại, ngay cả khi phương thức đó không phải là chức năng đang được test. Bởi
-vì `panic!` là cách để một test được đánh dấu là thất bại, việc gọi `unwrap` hoặc `expect` chính là những gì nên xảy ra.
+vì `panic!` là cách để một test được đánh dấu là thất bại, việc gọi `unwrap`
+hoặc `expect` chính là những gì nên xảy ra.
 
 ### Cases in Which You Have More Information Than the Compiler
 
