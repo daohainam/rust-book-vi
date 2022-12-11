@@ -238,7 +238,14 @@ Chúng ta cũng có thể sử dụng `pub` để đánh dấu struct và enum l
 có một số chi tiết khác về cách sử dụng `pub` với struct và enum. Nếu chúng ta
 sử dụng `pub` trước một định nghĩa struct, chúng ta sẽ làm public struct, nhưng
 các trường của struct vẫn sẽ là private. Chúng ta có thể làm public hoặc không
-cho mỗi trường một cách riêng biệt. Trong Listing 7-9, chúng ta đã định nghĩa một struct `back_of_house::Breakfast` public với một trường `toast` public nhưng một trường `seasonal_fruit` private. Điều này mô hình trường hợp trong một nhà hàng nơi khách hàng có thể chọn loại bánh mì mà họ muốn kèm theo một bữa ăn, nhưng bếp trưởng quyết định loại quả tươi sẽ đi kèm theo bữa ăn dựa trên mùa và hàng tồn kho. Các loại quả tươi thay đổi nhanh chóng, vì vậy khách hàng không thể chọn loại quả tươi hoặc thậm chí xem được loại quả tươi mà họ sẽ nhận được.
+cho mỗi trường một cách riêng biệt. Trong Listing 7-9, chúng ta đã định nghĩa
+một struct `back_of_house::Breakfast` public với một trường `toast` public
+nhưng một trường `seasonal_fruit` private. Điều này mô hình trường hợp trong
+một nhà hàng nơi khách hàng có thể chọn loại bánh mì mà họ muốn kèm theo một
+bữa ăn, nhưng bếp trưởng quyết định loại quả tươi sẽ đi kèm theo bữa ăn dựa
+trên mùa và hàng tồn kho. Các loại quả tươi thay đổi nhanh chóng, vì vậy khách
+hàng không thể chọn loại quả tươi hoặc thậm chí xem được loại quả tươi mà họ sẽ
+nhận được.
 
 <span class="filename">Filename: src/lib.rs</span>
 
