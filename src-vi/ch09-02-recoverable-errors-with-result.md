@@ -176,7 +176,7 @@ chúng ta. Đây là một ví dụ về `unwrap` hoạt động:
 <span class="filename">Filename: src/main.rs</span>
 
 ```rust,should_panic
-{{#rustdoc_include ../listings/ch09-error-handling/no-listing-04-unwrap/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch09-error-handling/no-listing-04-unwrap/src/main.rs}}
 ```
 
 Nếu chúng ta chạy code này mà không có file *hello.txt*, chúng ta sẽ thấy một
