@@ -81,7 +81,7 @@ không có tệp nào có tên *hello.txt* trong thư mục hiện tại của c
 ta chạy mã này, chúng ta sẽ thấy đầu ra sau từ macro `panic!`:
 
 ```console
-{{#include ../listings/ch09-error-handling/listing-09-04/output.txt:here}}
+{{#include ../listings/ch09-error-handling/listing-09-04/output.txt}}
 ```
 
 Như thường lệ, output này cho chúng ta biết chính xác lỗi là gì.
