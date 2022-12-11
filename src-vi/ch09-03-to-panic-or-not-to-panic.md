@@ -50,7 +50,7 @@ bạn nghĩ bạn sẽ không bao giờ có một biến thể `Err` trong văn 
 Đây là một ví dụ:
 
 ```rust
-{{#rustdoc_include ../listings/ch09-error-handling/no-listing-08-unwrap-that-cant-fail/output.txt}}
+{{#rustdoc_include ../listings/ch09-error-handling/no-listing-08-unwrap-that-cant-fail/src/main.rs:here}}
 ```
 
 Chúng ta đang tạo một instance `IpAddr` bằng cách truyền vào một chuỗi cố định (hardcode). Chúng ta có thể thấy `127.0.0.1` là một địa chỉ IP hợp lệ, do đó
