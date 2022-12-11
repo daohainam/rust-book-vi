@@ -1,6 +1,7 @@
 ## Paths for Referring to an Item in the Module Tree
 
-Để chỉ cho Rust biết nơi tìm thấy một item trong cây module, chúng ta sử dụng một đường dẫn (path) tương tự như chúng ta sử dụng một đường dẫn trong một hệ
+Để chỉ cho Rust biết nơi tìm thấy một item trong cây module, chúng ta sử dụng
+một đường dẫn (path) tương tự như chúng ta sử dụng một đường dẫn trong một hệ
 thống tập tin. Để gọi một hàm, chúng ta cần biết đường dẫn của nó.
 
 Một đường dẫn có thể có hai dạng:
@@ -11,7 +12,8 @@ tên crate, và đối với code từ crate hiện tại, nó bắt đầu vớ
 * *Đường dẫn tương đối (relative path)* bắt đầu từ module hiện tại và sử dụng
 `self`, `super`, hoặc một định danh (identifier) trong module hiện tại.
 
-Cả đường dẫn tuyệt đối và tương đối đều được theo sau bởi một hoặc nhiều định danh (identifier) được phân tách bởi hai dấu hai chấm (`::`).
+Cả đường dẫn tuyệt đối và tương đối đều được theo sau bởi một hoặc nhiều định
+danh (identifier) được phân tách bởi hai dấu hai chấm (`::`).
 
 Trở lại Listing 7-1, giả sử chúng ta muốn gọi hàm `add_to_waitlist`. Điều này
 tương đương với câu hỏi: đường dẫn của hàm `add_to_waitlist` là gì? Listing 7-3
