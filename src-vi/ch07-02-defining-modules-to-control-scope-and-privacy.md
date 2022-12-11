@@ -162,7 +162,8 @@ crate
 <span class="caption">Listing 7-2: Module tree cho code trong Listing 7-1</span>
 
 Cây này cho thấy cách các module lồng nhau; ví dụ, `hosting` lồng trong
-`front_of_house`. Cây cũng cho thấy rằng một số module là *anh em (siblings)* với nhau, nghĩa là chúng được định nghĩa trong cùng một module; `hosting` và
+`front_of_house`. Cây cũng cho thấy rằng một số module là *anh em (siblings)*
+với nhau, nghĩa là chúng được định nghĩa trong cùng một module; `hosting` và
 `serving` là anh em cùng được định nghĩa trong `front_of_house`. Nếu module A
 được chứa bên trong module B, chúng ta nói module A là *con (child)* của module
 B và module B là *cha (parent)* của module A. Lưu ý rằng toàn bộ module tree
