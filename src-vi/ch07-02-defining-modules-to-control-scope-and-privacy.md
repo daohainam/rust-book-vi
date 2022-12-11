@@ -11,7 +11,11 @@ quy tắc một cách chi tiết.
 
 ### Modules Cheat Sheet
 
-Đây là một bảng tóm tắt về cách các module, paths, từ khóa `use` và từ khóa `pub` hoạt động trong compiler, và cách hầu hết các lập trình viên tổ chức code của họ. Chúng ta sẽ đi qua các ví dụ của mỗi quy tắc trong chương này, nhưng đây là một nơi tuyệt vời để tham khảo như một lời nhắc về cách các module hoạt động.
+Đây là một bảng tóm tắt về cách các module, paths, từ khóa `use` và từ khóa
+`pub` hoạt động trong compiler, và cách hầu hết các lập trình viên tổ chức code
+của họ. Chúng ta sẽ đi qua các ví dụ của mỗi quy tắc trong chương này, nhưng
+đây là một nơi tuyệt vời để tham khảo như một lời nhắc về cách các module hoạt
+động.
 
 - **Bắt đầu từ crate root**: Khi biên dịch một crate, compiler sẽ đầu tiên tìm
   trong file crate root (thường là *src/lib.rs* cho một crate library hoặc
