@@ -33,7 +33,7 @@ gốc của panic.
 
 Hãy thử gọi `panic!` trong một chương trình đơn giản:
 
-<span class="filename">filename: src/main.rs</span>
+<span class="filename">Filename: src/main.rs</span>
 
 ```rust,should_panic,panics
 {{#rustdoc_include ../listings/ch09-error-handling/no-listing-01-panic/src/main.rs}}
