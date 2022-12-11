@@ -45,7 +45,10 @@ Lỗi biên dịch cho thấy đường dẫn tắt không còn áp dụng trong
 {{#include ../listings/ch07-managing-growing-projects/listing-07-12/output.txt}}
 ```
 
-Lưu ý rằng còn có một cảnh báo rằng `use` không còn được sử dụng trong scope của nó! Để sửa vấn đề này, di chuyển `use` trong module `customer` nữa, hoặc tham chiếu đến đường dẫn tắt trong module cha với `super::hosting` trong module con `customer`.
+Lưu ý rằng còn có một cảnh báo rằng `use` không còn được sử dụng trong scope
+của nó! Để sửa vấn đề này, di chuyển `use` trong module `customer` nữa, hoặc
+tham chiếu đến đường dẫn tắt trong module cha với `super::hosting` trong module
+con `customer`.
 
 ### Creating Idiomatic `use` Paths
 
