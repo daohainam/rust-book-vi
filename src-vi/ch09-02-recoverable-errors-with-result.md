@@ -60,7 +60,7 @@ ta đã thảo luận trong Chương 6.
 <span class="filename">Tên tệp: src/main.rs</span>
 
 ```rust,should_panic
-{{#rustdoc_include ../listings/ch09-error-handling/listing-09-04/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch09-error-handling/listing-09-04/src/main.rs}}
 ```
 
 <span class="caption">Listing 9-4: Sử dụng biểu thức `match` để xử lý các
