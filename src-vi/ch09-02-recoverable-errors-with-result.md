@@ -37,7 +37,8 @@ Trong Listing 9-3 chúng ta cố gắng mở một tệp.
 <span class="caption">Listing 9-3: Mở một tệp</span>
 
 Kiểu trả về của `File::open` là `Result<T, E>`. Tham số kiểu generic `T`
-được điền vào bởi hiện thực `File::open` với kiểu của giá trị khi gọi thành công là `std::fs::File`, đó là một file handle. Kiểu của `E` được sử dụng trong
+được điền vào bởi hiện thực `File::open` với kiểu của giá trị khi gọi thành
+công là `std::fs::File`, đó là một file handle. Kiểu của `E` được sử dụng trong
 giá và giá trị lỗi là `std::io::Error`. Kiểu trả về này có nghĩa là lời gọi đến
 `File::open` có thể thành công và trả về một file handle mà chúng ta có thể
 đọc hoặc ghi. Lời gọi hàm cũng có thể thất bại: ví dụ, tệp có thể không tồn tại,
@@ -51,7 +52,10 @@ Trong trường hợp `File::open` thành công, giá trị trong biến
 trường hợp nó thất bại, giá trị trong `greeting_file_result` sẽ là một thể hiện
 của `Err` chứa thêm thông tin về loại lỗi đã xảy ra.
 
-Chúng ta cần thêm vào code trong Listing 9-3 để thực hiện các hành động khác nhau tùy thuộc vào giá trị mà `File::open` trả về. Listing 9-4 cho thấy một cách để xử lý `Result` sử dụng một công cụ cơ bản, biểu thức `match` mà chúng ta đã thảo luận trong Chương 6.
+Chúng ta cần thêm vào code trong Listing 9-3 để thực hiện các hành động khác
+nhau tùy thuộc vào giá trị mà `File::open` trả về. Listing 9-4 cho thấy một
+cách để xử lý `Result` sử dụng một công cụ cơ bản, biểu thức `match` mà chúng
+ta đã thảo luận trong Chương 6.
 
 <span class="filename">Tên tệp: src/main.rs</span>
 
