@@ -167,8 +167,9 @@ với `eat_at_restaurant`, vì vậy đường dẫn tương đối bắt đầu
 `add_to_waitlist` được đánh dấu với `pub`, phần còn lại của đường dẫn hoạt
 động, và cuộc gọi hàm này là hợp lệ!
 
-Nếu bạn dự định chia sẻ thư viện crate để các dự án khác có thể sử dụng mã của
-bạn, API công khai của bạn là interface mà người dùng của crate của bạn tương tác với mã của bạn. Có nhiều điều cần xem xét về việc quản lý các thay đổi
+Nếu bạn dự định chia sẻ library crate để các dự án khác có thể sử dụng mã của
+bạn, API công khai của bạn là interface mà người dùng của crate của bạn tương
+tác với mã của bạn. Có nhiều điều cần xem xét về việc quản lý các thay đổi
 trong API công khai của bạn để làm cho việc phụ thuộc vào crate của bạn dễ dàng
 hơn. Những điều này nằm ngoài phạm vi của cuốn sách này; nếu bạn quan tâm đến
 chủ đề này, hãy xem [The Rust API Guidelines][api-guidelines].
