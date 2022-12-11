@@ -2,7 +2,8 @@
 
 Khi nào bạn nên dùng `panic` và khi nào nên return về `Result`? Khi code panic,
 thì không có cách nào để khôi phục lại. Bạn có thể dùng `panic` cho bất kỳ
-trường hợp lỗi nào, dù có thể khôi phục lại hay không, nhưng bạn sẽ phải đưa ra quyết định rằng một trường hợp là không thể khôi phục lại được, đối với code gọi
+trường hợp lỗi nào, dù có thể khôi phục lại hay không, nhưng bạn sẽ phải đưa ra
+quyết định rằng một trường hợp là không thể khôi phục lại được, đối với code gọi
 hàm. Khi bạn chọn trả về một giá trị `Result`, bạn sẽ cho phép code gọi hàm có
 các lựa chọn. Code gọi hàm có thể chọn cách khôi phục lại một cách phù hợp với
 trường hợp của nó, hoặc nó có thể quyết định rằng một giá trị `Err` trong trường
