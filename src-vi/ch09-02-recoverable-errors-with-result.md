@@ -445,7 +445,7 @@ sẽ là giá trị kết quả của biểu thức và hàm sẽ tiếp tục. 
 ví dụ về một hàm tìm ký tự cuối cùng của dòng đầu tiên trong văn bản cho trước:
 
 ```rust
-{{#rustdoc_include ../listings/ch09-error-handling/listing-09-11/output.txt:here}}
+{{#rustdoc_include ../listings/ch09-error-handling/listing-09-11/src/main.rs:here}}
 ```
 
 <span class="caption">Listing 9-11: Sử dụng toán tử `?` trên một giá trị
