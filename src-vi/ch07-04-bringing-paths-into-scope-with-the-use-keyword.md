@@ -160,8 +160,12 @@ Re-exporting rất hữu ích khi cấu trúc bên trong code của bạn khác 
 lập trình viên gọi code của bạn sẽ nghĩ về domain. Ví dụ, trong thí dụ nhà hàng
 ở trên, người điều hành nhà hàng nghĩ về “front of house” và “back of house”.
 Nhưng khách hàng đến nhà hàng có thể không nghĩ về các phần của nhà hàng theo
-cách đó. Với `pub use`, chúng ta có thể viết code của mình với một cấu trúc nhưng sẽ cho thấy một cấu trúc khác. Việc làm như vậy giúp code của chúng ta được tổ chức tốt cho cả các lập trình viên làm việc trên code của chúng ta và
-các lập trình viên gọi code của chúng ta. Chúng ta sẽ xem một ví dụ khác về `pub use` và cách nó ảnh hưởng đến tài liệu của crate của bạn trong phần [“Exporting a Convenient Public API with `pub use`”][ch14-pub-use]<!-- ignore --> của Chapter 14.
+cách đó. Với `pub use`, chúng ta có thể viết code của mình với một cấu trúc
+nhưng sẽ cho thấy một cấu trúc khác. Việc làm như vậy giúp code của chúng ta
+được tổ chức tốt cho cả các lập trình viên làm việc trên code của chúng ta và
+các lập trình viên gọi code của chúng ta. Chúng ta sẽ xem một ví dụ khác về
+`pub use` và cách nó ảnh hưởng đến tài liệu của crate của bạn trong phần
+[“Exporting a Convenient Public API with `pub use`”][ch14-pub-use]<!-- ignore --> của Chapter 14.
 
 ### Using External Packages
 
