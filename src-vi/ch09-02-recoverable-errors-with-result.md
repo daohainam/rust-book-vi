@@ -102,7 +102,7 @@ một biểu thức `match` bên trong, được hiển thị trong Listing 9-5.
 tests to fail lol -->
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch09-error-handling/listing-09-05/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch09-error-handling/listing-09-05/src/main.rs}}
 ```
 
 <span class="caption">Listing 9-5: Xử lý các loại lỗi khác nhau theo các cách
