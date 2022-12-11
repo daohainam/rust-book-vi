@@ -57,7 +57,7 @@ nhau tùy thuộc vào giá trị mà `File::open` trả về. Listing 9-4 cho t
 cách để xử lý `Result` sử dụng một công cụ cơ bản, biểu thức `match` mà chúng
 ta đã thảo luận trong Chương 6.
 
-<span class="filename">Tên tệp: src/main.rs</span>
+<span class="filename">Filename: src/main.rs</span>
 
 ```rust,should_panic
 {{#rustdoc_include ../listings/ch09-error-handling/listing-09-04/src/main.rs}}
