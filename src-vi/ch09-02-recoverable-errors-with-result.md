@@ -202,7 +202,7 @@ hơn. Cú pháp của `expect` như sau:
 <span class="filename">Filename: src/main.rs</span>
 
 ```rust,should_panic
-{{#rustdoc_include ../listings/ch09-error-handling/no-listing-05-expect/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch09-error-handling/no-listing-05-expect/src/main.rs}}
 ```
 
 Chúng ta sử dụng `expect` theo cách giống như `unwrap`: để trả về file handle
