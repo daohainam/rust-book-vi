@@ -55,7 +55,8 @@ main.rs
 
 Sau khi chúng ta chạy `cargo new`, chúng ta sử dụng lệnh `ls` để xem những gì
 Cargo tạo ra. Trong thư mục dự án, có một file *Cargo.toml*, định nghĩa cho
-chúng ta một package. Có một thư mục *src* chứa file *main.rs*. Mở file *Cargo.toml* trong trình soạn thảo văn bản, và chú ý rằng không có đề cập nào đến
+chúng ta một package. Có một thư mục *src* chứa file *main.rs*. Mở file *Cargo.toml* 
+trong trình soạn thảo văn bản, và chú ý rằng không có đề cập nào đến
 file *src/main.rs*. Cargo quy ước rằng *src/main.rs* là crate root của
 một binary crate cùng tên với package. Tương tự, Cargo biết rằng nếu thư
 mục package chứa file *src/lib.rs*, package chứa một library crate với cùng
