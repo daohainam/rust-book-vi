@@ -28,7 +28,7 @@ ta sẽ đi sâu vào chi tiết hơn về `pub`. Lưu ý rằng ví dụ này t
 <span class="filename">Filename: src/lib.rs</span>
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-03/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-03/src/lib.rs}}
 ```
 
 <span class="caption">Listing 7-3: Gọi hàm `add_to_waitlist` sử dụng đường dẫn
