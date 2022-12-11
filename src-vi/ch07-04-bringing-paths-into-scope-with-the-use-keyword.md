@@ -33,7 +33,7 @@ Lưu ý rằng `use` chỉ tạo đường dẫn tắt cho scope cụ thể mà 
 <span class="filename">Filename: src/lib.rs</span>
 
 ```rust,noplayground,test_harness,does_not_compile,ignore
-{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-12/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-12/src/lib.rs}}
 ```
 
 <span class="caption">Listing 7-12: Một câu lệnh `use` chỉ áp dụng trong scope
