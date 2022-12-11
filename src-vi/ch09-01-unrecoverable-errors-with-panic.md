@@ -68,7 +68,7 @@ index trong một vector ngoài phạm vi của các index hợp lệ.
 <span class="filename">Filename: src/main.rs</span>
 
 ```rust,should_panic,panics
-{{#rustdoc_include ../listings/ch09-error-handling/listing-09-01/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch09-error-handling/listing-09-01/src/main.rs}}
 ```
 
 <span class="caption">Listing 9-1: Cố gắng truy cập một phần tử ngoài phạm vi
