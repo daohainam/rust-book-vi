@@ -65,7 +65,7 @@ từ một thư viện vì một lỗi trong code của chúng ta thay vì từ 
 ta gọi macro trực tiếp. Listing 9-1 có một số code mà cố gắng truy cập một
 index trong một vector ngoài phạm vi của các index hợp lệ.
 
-<span class="filename">Tên file: src/main.rs</span>
+<span class="filename">Filename: src/main.rs</span>
 
 ```rust,should_panic,panics
 {{#rustdoc_include ../listings/ch09-error-handling/listing-09-01/src/main.rs:here}}
