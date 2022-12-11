@@ -21,7 +21,8 @@ của họ. Chúng ta sẽ đi qua các ví dụ của mỗi quy tắc trong ch�
   trong file crate root (thường là *src/lib.rs* cho một crate library hoặc
   *src/main.rs* cho một crate binary).
 - **Định nghĩa module**: Trong file crate root, bạn có thể định nghĩa các module
-  mới; nói cách khác, bạn định nghĩa một module “garden” với `mod garden;`. Compiler sẽ tìm kiếm code của module trong những nơi sau:
+  mới; nói cách khác, bạn định nghĩa một module “garden” với `mod garden;`.
+  Compiler sẽ tìm kiếm code của module trong những nơi sau:
   - Trực tiếp, trực tiếp sau `mod garden`, trong dấu ngoặc nhọn thay vì dấu chấm phẩy
   - Trong file *src/garden.rs*
   - Trong file *src/garden/mod.rs*
@@ -29,18 +30,22 @@ của họ. Chúng ta sẽ đi qua các ví dụ của mỗi quy tắc trong ch�
   thể định nghĩa các submodules. Ví dụ, bạn có thể định nghĩa `mod vegetables;`
   trong *src/garden.rs*. Compiler sẽ tìm kiếm code của submodule trong thư mục
   có tên giống với module cha trong những nơi sau:
-  - Trực tiếp, trực tiếp sau `mod vegetables`, trong dấu ngoặc nhọn thay vì dấu chấm phẩy
+  - Trực tiếp, trực tiếp sau `mod vegetables`, trong dấu ngoặc nhọn thay vì dấu
+  chấm phẩy
   - Trong file *src/garden/vegetables.rs*
   - Trong file *src/garden/vegetables/mod.rs*
 - **Path dẫn đến code trong module**: Một khi một module là một phần của crate,
   bạn có thể tham chiếu đến code trong module đó từ bất kỳ nơi nào trong cùng
-  crate, một khi các quy tắc bảo mật cho phép, bằng cách sử dụng đường dẫn (path) đến code. Ví dụ, một kiểu `Asparagus` trong module vegetables của
+  crate, một khi các quy tắc bảo mật cho phép, bằng cách sử dụng đường dẫn
+  (path) đến code. Ví dụ, một kiểu `Asparagus` trong module vegetables của
   garden sẽ được tìm thấy tại `crate::garden::vegetables::Asparagus`.
-- **Private vs public**: Code trong một module mặc định là private với các module
+- **Private vs public**: Code trong một module mặc định là private với các
+module
   cha của nó. Để làm cho một module public, định nghĩa nó với `pub mod` thay vì
   `mod`. Để làm cho các item trong một module public, sử dụng `pub` trước các
   định nghĩa của chúng.
-- **Từ khóa `use`**: Trong một scope, từ khóa `use` tạo các đường dẫn tắt đến các
+- **Từ khóa `use`**: Trong một scope, từ khóa `use` tạo các đường dẫn tắt đến
+các
   item để giảm thiểu sự lặp lại của các đường dẫn dài. Trong bất kỳ scope nào
   có thể tham chiếu đến `crate::garden::vegetables::Asparagus`, bạn có thể tạo
   một đường dẫn tắt với `use crate::garden::vegetables::Asparagus;` và từ đó
