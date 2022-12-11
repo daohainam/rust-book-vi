@@ -15,7 +15,7 @@ scope của hàm `eat_at_restaurant` để chúng ta chỉ cần chỉ định
 <span class="filename">Filename: src/lib.rs</span>
 
 ```rust,noplayground,test_harness
-{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-11/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-11/src/lib.rs}}
 ```
 
 <span class="caption">Listing 7-11: Mang một module vào scope với `use`</span>
