@@ -399,8 +399,10 @@ tất cả các xử lý lỗi, vì vậy chúng ta đã làm theo cách dài h�
 Toán tử `?` chỉ có thể được sử dụng trong các hàm mà kiểu trả về là tương
 thích với giá trị mà `?` được sử dụng. Điều này là bởi vì toán tử `?` được định
 nghĩa để thực hiện một yêu cầu trả về sớm của một giá trị ra khỏi hàm,
-cùng một cách như biểu thức `match` mà chúng ta định nghĩa trong Listing 9-6. Trong Listing 9-6, `match` sử dụng một giá trị `Result`, và trả về sớm một giá
-trị `Err(e)`. Kiểu trả về của hàm phải là một `Result` để nó tương thích với trả về sớm của lệnh `return`.
+cùng một cách như biểu thức `match` mà chúng ta định nghĩa trong Listing 9-6.
+Trong Listing 9-6, `match` sử dụng một giá trị `Result`, và trả về sớm một giá
+trị `Err(e)`. Kiểu trả về của hàm phải là một `Result` để nó tương thích với
+trả về sớm của lệnh `return`.
 
 Trong Listing 9-10, hãy xem lỗi mà chúng ta sẽ nhận được nếu chúng ta sử dụng
 toán tử `?` trong một hàm `main` với kiểu trả về không tương thích với kiểu của
