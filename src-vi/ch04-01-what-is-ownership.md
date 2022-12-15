@@ -1,23 +1,23 @@
-## What Is Ownership?
+## Ownership là gì?
 
-*Ownership* is a set of rules that governs how a Rust program manages memory.
-All programs have to manage the way they use a computer’s memory while running.
-Some languages have garbage collection that regularly looks for no-longer used
-memory as the program runs; in other languages, the programmer must explicitly
-allocate and free the memory. Rust uses a third approach: memory is managed
-through a system of ownership with a set of rules that the compiler checks. If
-any of the rules are violated, the program won’t compile. None of the features
-of ownership will slow down your program while it’s running.
+*Ownership* là một tập các quy tắc phối hợp với nhau, định hình cách Rust quản lý
+bộ nhớ. Tất cả các chương trình đều phải quản lý cách chúng sử dụng bộ nhớ máy
+tính khi chạy. Một số ngôn ngữ có bộ dọn rác chạy định kỳ để giải phóng các phần
+bộ nhớ không còn được dùng tới; trong các ngôn ngữ khác, chương trình phải xin 
+cấp phát hoặc giải phóng bộ nhớ một cách cụ thể. Rust dùng cách tiếp cận thứ ba: 
+bộ nhớ được quản lý thông qua một hệ thống sở hữu với một tập các quy tắc sẽ được
+kiểm tra bởi trình biên dịch. Nếu bất kỳ quy tắc nào bị vi phạm, chương trình sẽ
+không được dịch. Không có bất kỳ tính năng nào của ownership làm chậm chương trình 
+của bạn khi chạy.
 
-Because ownership is a new concept for many programmers, it does take some time
-to get used to. The good news is that the more experienced you become with Rust
-and the rules of the ownership system, the easier you’ll find it to naturally
-develop code that is safe and efficient. Keep at it!
+Vì ownership là một khái niệm mới với nhiều lập trình viên, nó sẽ mất một thời 
+gian để làm quen. Tin tốt là càng có nhiều kinh nghiệm với Rust và các quy tắc 
+của hệ thống ownership, bạn càng thấy việc lập trình các code an toàn và hiệu quả
+dễ dàng hơn. Vậy nên hãy cố lên!
 
-When you understand ownership, you’ll have a solid foundation for understanding
-the features that make Rust unique. In this chapter, you’ll learn ownership by
-working through some examples that focus on a very common data structure:
-strings.
+Khi đã hiểu ownership, bạn sẽ có một nền tảng chắc chắn để hiểu các tính năng
+vốn làm cho Rust trở nên độc nhất. Trong chương này bạn sẽ học về ownership
+thông qua một số ví dụ tập trung vào một cấu trúc dữ liệu rất phổ biến: string.
 
 > ### The Stack and the Heap
 >
