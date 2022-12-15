@@ -1,4 +1,4 @@
-# Ngôn ngữ lập trình Rust
+[# Ngôn ngữ lập trình Rust
 
 ![Build Status](https://github.com/rust-lang/book/workflows/CI/badge.svg)
 
@@ -20,6 +20,11 @@ trên cũng có thể đã được sửa trên repository, vì các bản phát
 Đọc phần [releases] để tải về mã nguồn của tất cả các đoạn mã xuất hiện trong sách.
 
 [releases]: https://github.com/rust-lang/book/releases
+
+> ### Ghi chú sau dành riêng cho bản dịch tiếng Việt
+> Bạn có thể đọc bản dịch tiếng Việt được build với mdbook tại địa chỉ:
+> https://daohainam.github.io/rust-book/.
+> Để tham gia dịch thuật, xin đọc https://github.com/rust-lang/book/issues/375#issuecomment-1295252256 
 
 ## Yêu cầu
 
@@ -101,3 +106,4 @@ thư mục `ci`. Nó cần một từ điển các từ hợp lệ, được ch�
 script trên sinh ra một lỗi (ví dụ như khi bạn dùng từ `BTreeMap` vối đối với script là 
 không hợp lệ), bạn cần thêm từ này vào `ci/dictionary.txt` (đưa vào đúng vị trí để giữ
 đúng thứ tự sắp xếp sẵn có).
+](https://github.com/rust-lang/book/issues/375#issuecomment-1295252256)
