@@ -1,4 +1,4 @@
-[# Ngôn ngữ lập trình Rust
+# Ngôn ngữ lập trình Rust
 
 ![Build Status](https://github.com/rust-lang/book/workflows/CI/badge.svg)
 
