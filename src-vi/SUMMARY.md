@@ -1,41 +1,41 @@
-# The Rust Programming Language
+# Ngôn ngữ lập trình Rust
 
 [Ngôn ngữ lập trình Rust](title-page.md)
-[Foreword](foreword.md)
-[Introduction](ch00-00-introduction.md)
+[Lời nói đầu](foreword.md)
+[Giới thiệu](ch00-00-introduction.md)
 
-## Getting started
+## Bắt đầu với Rust
 
-- [Getting Started](ch01-00-getting-started.md)
+- [Bắt đầu](ch01-00-getting-started.md)
     - [Cài đặt](ch01-01-installation.md)
     - [Hello, World!](ch01-02-hello-world.md)
     - [Hello, Cargo!](ch01-03-hello-cargo.md)
 
-- [Programming a Guessing Game](ch02-00-guessing-game-tutorial.md)
+- [Lập trình trò chơi đoán số](ch02-00-guessing-game-tutorial.md)
 
-- [Common Programming Concepts](ch03-00-common-programming-concepts.md)
-    - [Variables and Mutability](ch03-01-variables-and-mutability.md)
-    - [Data Types](ch03-02-data-types.md)
-    - [Functions](ch03-03-how-functions-work.md)
-    - [Comments](ch03-04-comments.md)
-    - [Control Flow](ch03-05-control-flow.md)
+- [Các khái niệm chung trong lập trình](ch03-00-common-programming-concepts.md)
+    - [Biến và tính khả biến](ch03-01-variables-and-mutability.md)
+    - [Các kiểu dữ liệu](ch03-02-data-types.md)
+    - [Hàm](ch03-03-how-functions-work.md)
+    - [Ghi chú](ch03-04-comments.md)
+    - [Các khối điều khiển](ch03-05-control-flow.md)
 
-- [Understanding Ownership](ch04-00-understanding-ownership.md)
-    - [What is Ownership?](ch04-01-what-is-ownership.md)
-    - [References and Borrowing](ch04-02-references-and-borrowing.md)
-    - [The Slice Type](ch04-03-slices.md)
+- [Tìm hiểu về Ownership](ch04-00-understanding-ownership.md)
+    - [Ownership là gì?](ch04-01-what-is-ownership.md)
+    - [Tham chiếu (reference) và mượn (borrowing)](ch04-02-references-and-borrowing.md)
+    - [Kiểu Slice](ch04-03-slices.md)
 
-- [Using Structs to Structure Related Data](ch05-00-structs.md)
-    - [Defining and Instantiating Structs](ch05-01-defining-structs.md)
-    - [An Example Program Using Structs](ch05-02-example-structs.md)
-    - [Method Syntax](ch05-03-method-syntax.md)
+- [Sử dụng Structs để kết hợp các dữ liệu có liên quan](ch05-00-structs.md)
+    - [Định nghĩa và khởi tạo Struct](ch05-01-defining-structs.md)
+    - [Một ví dụ về lập trình với Struct](ch05-02-example-structs.md)
+    - [Cú pháp phương thức](ch05-03-method-syntax.md)
 
-- [Enums and Pattern Matching](ch06-00-enums.md)
-    - [Defining an Enum](ch06-01-defining-an-enum.md)
-    - [The `match` Control Flow Construct](ch06-02-match.md)
-    - [Concise Control Flow with `if let`](ch06-03-if-let.md)
+- [Kiểu Enum và khớp mẫu](ch06-00-enums.md)
+    - [Định nghĩa một Enum](ch06-01-defining-an-enum.md)
+    - [Cấu trúc điều khiển `match`](ch06-02-match.md)
+    - [Điều khiển luồng thực thi một các chính xác với `if let`](ch06-03-if-let.md)
 
-## Basic Rust Literacy
+## Kho từ vựng cơ bản của Rust
 
 - [Managing Growing Projects with Packages, Crates, and Modules](ch07-00-managing-growing-projects-with-packages-crates-and-modules.md)
     - [Packages and Crates](ch07-01-packages-and-crates.md)
@@ -72,7 +72,7 @@
     - [Working with Environment Variables](ch12-05-working-with-environment-variables.md)
     - [Writing Error Messages to Standard Error Instead of Standard Output](ch12-06-writing-to-stderr-instead-of-stdout.md)
 
-## Thinking in Rust
+## Cách suy nghĩa trong Rust
 
 - [Functional Language Features: Iterators and Closures](ch13-00-functional-features.md)
     - [Closures: Anonymous Functions that Can Capture Their Environment](ch13-01-closures.md)
@@ -106,7 +106,7 @@
     - [Using Trait Objects That Allow for Values of Different Types](ch17-02-trait-objects.md)
     - [Implementing an Object-Oriented Design Pattern](ch17-03-oo-design-patterns.md)
 
-## Advanced Topics
+## Các chủ đề nâng cao
 
 - [Patterns and Matching](ch18-00-patterns.md)
     - [All the Places Patterns Can Be Used](ch18-01-all-the-places-for-patterns.md)
