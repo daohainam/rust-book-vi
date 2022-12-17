@@ -1,4 +1,4 @@
-## Lưu trữ văn bản được mã hóa UTF-8 bằng chuỗi (String)
+## Lưu trữ văn bản được mã hóa UTF-8 bằng chuỗi (String) {#storing-utf-8-encoded-text-with-strings}
 
 Chúng ta đã nói về chuỗi trong Chương 4, nhưng bây giờ chúng ta sẽ xem xét chúng sâu hơn. Những tín đồ mới của Rust thường bị mắc kẹt khi làm việc với string vì ba lý do: Rust có xu hướng tìm ra các lỗi có khả năng xảy ra, chuỗi là một cấu trúc dữ liệu phức tạp hơn nhiều lập trình viên nghĩ và thứ ba là về UTF-8. Những yếu tố này kết hợp theo cách có vẻ khó khăn khi bạn hiểu theo cách các ngôn ngữ lập trình khác.
 
@@ -84,7 +84,7 @@ Phương thức `push` nhận ký tự đơn làm tham số và thêm nó vào `
 
 Kết quả là, `s` sẽ chứa `lol`.
 
-#### Nối chuỗi với toán tử `+` hoặc macro `format!`
+#### Nối chuỗi với toán tử `+` hoặc macro `format!` {#concatenation-with-the--operator-or-the-format-macro}
 
 Thông thường, bạn sẽ muốn kết hợp hai chuỗi hiện có. Có một cách để làm điều này là dùng toán tử `+`, được thể hiện ở mục 8-18
 
@@ -221,7 +221,7 @@ Cách tốt nhất để thao tác trên các phần của chuỗi là phải r�
 
 ```rust
 for c in "Зд".chars() {
-    println!("{}", c);
+    println!("{c}");
 }
 ```
 
@@ -236,7 +236,7 @@ Ngoài ra, phương thức `bytes` trả về từng byte thô, có thể phù h
 
 ```rust
 for b in "Зд".bytes() {
-    println!("{}", b);
+    println!("{b}");
 }
 ```
 

@@ -1,4 +1,4 @@
-## Các khối điều khiển
+## Các khối điều khiển {#control-flow}
 
 Khả năng chạy một số đoạn lệnh dựa khi một điều kiện nào đó là `true`, hoặc chạy lặp lại một
 lệnh khi một điều kiện nào đó là `true`, là các khối điều khiển cơ bản có trong hầu 
@@ -220,7 +220,7 @@ con số.
 Chúng ta cũng dùng `continue` trong trò chơi đoán số, để yêu cầu chương trình bỏ
 qua phần còn lại trong thân vòng lặp hiện tại và bắt đầu một vòng lặp mới.
 
-#### Returning Values from Loops
+#### Trả kết quả về từ vòng lặp
 
 Một trong những lý do dùng `loop` là để thực thi lại một tác vụ nào đó bạn biết
 có thể sẽ thất bại, kiểu như khi kiểm tra xem một thread đã hoàn thành công việc
@@ -286,7 +286,7 @@ Vòng lặp này cho phép loại bỏ nhiều cấu trúc lồng nhau như khi 
 `loop`, `if`, `else`, và `break`, giúp code của bạn sáng sủa hơn. Trong khi một
 điều kiện vẫn là `true`, chạy vòng lặp; ngược lại, kết thúc vòng lặp.
 
-#### Lặp qua một tập hợp với `for`
+#### Lặp qua một tập hợp với `for` {#looping-through-a-collection-with-for}
 
 Bạn có thể chọn dùng `while` để duyệt qua các thành phần của một tập hợp, kiểu 
 như một mảng. Ví dụ, vòng lặp trong Listing 3-4 in ra các phần tử có trong mảng

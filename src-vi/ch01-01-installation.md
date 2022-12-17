@@ -1,4 +1,4 @@
-## Cài đặt
+## Cài đặt {#installation}
 
 Bước đầu tiên là cài đặt Rust. Chúng ta sẽ tải về Rust thông qua `rustup`, một công cụ
 dòng lệnh quản lý phiên bản và các công cụ của Rust. Bạn sẽ cần một đường Internet 

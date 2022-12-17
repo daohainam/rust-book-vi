@@ -1,4 +1,4 @@
-## Các kiểu dữ liệu
+## Các kiểu dữ liệu {#data-types}
 
 Mọi giá trị trong Rust đều thuộc một *kiểu dữ liệu* cụ thể, điều này cho Rust biết loại
 dữ liệu đang được chỉ định để nó biết cách làm việc với dữ liệu đó. Chúng ta sẽ xem xét
@@ -32,7 +32,7 @@ Một *kiểu vô hướng* biểu diễn một giá trị đơn. Rust có bốn
 các kiểu số dấu chấm động, boolean và kiểu ký tự. Bạn có thể thấy chúng cũng tương tự
 trong các ngôn ngữ lập trình khác. Hãy cùng xem thử trong Rust chúng hoạt động thế nào.
 
-#### Các kiểu số nguyên (integer)
+#### Các kiểu số nguyên (integer) {#integer-types}
 
 Một *integer* là một số không có phần thập phân. Chúng ta đã từng dùng một kiểu integer 
 trong chương 2, kiểu `u32`. Việc khai báo kiểu này chỉ ra giá trị mà nó kết hợp phải 
@@ -192,7 +192,7 @@ Strings”][strings]<!-- ignore --> in Chương 8.
 
 *Kiểu phức* có thể nhóm nhiều giá trị vào chung một kiểu. Rust có hai kiểu phức chính: tuple và array.
 
-#### Kiểu tuple
+#### Kiểu tuple {#the-tuple-type}
 
 Một kiểu tuple là một cách chung để nhóm các giá trị khác nhau vào làm một. Các tupble có kích thước cố
 định: một khi đã khai báo, chúng sẽ không thể tăng hay giảm kích cỡ. Chúng ta tạo một tuble bằng cách viết 
