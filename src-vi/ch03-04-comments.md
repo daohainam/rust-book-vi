@@ -39,4 +39,6 @@ trên một dòng riêng biệt phía trên đoạn code nó đang giải thích
 ```
 
 Rust cũng có một kiểu ghi chú khác, được gọi là các ghi chú tài liệu, chúng
-ta sẽ thảo luận thêm trong phần “Publishing a Crate to Crates.io” ở chương 14.
+ta sẽ thảo luận thêm trong phần [“Publishing a Crate to Crates.io”][publishing]<!-- ignore --> ở chương 14.
+
+[publishing]: ch14-02-publishing-to-crates-io.html

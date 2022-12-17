@@ -1,7 +1,7 @@
 ## Các khối điều khiển
 
-Khả năng chạy một số đoạn lệnh dựa trên một điều kiện nào đó, hoặc chạy lặp lại một
-lệnh khi một điều kiện nào đó là đúng, là các khối điều khiển cơ bản có trong hầu 
+Khả năng chạy một số đoạn lệnh dựa khi một điều kiện nào đó là `true`, hoặc chạy lặp lại một
+lệnh khi một điều kiện nào đó là `true`, là các khối điều khiển cơ bản có trong hầu 
 hết các ngôn ngữ lập trình. Khối điều khiển phổ biến nhất cho phép bạn kiểm soát việc
 thực thi các đoạn code trong Rust là các biểu thức `if` và các lệnh lặp.
 
@@ -265,7 +265,7 @@ sẽ thoát ra vòng lặp bên ngoài. Đoạn code này sẽ in ra:
 #### Lặp theo điều kiện với `while`
 
 Một chương trình sẽ thường phải kiểm tra điều kiện bên trong một vòng lặp. Khi điều
-kiện là true, tiếp tục vòng lặp. Khi điều kiện không còn là true, chương trình sẽ
+kiện là true, tiếp tục vòng lặp. Khi điều kiện không còn là `true`, chương trình sẽ
 gọi `break` và ngưng vòng lặp. Bạn hoàn toàn có thể làm những điều trên bằng việc
 kết hợp `loop`, `if`, `else` và `break`; bạn có thể thử ngay nếu muốn. Tuy nhiên,
 cấu trúc này rất phổ biến, do vậy Rust tạo ra một cấu trúc lặp riêng cho nó, gọi 
@@ -367,8 +367,8 @@ vòng lặp! Để thực hành với các khái niệm được giới thiệu 
 viết một chương trình làm những việc sau:
 
 * Chuyển đổi nhiệt độ giữa các hệ Fahrenheit và Celsius.
-* Tạo số Fibonacci thứ n.
-* In ra lời bài hát “The Twelve Days of Christmas,”, ứng dụng các vòng lặp để in ra những đoạn lặp lại trong bài hát.
+* Tạo số Fibonacci thứ *n*.
+* In ra lời bài hát “The Twelve Days of Christmas”, ứng dụng các vòng lặp để in ra những đoạn lặp lại trong bài hát.
 
 Khi bạn đã sẵn sàng để tiếp tục, chúng ta sẽ nói về một khái niệm *không* tồn tại 
 trong hầu hết các ngôn ngữ khác: ownership.

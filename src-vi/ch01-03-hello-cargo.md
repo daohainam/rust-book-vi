@@ -70,7 +70,7 @@ edition = "2021"
 <span class="caption">Listing 1-2: Nội dung file *Cargo.toml* được tạo bởi `cargo
 new`</span>
 
-File này ở dạng [*TOML*](https://toml.io)<!-- ignore --> (*Tom’s Obvious,
+File này ở dạng [*TOML*][toml]<!-- ignore --> (*Tom’s Obvious,
 Minimal Language*), là định dạng Cargo dùng để chứa thông tin cấu hình.
 
 Dòng đầu tiên, `[package]`, là phần tiêu đề (section heading) chỉ ra các 
@@ -221,9 +221,7 @@ $ cd someproject
 $ cargo build
 ```
 
-Để đọc thêm về Cargo, xin hãy truy cập [its documentation].
-
-[its documentation]: https://doc.rust-lang.org/cargo/
+Để đọc thêm về Cargo, xin hãy truy cập [tài liệu của nó][cargo].
 
 ## Tổng kết 
 
@@ -243,4 +241,6 @@ Nếu bạn muốn bắt đầu bằng cách tìm hiểu các khái niệm lập
 Rust, hãy xem Chương 3 rồi sau đó quay lại Chương 2.
 
 [installation]: ch01-01-installation.html#installation
+[toml]: https://toml.io
 [appendix-e]: appendix-05-editions.html
+[cargo]: https://doc.rust-lang.org/cargo/

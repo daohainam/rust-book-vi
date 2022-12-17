@@ -60,31 +60,21 @@ bộ phân phối Linux mà họ sử dụng. Ví dụ, nếu bạn dùng Ubuntu
 
 Trên Windows, truy cập vào [https://www.rust-lang.org/tools/install][install] và 
 theo các hướng dẫn để cài đặt Rust. Trong lúc cài đặt bạn sẽ nhận được một thông 
-báo nói về việc bạn sẽ cần thêm các công cụ build cho Visual Studio 2013 hoặc mới
-hơn. Cách dễ nhất để lấy về các công cụ này là cài đặt [Build Tools for Visual Studio 2019][visualstudio].
-Khi được hỏi phần nào cần được cài đặt, nhớ hãy chọn phần “C++ build tools”
-và Windows 10 SDK and the English language pack.
+báo nói về việc bạn cần thêm các công cụ build cho Visual Studio 2013 hoặc mới
+hơn. 
+Cách dễ nhất để lấy về các công cụ này là cài đặt [Visual Studio
+2022][visualstudio].
+Khi được hỏi phần nào cần được cài đặt, nhớ hãy chọn:
+
+* “Desktop Development with C++”.
+* Windows 10 or 11 SDK.
+* English language pack component, cùng bất kỳ ngôn ngữ nào bạn muốn chọn.
 
 [install]: https://www.rust-lang.org/tools/install
 [visualstudio]: https://visualstudio.microsoft.com/visual-cpp-build-tools/
 
 Các câu lệnh trong phần còn lại của cuốn sách này sẽ làm việc với cả hai *cmd.exe* 
 và PowerShell. Nếu có gì khác nhau, chúng tôi sẽ chỉ ra bạn cần sử dụng cái nào.
-
-### Cập nhật và gỡ bỏ
-
-Sau khi đã cài đặt xong Rust thông qua `rustup`, việc cập nhật phiên bản mới nhất
-khá đơn giản. Từ dòng lệnh, chạy câu lệnh cập nhật sau:
-
-```console
-$ rustup update
-```
-
-Để gỡ bỏ Rust và `rustup`, chạy câu lệnh sau:
-
-```console
-$ rustup self uninstall
-```
 
 ### Xử lý trục trặc
 
@@ -103,15 +93,47 @@ rustc x.y.z (abcabcabc yyyy-mm-dd)
 ```
 
 Nếu bạn thấy thông tin này, bạn đã cài đặt Rust thành công! Nếu không thấy và bạn 
-đang sử dụng Windows, hãy kiểm tra xe Rust có trong biến môi trường PATH không.
+đang sử dụng Windows, hãy kiểm tra xe Rust có trong biến môi trường PATH không, theo
+một trong những cách sau:
+
+Trong cửa sổ Windows CMD, sử dụng:
+
+```console
+> echo %PATH%
+```
+
+Trong cửa sổ PowerShell, sử dụng:
+
+```powershell
+> echo $env:Path
+```
+
+Trong cửa sổ Linux và macOS, sử dụng:
+
+```console
+$ echo $PATH
+```
+
+
 Nếu tất cả đều đúng nhưng Rust vẫn không chạy, bạn có thể tìm sự giúp đỡ từ một 
 số nơi. Cách dễ nhất là kênh #beginners trên [the official Rust Discord][discord]. 
-Ở đó bạn có thể chat với những Rustacean (nickname chúng tôi tự đặt cho bản thân) khác.
-Những tài nguyên tuyệt vời khác bao gồm [the Users forum][users] và [Stack Overflow][stackoverflow].
+Ở đó bạn có thể chat với những Rustacean (nickname chúng tôi tự đặt cho bản thân) khác
+trên [the community page][community].
 
-[discord]: https://discord.gg/rust-lang
-[users]: https://users.rust-lang.org/
-[stackoverflow]: https://stackoverflow.com/questions/tagged/rust
+### Cập nhật và gỡ bỏ
+
+Sau khi đã cài đặt xong Rust thông qua `rustup`, việc cập nhật phiên bản mới nhất
+khá đơn giản. Từ dòng lệnh, chạy câu lệnh cập nhật sau:
+
+```console
+$ rustup update
+```
+
+Để gỡ bỏ Rust và `rustup`, chạy câu lệnh sau:
+
+```console
+$ rustup self uninstall
+```
 
 ### Tài liệu trên máy
 
@@ -120,3 +142,8 @@ Bản cài đặt của Rust cũng bao gồm một bản sao của tài liệu n
 
 Bất kỳ lúc nào nếu bạn không biết một kiểu dữ liệu hay một hàm trong thư viện chuẩn
 phải được dùng thế nào, hay tra tài liệu application programming interface (API)!
+
+[otherinstall]: https://forge.rust-lang.org/infra/other-installation-methods.html
+[install]: https://www.rust-lang.org/tools/install
+[visualstudio]: https://visualstudio.microsoft.com/downloads/
+[community]: https://www.rust-lang.org/community

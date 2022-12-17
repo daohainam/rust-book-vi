@@ -24,11 +24,11 @@ biết chính xác kiểu dữ liệu nào chúng ta muốn sử dụng:
 {{#include ../listings/ch03-common-programming-concepts/output-only-01-no-type-annotations/output.txt}}
 ```
 
-Bạn sẽ thấy các chú thích kiểu khác nhau cho những kiểu dữ liệu khác nhau.
+Bạn sẽ thấy các chú thích kiểu khác nhau cho những kiểu dữ liệu khác.
 
 ### Các kiểu vô hướng (Scalar type)
 
-Một kiểu vô hướng biểu diễn một giá trị đơn. Rust có bốn kiểu vô hướng chính: số nguyên (integer), 
+Một *kiểu vô hướng* biểu diễn một giá trị đơn. Rust có bốn kiểu vô hướng chính: số nguyên (integer), 
 các kiểu số dấu chấm động, boolean và kiểu ký tự. Bạn có thể thấy chúng cũng tương tự
 trong các ngôn ngữ lập trình khác. Hãy cùng xem thử trong Rust chúng hoạt động thế nào.
 
@@ -51,16 +51,15 @@ Chúng ta có thể dùng bất kỳ biến thể nào trong danh sách để kh
 | 128-bit | `i128`  | `u128`   |
 | arch    | `isize` | `usize`  |
 
-Mỗi biến thể sẽ là có hoặc không có dấu, đồng thời sẽ có một kích thước cụ thể.
+Mỗi biến thể có thể có hoặc không có dấu, đồng thời sẽ có một kích thước cụ thể.
 *Signed* và *unsigned* chỉ ra liệu một kiểu có thể chứa số âm hay không, hay nói cách khác
 ta có cần viết dấu cho nó hay không (khi nó chứa một giá trị âm). Nó cũng hoàn toàn tương
 tự khi bạn viết ra giấy: Nếu dấu là quan trọng, bạn cần viết rõ con số với dấu cộng hoặc trừ;
 tuy nhiên khi nó an toàn để xác định đây là một số dương, bạn có thể bỏ qua và không cần viết
 dấu.
-Các số âm được lưu trữ dưới dạng biểu diễn [two’s
-complement](https://en.wikipedia.org/wiki/Two%27s_complement)<!-- ignore -->.
+Các số âm được lưu trữ dưới dạng biểu diễn [two’s complement][twos-complement]<!-- ignore -->.
 
-Mỗi một biến thể có dấu có thể lưu các con số từ -(2<sup>n - 1</sup>) to 2<sup>n -
+Mỗi một biến thể có dấu có thể lưu các con số từ -(2<sup>n - 1</sup>) đến 2<sup>n -
 1</sup> - 1, với *n* là số bit mà biến thể đó dùng. Như vậy một biến `i8` có thể 
 lưu các giá trị từ -(2<sup>7</sup>) đến 2<sup>7</sup> - 1, tương ứng với -128 đến 127.
 Các biến thể không dấu có thể lưu các giá trị từ 0 đến 2<sup>n</sup> - 1, do vậy 
@@ -101,14 +100,6 @@ sẽ dùng tới `isize` hay `usize` là khi sử dụng chỉ số trong các t
 > [“Unrecoverable Errors with `panic!`”][unrecoverable-errors-with-panic]<!-- ignore --> 
 > ở chương 9.
 >
-> - Wrap in all modes with the `wrapping_*` methods, such as `wrapping_add`
-> - Return the `None` value if there is overflow with the `checked_*` methods
-> - Return the value and a boolean indicating whether there was overflow with
->   the `overflowing_*` methods
-> - Saturate at the value’s minimum or maximum values with `saturating_*`
->   methods
-
-
 > Khi dịch chương trình ở chế độ release với tùy chọn `--release`, Rust *không* 
 > thêm vào các phép kiểm tra tràn số gây dừng chương trình. Thay vào đó, nếu xảy ra
 > tràn số, Rust sẽ thực hiện *two’s complement wrapping*. Nói một cách ngắn gọn, các 
@@ -118,8 +109,13 @@ sẽ dùng tới `isize` hay `usize` là khi sử dụng chỉ số trong các t
 > có thể chứa một giá trị mà bạn có thể không mong muốn. Khi xảy ra "xoay vòng" lại 
 > giá trị, ta có thể coi như một lỗi.
 >
-> Bạn có thể dùng các nhóm phương thức sau nếu muốn xử lý việc tràn số, các nhóm phương 
-> thức này hỗ trợ các kiểu dữ liêu số nguyên thủy và được cung cấp bởi thư viện chuẩn.
+> Để có thể xử lý việc tràn số một cách cụ thể, bạn có thể dùng các nhóm phương 
+> thức hỗ trợ các kiểu dữ liệu số nguyên thủy được cung cấp bởi thư viện chuẩn:
+> * Sử dụng các phương thức bao bọc `wrapping_*`, kiểu như `wrapping_add`.
+> * Trả về giá trị `None` nếu xảy ra tràn số với các phương thức `checked_*`.
+> * Trả về giá trị và một giá trị bool để chỉ ra liệu đã xả ra tràn số hay không 
+> với các phương thức `overflowing_*`.
+> * Trả về giá trị lớn nhất hoặc nhỏ nhất của kiểu dữ liệu với các phương thức `saturating_*`.
 
 #### Các kiểu số dấu chấm động
 
@@ -168,9 +164,8 @@ hai giá trị `true` và `false`. Boolean có kích cỡ một byte. Một bi�
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-08-boolean/src/main.rs}}
 ```
 
-Các chính để dùng Boolean là thông qua các điều kiện, kiểu như phát biểu `if`.
-Chúng ta sẽ xem thêm về cách `if` làm việc trong Rust trong phần [“Control
-Flow”][control-flow]<!-- ignore -->.
+Cách chính để dùng Boolean là thông qua các điều kiện, kiểu như phát biểu `if`.
+Chúng ta sẽ xem thêm về cách `if` làm việc trong Rust trong phần [“Các khối điều khiển”][control-flow]<!-- ignore -->.
 
 #### Kiểu ký tự
 
@@ -324,7 +319,7 @@ lấy một chỉ mục từ người dùng:
 ```
 
 Đoạn code này được dịch thành công. Nếu bạn chạy nó bằng cách dùng `cargo run` và nhập
-vào 0,1, 2, 3, hay 4, chương trình sẽ in ra giá trị tương ứng tại vị trí trong mảng. Nếu
+vào `0`, `1`, `2`, `3`, hay `4`, chương trình sẽ in ra giá trị tương ứng tại vị trí trong mảng. Nếu
 bạn nhập một giá trị vượt quá kích thước mảng, chẳng hạn 10, bạn sẽ thấy xuất ra như sau:
 
 <!-- manual-regeneration
@@ -356,10 +351,11 @@ và tránh các lỗi panic hay truy cập vùng nhớ không hợp lệ.
 
 [comparing-the-guess-to-the-secret-number]:
 ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number
+[twos-complement]: https://en.wikipedia.org/wiki/Two%27s_complement
 [control-flow]: ch03-05-control-flow.html#control-flow
 [strings]: ch08-02-strings.html#storing-utf-8-encoded-text-with-strings
 [stack-and-heap]: ch04-01-what-is-ownership.html#the-stack-and-the-heap
 [vectors]: ch08-01-vectors.html
 [unrecoverable-errors-with-panic]: ch09-01-unrecoverable-errors-with-panic.html
-[wrapping]: ../std/num/struct.Wrapping.html
 [appendix_b]: appendix-02-operators.md
+

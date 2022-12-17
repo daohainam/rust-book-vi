@@ -84,7 +84,7 @@ những cách để tìm kiếm hỗ trợ.
 Nếu dòng `Hello, world!` được in ra, xin chúc mừng! Bạn đã chính thức viết một
 chương trình Rust, và bạn đã bắt đầu con đường trở thành một lập trình viên Rust!
 
-### Phân tích các thành phần trong một chương trình Rust
+### Mổ xẻ các thành phần trong một chương trình Rust
 
 Hãy cùng xem lại một cách chi tiết những gì đã xảy ra trong chương trình 
 “Hello, world!”. Đây là phần đầu tiên:
@@ -121,7 +121,7 @@ văn bản ra màn hình. Có bốn chi tiết quan trọng cần lưu ý ở đ
 
 Đầu tiên, Rust canh dòng bằng bốn khoảng trắng, không phải dấu tab.
 
-Thứ hai, `println!` gọi là một macro. Nếu là một hàm, nó sẽ được gọi với `println`
+Thứ hai, `println!` gọi đến một macro. Nếu là một hàm, nó sẽ được gọi với `println`
 (không có dấu `!`). Chúng ta sẽ thảo luận chi tiết thêm về macro trong chương 19. 
 Hiện tại, chúng ta chỉ cần biết là khi dùng `!`, chúng ta sẽ gọi đến một macro thay
 vì một hàm bình thường, và các macro đó không hoàn toàn sử dụng cùng các quy tắc như 

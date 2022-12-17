@@ -9,12 +9,11 @@ nào và vì sao Rust khuyến khích việc chặn thay đổi giá trị biế
 chúng ta vẫn phải bỏ chặn.
 
 Khi một biến là bất biến (immutable), một khi đã gán cho nó một giá trị, bạn sẽ không
-thể thay đổi giá trị đó nữa. Để minh họa điều này, hãy cùng tạo ra một dự án mới
+thể thay đổi giá trị đó nữa. Để minh họa điều này, hãy tạo ra một dự án mới
 được gọi là *variables* trong thư mục *projects* bằng cách chạy câu lệnh `cargo new variables`.
 
-Sau đó, trong thư mục *variables*, mở file *src/main.rs* và thay thế code của nó với
-đoạn sau. Đoạn code này sẽ không thể dịch được ngay, trước tiên ta sẽ cần xem qua 
-lỗi bất biến (immutability error).
+Sau đó, trong thư mục *variables* mới tạo, mở file *src/main.rs* và thay thế code của nó với
+đoạn sau (đoạn code này sẽ không thể dịch được ngay):
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -22,8 +21,8 @@ lỗi bất biến (immutability error).
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-01-variables-are-immutable/src/main.rs}}
 ```
 
-Lưu lại và chạy chương trình dùng `cargo run`. Bạn sẽ phải thấy một thông báo lỗi, 
-như được hiển thị dưới đây:
+Lưu lại và chạy chương trình dùng `cargo run`. Bạn sẽ phải thấy một thông báo 
+liên quan đến lỗi bất biến, như được hiển thị dưới đây:
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-01-variables-are-immutable/output.txt}}
@@ -35,8 +34,8 @@ trình của bạn không an toàn khi thực hiện cái mà bạn yêu cầu n
 Chúng *không* có nghĩa bạn không phải là một lập trình viên tốt! Những Rustaceans
 nhiều kinh nghiệm vẫn gặp các lỗi biên dịch.
 
-Thông báo lỗi chỉ ra điều gây ra lỗi là do bạn `` cannot assign twice to immutable variable `x` ``, 
-bởi vì bạn đã thử gán giá trị cho biến immutable `x` thêm một lần nữa.
+Bạn nhận được thông báo `` cannot assign twice to immutable variable `x` ``, 
+vì bạn đã thử gán giá trị cho biến immutable `x` thêm một lần nữa.
 
 Việc nhận được các lỗi biên dịch khi ta cố gắng thay đổi giá trị của một biến được 
 chỉ định là bất biến là rất quan trọng, nó là một trong những nguyên nhân hàng 
@@ -49,8 +48,9 @@ sẽ thực sự không thay đổi, và bạn không cần phải tự kiểm s
 code của bạn sẽ dễ lý giải hơn.
 
 Nhưng khả năng thay đổi giá trị cũng rất cần thiết, và làm cho việc viết code dễ dàng
-hơn. Các biến mặc nhiên sẽ không thay đổi được; như bạn đã thấy trong chương 2, 
-bạn có thể làm cho chúng thay đổi được giá trị bằng cách thêm `mut` và phía trước 
+hơn. Các biến mặc nhiên sẽ không thay đổi được; như bạn đã thấy trong [Chương
+2][storing-values-with-variables]<!-- ignore -->, 
+bạn có thể làm cho chúng thay đổi được giá trị bằng cách thêm `mut` vào phía trước 
 tên biến. Việc thêm `mut` cũng truyền đạt ý định cho những người đọc code trong tương lai 
 bằng cách chỉ ra rằng các phần khác của code sẽ thay đổi giá trị của biến này.
 
@@ -80,7 +80,7 @@ phép thay đổi, tuy nhiên có một số điểm khác nhau.
 Đầu tiên, bạn không được phép dùng `mut` với hằng. Các hằng không chỉ là mặc nhiên
 bất biến - mà là luôn luôn bất biến. Bạn khai báo các hằng dùng từ khóa `const`
 thay vì từ khóa `let`, và *phải* chỉ ra kiểu của hằng. Chúng ta sẽ nó thêm về 
-cover type và type annotation trong phần tiếp theo, [“Data Types,”][data-types]<!-- ignore -->
+cover type và type annotation trong phần tiếp theo, [“Các kiểu dữ liệu,”][data-types]<!-- ignore -->
 do vậy đừng lo về chi tiết bây giờ. Chỉ cần nhớ là bạn luôn phải chỉ ra kiểu.
 
 Các hằng có thể được khai báo trong bất kỳ tầm vực nào, bao gồm phạm vi toàn cục (global),

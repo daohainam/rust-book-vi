@@ -105,8 +105,8 @@ ngữ khác không có sự phân biệt tương tự như vậy, do vậy ta h�
 biểu và biểu thức cũng như sự khác biệt giữa chúng đã ảnh hưởng đến thân các hàm như
 thế nào.
 
-*Các phát biểu* là các câu lệnh mà nó sẽ thực hiện một số hành động nào đó và không 
-trả về giá trị. *Các biểu thức* có trả về giá trị. Hãy cũng xem qua một số ví dụ.
+**Phát biểu** là các câu lệnh mà nó sẽ thực hiện một số hành động nào đó và không 
+trả về giá trị. **Biểu thức** có trả về giá trị. Hãy cũng xem qua một số ví dụ.
 
 Chúng ta đã từng thực sự dùng đến các phát biểu và biểu thức. Việc tạo ra một biến và gán một 
 giá trị cho nó với từ khóa `let` là một phát biểu. Trong Listing 3-1, `let y = 6;` là một
@@ -235,7 +235,7 @@ Dịch đoạn code sinh ra lỗi, giống như sau:
 {{#include ../listings/ch03-common-programming-concepts/no-listing-23-statements-dont-return-values/output.txt}}
 ```
 
-Thông báo lỗi chính, “mismatched types,”, cho thấy gốc rễ vấn đề của đoạn code. 
+Thông báo lỗi chính, `mismatched types`, cho thấy gốc rễ vấn đề của đoạn code. 
 Định nghĩa hàm `plus_one` nói rằng nó sẽ trả về một `i32`, nhưng các phát biểu 
 lại không trả về một giá trị, tương đương với việc trả về một giá trị rỗng `()`. 
 Do không có giá trị nào được trả về, điều này trái ngược với định nghĩa của 

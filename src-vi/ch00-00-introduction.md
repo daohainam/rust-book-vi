@@ -1,7 +1,6 @@
 # Giới thiệu
 
-> Ghi chú: Phiên bản này cũng chính là phiên bản in
-[The Rust Programming
+> Ghi chú: Phiên bản này cũng chính là phiên bản in [The Rust Programming
 > Language][nsprust] và ebook [No Starch
 > Press][nsp] của sách.
 
@@ -37,7 +36,7 @@ Rust cũng đồng thời cung cấp các công cụ hỗ trợ phát triển đ
 
 * Cargo, công cụ quản lý thư viện và build, cho phép thêm, dịch, quản lý 
 các thư viện phụ thuộc dễ dàng và đồng bộ xuyên suốt hệ sinh thái Rust.
-* Rustfmt đảm bảo sự đồng nhất về phong cách viết code giữa các nhà phát triển.
+* Công cụ định dạng code Rustfmt đảm bảo sự đồng nhất về phong cách viết code giữa các nhà phát triển.
 * The Rust Language Server cung cấp sức mạnh cho các Integrated Development Environment (IDE) để 
 hỗ trợ các tính năng như code completion và các thông báo lỗi tại chỗ.
 
@@ -69,8 +68,8 @@ và các thư viện. Chúng tôi sẽ rất vui khi được bạn góp phần 
 ### Những người quan tâm đến tốc độ và ổn định
 
 Rust được dành cho những người đam mê tốc độ và sự ổn định trong một ngôn ngữ. Với
-tốc độ, chúng tôi nó về cả tốc độ thực thi của các chương trình do bạn viết, đồng thời 
-tốc độ mà Rust cho phép bạn tạo ra chúng. Các phép kiểm tra của trình dịch Rust đảm
+tốc độ, chúng tôi nó về cả tốc độ thực thi chương trình và cả 
+tốc độ mà Rust cho phép bạn viết ra chúng. Các phép kiểm tra của trình dịch Rust đảm
 bảo sự ổn định thông qua các đặc tính thêm vào và việc tái cấu trúc (refactoring). 
 Điều này ngược lại với các mã lệnh dễ-mắc-lỗi khi viết bằng các ngôn ngữ không có 
 các phép tra đó, vốn làm cho các nhà phát triển ngại việc chỉnh sửa. Bằng việc đánh 
@@ -98,8 +97,8 @@ trước một quyển sách chuyên về nhập môn lập trình.
 
 Về tổng thể, quyển sách này cho là bạn đang đọc tuần tự từ đầu đến cuối. Các chương
 sau được xây dựng dựa trên các khái niệm được giới thiệu trong các chương trước,
-và các chương trước có lẽ sẽ không đi vào chi tiết về một chủ đề; chúng ta thường
-sẽ quay lại chủ đề đó trong các chương sau.
+và các chương đầu có lẽ sẽ không đi vào chi tiết về một chủ đề cụ thể, thay vì vậy
+chúng ta sẽ quay lại chủ đề đó trong các chương sau.
 
 Bạn sẽ tìm thấy hai loại chương trong cuốn sách này: các chương khái niệm và các chương
 dự án. Trong các chương khái niệm, bạn sẽ học về một khía cạnh nào đó của Rust. Trong 
@@ -109,9 +108,10 @@ chương khái niệm.
 
 Chương 1 hướng dẫn cách cài đặt Rust, làm sao để viết một chương trình "Hello, world!",
 và làm sao sử dung Cargo, công cụ quản lý các gói thư viện và build chương trình. 
-Chương 2 là một phần giới thiệu kiểu "trên tay" về ngôn ngữ Rust. Chúng ta sẽ xem sơ
+Chương 2 là một phần giới thiệu kiểu "trên tay" về cách viết chương trình trong 
+ngôn ngữ Rust, bạn cũng sẽ xây dựng một trò chơi đoán số. Chúng ta sẽ xem sơ
 các khái niệm ở cấp cao, rồi các chương sau đó sẽ cung cấp thêm các chi tiết. Nếu
-bạn muốn vọc vạch ngay, chương lại là dành cho bạn. Đầu tiên, có lẽ bạn sẽ muốn 
+bạn muốn vọc vạch ngay, chương này là dành cho bạn. Đầu tiên, có lẽ bạn sẽ muốn 
 bỏ qua chương 3, vốn giới thiệu các đặc tính của Rust tương tự trong các ngôn
 ngữ khác, và nhảy ngay đến chương 4 để học về hệ thống ownership của Rust. Tuy nhiên,
 nếu bạn là một người học cẩn trọng muốn học tất cả các chi tiết trước khi chuyển đến
