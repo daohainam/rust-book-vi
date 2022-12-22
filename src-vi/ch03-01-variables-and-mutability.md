@@ -1,4 +1,5 @@
-## Biến và tính khả biến {#ch03-01-variables-and-mutability}
+<a id="variables-and-mutability"></a>
+## Biến và tính khả biến
 
 Như đã nhắc đến trong phần [“Storing Values with
 Variables”][storing-values-with-variables]<!-- ignore -->, mặc nhiên các biến
