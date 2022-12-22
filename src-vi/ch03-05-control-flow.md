@@ -1,4 +1,5 @@
-## Các khối điều khiển {#control-flow}
+<a id="control-flow"></a>
+## Các khối điều khiển
 
 Khả năng chạy một số đoạn lệnh dựa khi một điều kiện nào đó là `true`, hoặc chạy lặp lại một
 lệnh khi một điều kiện nào đó là `true`, là các khối điều khiển cơ bản có trong hầu 
@@ -286,7 +287,8 @@ Vòng lặp này cho phép loại bỏ nhiều cấu trúc lồng nhau như khi 
 `loop`, `if`, `else`, và `break`, giúp code của bạn sáng sủa hơn. Trong khi một
 điều kiện vẫn là `true`, chạy vòng lặp; ngược lại, kết thúc vòng lặp.
 
-#### Lặp qua một tập hợp với `for` {#looping-through-a-collection-with-for}
+<a id="looping-through-a-collection-with-for"></a>
+#### Lặp qua một tập hợp với `for`
 
 Bạn có thể chọn dùng `while` để duyệt qua các thành phần của một tập hợp, kiểu 
 như một mảng. Ví dụ, vòng lặp trong Listing 3-4 in ra các phần tử có trong mảng

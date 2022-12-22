@@ -1,4 +1,5 @@
-## Cài đặt {#installation}
+<a id="installation"></a>
+## Cài đặt
 
 Bước đầu tiên là cài đặt Rust. Chúng ta sẽ tải về Rust thông qua `rustup`, một công cụ
 dòng lệnh quản lý phiên bản và các công cụ của Rust. Bạn sẽ cần một đường Internet 
@@ -76,6 +77,7 @@ Khi được hỏi phần nào cần được cài đặt, nhớ hãy chọn:
 Các câu lệnh trong phần còn lại của cuốn sách này sẽ làm việc với cả hai *cmd.exe* 
 và PowerShell. Nếu có gì khác nhau, chúng tôi sẽ chỉ ra bạn cần sử dụng cái nào.
 
+<a id="troubleshooting"></a>
 ### Xử lý trục trặc
 
 Để kiểm tra xem bạn đã cài đặt Rust đúng chưa, mở một cửa sổ lệnh mới và gõ vào

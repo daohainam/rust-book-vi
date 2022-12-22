@@ -1,4 +1,5 @@
-## Lưu trữ khóa với giá trị liên kết trong bản đồ băm (Hash Map) {#accessing-values-in-a-hash-map}
+<a id="accessing-values-in-a-hash-map"></a>
+## Lưu trữ khóa với giá trị liên kết trong bản đồ băm (Hash Map)
 
 Phần tập hợp cuối cùng trong bộ các tập hợp phổ biến là *bản đồ băm*. Kiểu `HashMap<K,V>` lưu trữ ánh xạ các khóa kiểu `K` tới các giá trị kiểu `V` bằng cách sử dụng *hàm băm*, xác định cách nó thiết đặt khóa và giá trị vào bộ nhớ. Nhiều ngôn ngữ lập trình hỗ trợ loại cấu trúc dữ liệu này, nhưng chúng thường được dùng với một cái tên khác, chẳng hạn như băm (hash), bản đồ (map), đối tượng (object), bảng băm (hash table), từ điển (dictionary) hoặc mảng kết hợp, chỉ nêu ra một vài cái tên ví dụ như vậy.
 

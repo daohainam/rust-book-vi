@@ -72,7 +72,8 @@ Chúng ta được phép thay đổi giá trị gán cho `x` từ `5` thành `6`
 Hơn hết, việc quyết định liệu có cho phép thay đổi hay không là do bạn và phụ thuộc 
 vào việc bạn nghĩ cách nào là rõ ràng nhất trong một trường hợp cụ thể.
 
-### Hằng {#constants}
+<a id="constants"></a>
+### Hằng
 
 Tương tự với các biến không đổi, các hằng cũng là các giá trị được đặt tên và không được 
 phép thay đổi, tuy nhiên có một số điểm khác nhau.
