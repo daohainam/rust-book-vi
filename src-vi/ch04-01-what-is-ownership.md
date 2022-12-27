@@ -1,4 +1,4 @@
-## Ownership là gì?
+## Ownership (tính sở hữu) là gì?
 
 *Ownership* là một tập các quy tắc phối hợp với nhau, định hình cách Rust quản lý
 bộ nhớ. Tất cả các chương trình đều phải quản lý cách chúng sử dụng bộ nhớ máy
@@ -19,26 +19,25 @@ Khi đã hiểu ownership, bạn sẽ có một nền tảng chắc chắn để
 vốn làm cho Rust trở nên độc nhất. Trong chương này bạn sẽ học về ownership
 thông qua một số ví dụ tập trung vào một cấu trúc dữ liệu rất phổ biến: string.
 
-> ### The Stack and the Heap
+> ### Stack và Heap
 >
-> Many programming languages don’t require you to think about the stack and the
-> heap very often. But in a systems programming language like Rust, whether a
-> value is on the stack or the heap affects how the language behaves and why
-> you have to make certain decisions. Parts of ownership will be described in
-> relation to the stack and the heap later in this chapter, so here is a brief
-> explanation in preparation.
+> Nhiều ngôn ngữ lập trình không yêu cầu bạn phải nghĩ về stack và heap thường
+> xuyên. Nhưng với một ngôn ngữ lập trình hệ thống như Rust, việc một giá trị sẽ
+> được lưu trên stack hay trên heap ảnh hưởng tới cách ngôn ngữ xử lý cũng như 
+> lý do bạn quyết định. Các phần của ownership sẽ được mô tả trong mối quan hệ 
+> với stack và heap ở phần sau của chương này, ở đây chỉ là một giải thích
+> ngắn gọn để chuẩn bị.
 >
-> Both the stack and the heap are parts of memory available to your code to use
-> at runtime, but they are structured in different ways. The stack stores
-> values in the order it gets them and removes the values in the opposite
-> order. This is referred to as *last in, first out*. Think of a stack of
-> plates: when you add more plates, you put them on top of the pile, and when
-> you need a plate, you take one off the top. Adding or removing plates from
-> the middle or bottom wouldn’t work as well! Adding data is called *pushing
-> onto the stack*, and removing data is called *popping off the stack*. All
-> data stored on the stack must have a known, fixed size. Data with an unknown
-> size at compile time or a size that might change must be stored on the heap
-> instead.
+> Cả hai stack và heap đều là các phần của bộ nhớ mà chương trình của bạn có thể
+> sử dụng khi chạy, nhưng chúng được tổ chức theo những cách khác nhau. Stack lưu 
+> trữ các giá trị theo thứ tự bạn đưa vào và lấy các giá trị ra theo thứ tự ngược
+> lại. Ta thường gọi là *last in, first out*. Hãy tưởng tượng một chồng đĩa: khi 
+> bạn thêm đĩa, bạn sẽ đặt chúng lên trên cùng, và khi cần lấy một cái đĩa, bạn 
+> sẽ lấy cái trên nhất. Bạn sẽ không bỏ vào hoặc lấy ra các đĩa ở giữa hay bên 
+> dưới cùng. Thêm dữ liệu vào được gọi là *đẩy (push)* và stack, và thao tác 
+> lấy ra được gọi là *lấy ra khỏi stack (pop)*. Tất cả dữ liệu lưu trên stack 
+> phải có một kiểu dữ liệu có kích thước cố định cho trước. Dữ liệu có kích thước 
+> không thể biết trước khi biên dịch hoặc có thể thay đổi phải được lưu trên heap.
 >
 > The heap is less organized: when you put data on the heap, you request a
 > certain amount of space. The memory allocator finds an empty spot in the heap
