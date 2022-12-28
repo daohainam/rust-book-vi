@@ -1,3 +1,4 @@
+<a id="the-stack-and-the-heap"></a>
 ## Ownership (tính sở hữu) là gì?
 
 *Ownership* là một tập các quy tắc phối hợp với nhau, định hình cách Rust quản lý
@@ -39,57 +40,53 @@ thông qua một số ví dụ tập trung vào một cấu trúc dữ liệu r�
 > phải có một kiểu dữ liệu có kích thước cố định cho trước. Dữ liệu có kích thước 
 > không thể biết trước khi biên dịch hoặc có thể thay đổi phải được lưu trên heap.
 >
-> The heap is less organized: when you put data on the heap, you request a
-> certain amount of space. The memory allocator finds an empty spot in the heap
-> that is big enough, marks it as being in use, and returns a *pointer*, which
-> is the address of that location. This process is called *allocating on the
-> heap* and is sometimes abbreviated as just *allocating* (pushing values onto
-> the stack is not considered allocating). Because the pointer to the heap is a
-> known, fixed size, you can store the pointer on the stack, but when you want
-> the actual data, you must follow the pointer. Think of being seated at a
-> restaurant. When you enter, you state the number of people in your group, and
-> the host finds an empty table that fits everyone and leads you there. If
-> someone in your group comes late, they can ask where you’ve been seated to
-> find you.
+> Heap được tổ chức ít quy củ hơn: khi bạn đưa dữ liệu lên heap, bạn yêu cầu một
+> không gian trống có kích thước cụ thể. Bộ phân phối bộ nhớ sẽ tìm một phần trống 
+> trên heap đủ lớn để chứa, đánh dấu nó đã được dùng, và trả về một *con trỏ (pointer)*,
+> chứa địa chỉ của vị trí phần bộ nhớ vừa được cấp phát. Quá trình này được gọi
+> là *phân phối bộ nhớ trên heap* và đôi khi được gọi ngắn gọn là *phân phối bộ nhớ*
+> (đẩy một giá trị vào stack không được coi là phân phối bộ nhớ). Vì con trỏ chứa 
+> địa chỉ vùng nhớ có kích thước cố định và biết trước, nó có thể được lưu trong
+> stack, nhưng khi bạn cần lấy dữ liệu thực sự, bạn sẽ cần đi theo địa chỉ chứa
+> trong con trỏ. Hãy tưởng tượng khi đến một nhà hàng, bạn cho nhân viên biết
+> số người trong nhóm, họ sẽ tìm một bàn trống đủ cho nhóm của bạn và dẫn bạn đến
+> đó. Nếu một người trong nhóm đến muộn, họ có thể hỏi nơi bạn ngồi để tìm bạn.
 >
-> Pushing to the stack is faster than allocating on the heap because the
-> allocator never has to search for a place to store new data; that location is
-> always at the top of the stack. Comparatively, allocating space on the heap
-> requires more work because the allocator must first find a big enough space
-> to hold the data and then perform bookkeeping to prepare for the next
-> allocation.
+> Đẩy một giá trị vào stack nhanh hơn phân phối trên heap vì trình quản lý không
+> cần tìm một nơi để lưu dữ liệu; vị trí đó luôn nằm trên đỉnh của stack. Trong khi
+> đó, phân phối bộ nhớ trên heap cần nhiều thao tác hơn vì trình quản lý đầu tiên
+> phải tìm một không gian trống đủ lớn để chứa dữ liệu, sau đó làm các thao tác để 
+> đánh dấu việc sử dụng không gian nhớ đó. 
+> 
+> Truy cập dữ liệu trên heap cũng chậm hơn trong stack vì bạn phải theo một con trỏ để
+> đến đúng nơi. Các bộ xử lý hiện nay sẽ hoạt động nhanh hơn nếu chúng không phải 
+> truy cập bộ nhớ nhiều. Tiếp tục với ví dụ ở trên, hãy tưởng tượng một người phục
+> vụ ở nhà hàng phải nhận đặt món từ nhiều bàn khác nhau. Cách làm hiệu quả nhất là
+> nhận tất cả yêu cầu đặt món từ một bàn trước khi di chuyển đến bàn tiếp theo. Nhận
+> món từ bàn A, rồi sang bàn B, sau đó quay lại bàn A, rồi tiếp tục quay lại bàn B 
+> có lẽ sẽ chậm hơn nhiều. Theo cùng cách, một bộ xử lý có thể hoàn thành công việc 
+> tốt hơn nếu nó làm việc với các dữ liệu nằm gần nhau (giống như trong stack) hơn 
+> là khi chúng nằm xa nhau (như với heap).
+> 
+> Khi code của bạn gọi một hàm, các giá trị truyền vào cho hàm đó (có thể bao gồm 
+> cả các con trỏ lên heap) và các biến cục bộ của hàm đều được đẩy vào stack. Khi
+> hàm kết thúc, các giá trị đó sẽ được lấy ra khỏi stack.
 >
-> Accessing data in the heap is slower than accessing data on the stack because
-> you have to follow a pointer to get there. Contemporary processors are faster
-> if they jump around less in memory. Continuing the analogy, consider a server
-> at a restaurant taking orders from many tables. It’s most efficient to get
-> all the orders at one table before moving on to the next table. Taking an
-> order from table A, then an order from table B, then one from A again, and
-> then one from B again would be a much slower process. By the same token, a
-> processor can do its job better if it works on data that’s close to other
-> data (as it is on the stack) rather than farther away (as it can be on the
-> heap).
->
-> When your code calls a function, the values passed into the function
-> (including, potentially, pointers to data on the heap) and the function’s
-> local variables get pushed onto the stack. When the function is over, those
-> values get popped off the stack.
->
-> Keeping track of what parts of code are using what data on the heap,
-> minimizing the amount of duplicate data on the heap, and cleaning up unused
-> data on the heap so you don’t run out of space are all problems that ownership
-> addresses. Once you understand ownership, you won’t need to think about the
-> stack and the heap very often, but knowing that the main purpose of ownership
-> is to manage heap data can help explain why it works the way it does.
+> Theo dõi phần code nào code đang dùng những phần nào của heap, tối thiểu hóa việc
+> trùng lắp dữ liệu, và dọn dẹp những dữ liệu nào không được dùng tới trên heap sao
+> cho chúng ta không cạn kiệt các tài nguyên bộ nhớ là những vấn đề mà ownership 
+> nhắm đến. Một khi đã hiểu về ownership, bạn sẽ không cần nghĩ về stack và heap thường
+> xuyên nữa, nhưng biết mục đích chính của ownership là để quản lý bộ nhớ heap có thể 
+> giúp giải thích vì sao nó làm việc theo cách mà bạn sẽ thấy. 
 
-### Ownership Rules
+### Các quy tắc của Ownership
 
-First, let’s take a look at the ownership rules. Keep these rules in mind as we
-work through the examples that illustrate them:
+Đầu tiên, hãy xem qua các quy tắc của ownership. Hãy ghi nhớ các quy tắc này khi
+ta đi qua các ví đụ minh họa:
 
-* Each value in Rust has an *owner*.
-* There can only be one owner at a time.
-* When the owner goes out of scope, the value will be dropped.
+* Mỗi giá trị trong Rust có một chủ sở hữu (*owner*)
+* Mỗi thời điểm chỉ có duy nhất một owner.
+* Khi owner ra khỏi phạm vi (scope, tầm vực của biến) của nó, giá trị sẽ bị hủy.
 
 ### Variable Scope
 

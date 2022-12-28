@@ -1,5 +1,5 @@
 <a id="data-types"></a>
-## Các kiểu dữ liệu {#data-types}
+## Các kiểu dữ liệu
 
 Mọi giá trị trong Rust đều thuộc một *kiểu dữ liệu* cụ thể, điều này cho Rust biết loại
 dữ liệu đang được chỉ định để nó biết cách làm việc với dữ liệu đó. Chúng ta sẽ xem xét
