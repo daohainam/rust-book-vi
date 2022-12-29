@@ -88,58 +88,56 @@ ta đi qua các ví đụ minh họa:
 * Mỗi thời điểm chỉ có duy nhất một owner.
 * Khi owner ra khỏi phạm vi (scope, tầm vực của biến) của nó, giá trị sẽ bị hủy.
 
-### Variable Scope
+### Tầm vực của biến
 
-Now that we’re past basic Rust syntax, we won’t include all the `fn main() {`
-code in examples, so if you’re following along, make sure to put the following
-examples inside a `main` function manually. As a result, our examples will be a
-bit more concise, letting us focus on the actual details rather than
-boilerplate code.
+Giờ ta đã hoàn thành cú pháp cơ bản của Rust, chúng ta sẽ không cần thêm `fn main() {`
+vào các ví dụ, do vậy nếu muốn chạy thử hãy tự thêm chúng vào trong hàm `main`. Khi viết 
+các ví dụ theo cách ngắn gọn như vậy, chúng ta có thể tập trung vào chi tiết muốn
+nói hơn là các đoạn code mẫu.
 
-As a first example of ownership, we’ll look at the *scope* of some variables. A
-scope is the range within a program for which an item is valid. Take the
-following variable:
+Ví dụ đầu tiên về ownership, chúng ta sẽ xem qua *tầm vực (scope)* của một số biến.
+Một tầm vực là một đoạn trong một chương trình mà trong đó một thành phần nào đó
+là hợp lệ. Hãy xem qua ví dụ sau:
 
 ```rust
 let s = "hello";
 ```
 
-The variable `s` refers to a string literal, where the value of the string is
-hardcoded into the text of our program. The variable is valid from the point at
-which it’s declared until the end of the current *scope*. Listing 4-1 shows a
-program with comments annotating where the variable `s` would be valid.
+Biến `s` tham chiếu đến một giá trị chuỗi, giá trị này được hard code vào trong 
+phần text của chương trình. Các biến là hợp lệ tại thời điểm chúng được khai báo
+cho đến hết *tầm vực* hiện tại. Listing 4-1 trình bày một chương trình với các 
+ghi chú chỉ ra nơi biến `s` là hợp lệ.
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-01/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 4-1: A variable and the scope in which it is
-valid</span>
+<span class="caption">Listing 4-1: Một biến và tầm vực (phạm vi) của nó</span>
 
-In other words, there are two important points in time here:
+Nói cách khác, có hai thời điểm quan trọng ở đây:
 
-* When `s` comes *into* scope, it is valid.
-* It remains valid until it goes *out of* scope.
+* Khi `s` đi vào trong tầm vực, nó trở nên hợp lệ.
+* `s` sẽ vẫn hợp lệ cho đến khi nó đi ra khỏi *tầm vực*.
 
-At this point, the relationship between scopes and when variables are valid is
-similar to that in other programming languages. Now we’ll build on top of this
-understanding by introducing the `String` type.
+Tại điểm này, mối quan hệ giữa các tầm vực và khi các biến là hợp lệ hoàn toàn tương 
+tự trong các ngôn ngữ lập trình khác. Giờ chúng ta sẽ áp dụng điều này với kiểu 
+dữ liệu `String` để tìm hiểu sâu hơn.
 
-### The `String` Type
+### Kiểu `String`
 
-To illustrate the rules of ownership, we need a data type that is more complex
-than those we covered in the [“Data Types”][data-types]<!-- ignore --> section
-of Chapter 3. The types covered previously are of a known size, can be stored
-on the stack and popped off the stack when their scope is over, and can be
-quickly and trivially copied to make a new, independent instance if another
-part of code needs to use the same value in a different scope. But we want to
-look at data that is stored on the heap and explore how Rust knows when to
-clean up that data, and the `String` type is a great example.
+Để minh họa các quy tắc của ownership, chúng ta sẽ cần một kiểu dữ liệu phức tạp
+hơn những kiểu đã được nói đến trong phần [“Các kiểu dữ liệu”][data-types]<!-- ignore --> 
+ở chương 3. Những kiểu được nói đến trong phần đó có kích thước cố định, có thể 
+được lưu trong stack và dễ dàng lấy ra khi đi ra khỏi phạm vi của nó, cũng như 
+có thể tạo một bản sao mới độc lập với bản gốc nếu một phần khác của chương trình 
+muốn đọc giá trị của nó. Nhưng chúng ta muốn xem cách dữ liệu được lưu trên heap 
+và khám phá cách Rust biết khi nào cần giải phóng dữ liệu đó, trong trường hợp
+này `String` là một ví dụ tuyệt vời.
 
-We’ll concentrate on the parts of `String` that relate to ownership. These
-aspects also apply to other complex data types, whether they are provided by
-the standard library or created by you. We’ll discuss `String` in more depth in
-[Chapter 8][ch8]<!-- ignore -->.
+Chúng ta sẽ tập trung trên các phần của `String` có liên quan đến tính sở hữu (ownership).
+Nhưng những phần này cũng có thể áp dụng lên các kiểu dữ liệu phức tạp khác,
+bao gồm cả các kiểu trong thư viện chuẩn và các kiểu do bạn tự tạo. Chúng ta sẽ 
+nói sâu hơn về `String` trong [Chương 8][ch8]<!-- ignore -->.
 
 We’ve already seen string literals, where a string value is hardcoded into our
 program. String literals are convenient, but they aren’t suitable for every
