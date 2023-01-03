@@ -139,52 +139,53 @@ Nhưng những phần này cũng có thể áp dụng lên các kiểu dữ li�
 bao gồm cả các kiểu trong thư viện chuẩn và các kiểu do bạn tự tạo. Chúng ta sẽ 
 nói sâu hơn về `String` trong [Chương 8][ch8]<!-- ignore -->.
 
-We’ve already seen string literals, where a string value is hardcoded into our
-program. String literals are convenient, but they aren’t suitable for every
-situation in which we may want to use text. One reason is that they’re
-immutable. Another is that not every string value can be known when we write
-our code: for example, what if we want to take user input and store it? For
-these situations, Rust has a second string type, `String`. This type manages
-data allocated on the heap and as such is able to store an amount of text that
-is unknown to us at compile time. You can create a `String` from a string
-literal using the `from` function, like so:
+Chúng ta đã xem các giá trị chuỗi, khi mà các chuỗi được hard code vào thẳng
+trong chương trình. Các giá trị chuỗi rất có ích, nhưng chúng lại không phù hợp
+cho nhiều trường hợp. Một lý do là chúng không thể thay đổi. Một lý do khác là 
+trong nhiều trường hợp ta không biết giá trị thực sự của nó lúc viết code: ví
+dụ nếu bạn muốn nhận dữ liệu từ người dùng và lưu lại? Với những trường hợp như 
+vậy, Rust có một kiểu dữ liệu chuỗi nữa, `String`. Kiểu dữ liệu này quản lý dữ liệu 
+được phân bố trên heap và nó có khả năng lưu trữ một khối văn bản ta không biết
+vào thời điểm biên dịch. Bạn có thể tạo một `String` từ một giá trị chuỗi bằng cách 
+dùng hàm `from`, giống như sau:
 
 ```rust
 let s = String::from("hello");
 ```
 
-The double colon `::` operator allows us to namespace this particular `from`
-function under the `String` type rather than using some sort of name like
-`string_from`. We’ll discuss this syntax more in the [“Method
-Syntax”][method-syntax]<!-- ignore --> section of Chapter 5, and when we talk
-about namespacing with modules in [“Paths for Referring to an Item in the
-Module Tree”][paths-module-tree]<!-- ignore --> in Chapter 7.
+Cặp dấu hai chấm `::` cho phép chúng ta đặt các thành phần trong Rust vào các 
+namespace khác nhau. Chúng ta có thể chỉ ra hàm `from` nằm trong `String` thay vì 
+phải viết theo kiểu `string_from`. Chúng ta sẽ thảo luận thêm về cú pháp này trong phần
+[“Cú pháp của phương thức”][method-syntax]<!-- ignore --> ở chương 5. Và khi chúng 
+ta nói về namespace với các module trong [“Paths for Referring to an Item in the
+Module Tree”][paths-module-tree]<!-- ignore --> ở chương 7.
 
-This kind of string *can* be mutated:
+Kiểu chuỗi này *có thể* thay đổi.
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-01-can-mutate-string/src/main.rs:here}}
 ```
 
-So, what’s the difference here? Why can `String` be mutated but literals
-cannot? The difference is in how these two types deal with memory.
+Vậy sự khác biệt ở đây là gì? Tại sao `String` có thể thay đổi mà hằng chuỗi thì
+không? Sự khác nhau nằm ở cách hai loại này thao tác với bộ nhớ.
 
-### Memory and Allocation
+### Bộ nhớ và phân phối bộ nhớ
 
-In the case of a string literal, we know the contents at compile time, so the
-text is hardcoded directly into the final executable. This is why string
-literals are fast and efficient. But these properties only come from the string
-literal’s immutability. Unfortunately, we can’t put a blob of memory into the
-binary for each piece of text whose size is unknown at compile time and whose
-size might change while running the program.
+Trong trường hợp của hằng chuỗi, chúng ta biết nội dung của nó vào lúc biên dịch,
+so vậy nội dung văn bản của nó sẽ được biên dịch thẳng vào bên trong file thực thi.
+Đây là lý do vì sao các hằng chuỗi nhanh và hiệu quả. Nhưng những tính chất đó chỉ 
+có nhờ vào tính không-khả-biến (không thể thay đổi) của hằng chuỗi. Không may là,
+bạn không thể nhúng một khối văn bản vào một file thực thi mà không biết kích thước
+của nó vào lúc biên dịch, hoặc kích thước đó có thể thay đổi vào lúc chạy chương 
+trình.
 
-With the `String` type, in order to support a mutable, growable piece of text,
-we need to allocate an amount of memory on the heap, unknown at compile time,
-to hold the contents. This means:
+Với kiểu `String`, để cho phép thay đổi nội dung, hoặc tăng độ dài của khối văn
+bản, chúng ta cần phân phối cho nó một phần bộ nhớ trên heap để lưu trữ nội dung.
+Điều này có nghĩa là:
 
-* The memory must be requested from the memory allocator at runtime.
-* We need a way of returning this memory to the allocator when we’re done with
-  our `String`.
+* Phần bộ nhớ này cần được cấp pháp bởi trình quản lý bộ nhớ khi chạy chương trình.
+* Cần một cách để trả lại phần bộ nhớ này khi đã làm việc xong với chuỗi
+`String` của chúng ta.
 
 That first part is done by us: when we call `String::from`, its implementation
 requests the memory it needs. This is pretty much universal in programming
