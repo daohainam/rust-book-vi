@@ -187,75 +187,73 @@ bản, chúng ta cần phân phối cho nó một phần bộ nhớ trên heap �
 * Cần một cách để trả lại phần bộ nhớ này khi đã làm việc xong với chuỗi
 `String` của chúng ta.
 
-That first part is done by us: when we call `String::from`, its implementation
-requests the memory it needs. This is pretty much universal in programming
-languages.
+Phần thứ nhất đã được hoàn thành khi chúng ta gọi `String::from`, hàm `from` sẽ 
+yêu cầu phần bộ nhớ mà nó cần. Những thao táo quen thuộc này khá phổ biến trong 
+các ngôn ngữ lập trình.
 
-However, the second part is different. In languages with a *garbage collector
-(GC)*, the GC keeps track of and cleans up memory that isn’t being used
-anymore, and we don’t need to think about it. In most languages without a GC,
-it’s our responsibility to identify when memory is no longer being used and to
-call code to explicitly free it, just as we did to request it. Doing this
-correctly has historically been a difficult programming problem. If we forget,
-we’ll waste memory. If we do it too early, we’ll have an invalid variable. If
-we do it twice, that’s a bug too. We need to pair exactly one `allocate` with
-exactly one `free`.
+Tuy nhiên, phần thứ hai lại khác. Trong các ngôn ngữ có *bộ dọn rác* (garbage collector
+(GC)), GC sẽ theo dõi và giải phóng các phần bộ nhớ không còn được dùng đến, và 
+ta không cần phải quan tâm đến chúng. Trong hầu hết các ngôn ngữ không có GC,
+chúng ta phải có trách nhiệm tự quản lý các vùng nhớ để biết chúng khi nào không
+còn được dùng nữa và gọi hàm giải phóng bộ nhớ. Công việc này vốn đã được lịch sử
+chứng minh là rất khó để làm một các đúng đắn. Nếu ta lỡ quên, chúng ta sẽ gây lãng
+phí bộ nhớ. Nếu ta làm điều đó quá sớm, chúng ta sẽ có một biến không hợp lệ. Nếu
+ta làm điều đó hai lần, đó cũng là lỗi. Chúng ta phải có chính xác từng `free` cho 
+mỗi `allocate`.
 
-Rust takes a different path: the memory is automatically returned once the
-variable that owns it goes out of scope. Here’s a version of our scope example
-from Listing 4-1 using a `String` instead of a string literal:
+Rust chọn một con đường khác: phần bộ nhớ sẽ được tự động trả lại một khi biến đi
+ra khỏi tầm vực của nó. Đây là một phiên bản của ví dụ về tầm vực từ Listing 4-1 
+nhưng sử dụng `String` thay vì một hằng chuỗi:
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-02-string-scope/src/main.rs:here}}
 ```
 
-There is a natural point at which we can return the memory our `String` needs
-to the allocator: when `s` goes out of scope. When a variable goes out of
-scope, Rust calls a special function for us. This function is called
-[`drop`][drop]<!-- ignore -->, and it’s where the author of `String` can put
-the code to return the memory. Rust calls `drop` automatically at the closing
-curly bracket.
+Có một thời điểm tự nhiên mà chúng ta có thể trả lại phần bộ nhớ mà biến `String`
+cần: khi `s` đi ra khỏi tầm vực của nó. Khi một biến đi ra khỏi scope, Rust gọi một 
+hàm đặc biệt cho chúng ta. Hàm này được gọi là [`drop`][drop]<!-- ignore -->, và
+nó là nơi tác giả của `String` có thể viết code để trả lại phần bộ nhớ đã cấp phát
+trước đó. Rust gọi `drop` một cách tự động ngay tại vị trí dấu ngoặc nhọn đóng.
 
-> Note: In C++, this pattern of deallocating resources at the end of an item’s
-> lifetime is sometimes called *Resource Acquisition Is Initialization (RAII)*.
-> The `drop` function in Rust will be familiar to you if you’ve used RAII
-> patterns.
+> Ghi chú: trong C++, mẫu thiết kế cho phép tự động giải phóng tài nguyên vào 
+> thời điểm một phần tử nào đó kết thúc vòng đời đôi khi được gọi là: *Resource 
+> Acquisition Is Initialization (RAII)*. Hàm `drop` trong Rust sẽ là quen thuộc 
+> nếu bạn đã từng sử dụng mẫu RAII.
 
-This pattern has a profound impact on the way Rust code is written. It may seem
-simple right now, but the behavior of code can be unexpected in more
-complicated situations when we want to have multiple variables use the data
-we’ve allocated on the heap. Let’s explore some of those situations now.
+Mẫu thiết kế này có một sự ảnh hưởng sâu sắc đến cách viết code Rust. Nó trông
+có vẻ đơn giản, nhưng trong những trường hợp phức tạp code có thể trở nên khó dự 
+đoán, như khi ta có nhiều biến dùng dữ liệu được phân bố trên heap. Hãy cùng khảo 
+sát một vài trường hợp:
 
 <!-- Old heading. Do not remove or links may break. -->
 <a id="ways-variables-and-data-interact-move"></a>
 
-#### Variables and Data Interacting with Move
+#### Các biến và việc tương tác dữ liệu với Move
 
-Multiple variables can interact with the same data in different ways in Rust.
-Let’s look at an example using an integer in Listing 4-2.
+Nhiều biến có thể tương tác với cùng dữ liệu theo những cách khác nhau trong Rust.
+Hãy cùng xem qua một ví dụ sử dụng biến kiểu integer trong Listing 4-2.
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-02/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 4-2: Assigning the integer value of variable `x`
-to `y`</span>
+<span class="caption">Listing 4-2: Gán một số nguyên từ biến `x` sang biến `y`</span>
 
-We can probably guess what this is doing: “bind the value `5` to `x`; then make
-a copy of the value in `x` and bind it to `y`.” We now have two variables, `x`
-and `y`, and both equal `5`. This is indeed what is happening, because integers
-are simple values with a known, fixed size, and these two `5` values are pushed
-onto the stack.
+Chúng ta có thể đoán xem đoạn code này làm gì: "gán giá trị `5` vào `x`; sau đó
+tạo một bản sao của giá trị trong `x` và gán nó cho `y`". Chúng ta sẽ có hai biến, 
+`x` và `y`, và cả hai đều bằng `5`. Đây thực sự là những gì đã diễn ra, vì số nguyên
+là những giá trị đơn giản với kích thước cố định biết trước, và hai giá trị `5` đó
+sẽ được lưu trữ trên stack.
 
-Now let’s look at the `String` version:
+Giờ hãy xem qua phiên bản với `String`:
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-03-string-move/src/main.rs:here}}
 ```
 
-This looks very similar, so we might assume that the way it works would be the
-same: that is, the second line would make a copy of the value in `s1` and bind
-it to `s2`. But this isn’t quite what happens.
+Đoạn này trông khá tương tự, do vậy ta có thể cho là chúng hoạt động theo cùng cách:
+đó là, dòng thứ hai sẽ tạo một bản sao của giá trị trong `s1` và gán nó vào cho 
+`s2`. Nhưng đây không thực sự là điều diễn ra.
 
 Take a look at Figure 4-1 to see what is happening to `String` under the
 covers. A `String` is made up of three parts, shown on the left: a pointer to
