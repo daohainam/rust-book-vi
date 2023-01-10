@@ -30,7 +30,7 @@ mà rust-lang/rust dùng trong [this file][rust-mdbook]. Để tải về:
 [rust-mdbook]: https://github.com/rust-lang/rust/blob/master/src/tools/rustbook/Cargo.toml
 
 ```bash
-$ cargo install mdbook --vers [version-num]
+$ cargo install mdbook --version <version_num>
 ```
 
 ## Building
