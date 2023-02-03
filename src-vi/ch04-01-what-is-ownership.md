@@ -255,26 +255,25 @@ Giờ hãy xem qua phiên bản với `String`:
 đó là, dòng thứ hai sẽ tạo một bản sao của giá trị trong `s1` và gán nó vào cho 
 `s2`. Nhưng đây không thực sự là điều diễn ra.
 
-Take a look at Figure 4-1 to see what is happening to `String` under the
-covers. A `String` is made up of three parts, shown on the left: a pointer to
-the memory that holds the contents of the string, a length, and a capacity.
-This group of data is stored on the stack. On the right is the memory on the
-heap that holds the contents.
+Hãy xem qua Figure 4-1 để xem điều gì diễn ra đằng sau đối với `String`. Một 
+`String` được tạo nên từ ba phần, được hiển thị phía bên trái: một con trỏ
+đến phần bộ nhớ lưu giữ nội dung của chuỗi, một biến chứa chiều dài và một chứa 
+khả năng lưu trữ. Nhóm dữ liệu này được lưu trên stack. Bên phía phải là phần bộ
+nhớ chứa nội dung của chuỗi.
 
-<img alt="Two tables: the first table contains the representation of s1 on the
-stack, consisting of its length (5), capacity (5), and a pointer to the first
-value in the second table. The second table contains the representation of the
-string data on the heap, byte by byte." src="img/trpl04-01.svg" class="center"
+<img alt="Hai bảng: Bảng đầu tiên chứa biểu diễn của s1 trên stack, bao gồm chiều 
+dài (5), dung lượng khả dụng (5) và một con trỏ đến giá trị đầu tiên trong bảng thứ
+hai. Bảng thứ hai chứa biểu diễn dữ liệu của chuỗi trên heap, theo từng byte."
+src="img/trpl04-01.svg" class="center"
 style="width: 50%;" />
 
-<span class="caption">Figure 4-1: Representation in memory of a `String`
-holding the value `"hello"` bound to `s1`</span>
+<span class="caption">Figure 4-1: Biểu diễn bên trong bộ nhớ của một `String`
+chứa giá trị `"hello"` gán cho biến `s1`</span>
 
-The length is how much memory, in bytes, the contents of the `String` are
-currently using. The capacity is the total amount of memory, in bytes, that the
-`String` has received from the allocator. The difference between length and
-capacity matters, but not in this context, so for now, it’s fine to ignore the
-capacity.
+Chiều dài là bao nhiêu bộ nhớ, tính theo byte, mà nội dung của `String` hiện đang
+dùng. Dung lượng khả dụng là tổng số bộ nhớ, tính theo byte, mà `String` đã nhận
+từ trình quản lý bộ nhớ. Sự khác nhau giữa chiều dài và dung lượng khả dụng, vì 
+không có trong ví dụ này, nên hiện tại ta tạm thời bỏ qua không nói đến.
 
 When we assign `s1` to `s2`, the `String` data is copied, meaning we copy the
 pointer, the length, and the capacity that are on the stack. We do not copy the
