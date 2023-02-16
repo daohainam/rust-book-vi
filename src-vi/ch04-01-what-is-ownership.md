@@ -275,145 +275,138 @@ dùng. Dung lượng khả dụng là tổng số bộ nhớ, tính theo byte, m
 từ trình quản lý bộ nhớ. Sự khác nhau giữa chiều dài và dung lượng khả dụng, vì 
 không có trong ví dụ này, nên hiện tại ta tạm thời bỏ qua không nói đến.
 
-When we assign `s1` to `s2`, the `String` data is copied, meaning we copy the
-pointer, the length, and the capacity that are on the stack. We do not copy the
-data on the heap that the pointer refers to. In other words, the data
-representation in memory looks like Figure 4-2.
+Khi ta gán `s1` vào `s2`, nội dung của `String` sẽ được sao chép, có nghĩa là ta
+chỉ sao chép các thông tin con trỏ, chiều dài, và dung lượng khả dụng vốn được 
+lưu trên stack. Ta không sao chép dữ liệu trên heap mà con trỏ trỏ đến. Nói cách 
+khác, biểu diễn dữ liệu trong bộ nhớ sẽ giống như trong hình minh họa 4-2.
 
-<img alt="Three tables: tables s1 and s2 representing those strings on the
-stack, respectively, and both pointing to the same string data on the heap."
+<img alt="Ba bảng: bảng s1 và s2 biểu diễn các string tương ứng trên stack, và 
+cả hai cùng trỏ vào cùng một vùng dữ liệu trên heap."
 src="img/trpl04-02.svg" class="center" style="width: 50%;" />
 
-<span class="caption">Figure 4-2: Representation in memory of the variable `s2`
-that has a copy of the pointer, length, and capacity of `s1`</span>
+<span class="caption">Hình minh họa 4-2: Biểu diễn trong bộ nhớ của biến `s2`
+chứa bản sao con trỏ, chiều dài, và dung lượng khả dụng `s1`</span>
 
-The representation does *not* look like Figure 4-3, which is what memory would
-look like if Rust instead copied the heap data as well. If Rust did this, the
-operation `s2 = s1` could be very expensive in terms of runtime performance if
-the data on the heap were large.
+Biểu diễn *không* trông giống như Hình 4-3, là tổ chức bộ nhớ trong trường hợp Rust 
+cũng sao chép dữ liệu heap. Nếu Rust đã làm điều này, phép gán `s2 = s1` có thể 
+rất tốn kém về hiệu suất thời gian chạy nếu dữ liệu trên heap lớn.
 
-<img alt="Four tables: two tables representing the stack data for s1 and s2,
-and each points to its own copy of string data on the heap."
+<img alt="Bốn bảng: hai bảng đại diện cho dữ liệu stack cho s1 và s2,
+và mỗi con trỏ trỏ đến bản sao dữ liệu chuỗi của riêng nó trên heap."
 src="img/trpl04-03.svg" class="center" style="width: 50%;" />
 
-<span class="caption">Figure 4-3: Another possibility for what `s2 = s1` might
-do if Rust copied the heap data as well</span>
+<span class="caption">Hình 4-3: Biểu diễn bộ nhớ sau phép gán `s2 = s1` nếu Rust 
+sao chép cả dữ liệu trên heap</span>
 
-Earlier, we said that when a variable goes out of scope, Rust automatically
-calls the `drop` function and cleans up the heap memory for that variable. But
-Figure 4-2 shows both data pointers pointing to the same location. This is a
-problem: when `s2` and `s1` go out of scope, they will both try to free the
-same memory. This is known as a *double free* error and is one of the memory
-safety bugs we mentioned previously. Freeing memory twice can lead to memory
-corruption, which can potentially lead to security vulnerabilities.
+Trước đó, chúng tôi đã nói rằng khi một biến ra ngoài phạm vi, Rust sẽ tự động
+gọi hàm `drop` và dọn sạch bộ nhớ heap cho biến đó. Nhưng Hình 4-2 cho thấy cả 
+hai con trỏ dữ liệu trỏ đến cùng một vị trí. Đây là một vấn đề: khi `s2` và `s1` 
+vượt ra ngoài phạm vi, cả hai sẽ cố gắng giải phóng cùng một phần bộ nhớ. Đây 
+được gọi là lỗi *double free* (giải phóng hai lần) và là một trong những lỗi 
+lỗi an toàn bộ nhớ mà chúng ta đã đề cập đến trước đây. Giải phóng bộ nhớ 
+hai lần có thể dẫn đến sai sót trong tổ chức bộ nhớ, và có khả năng dẫn đến 
+các lỗ hổng bảo mật.
 
-To ensure memory safety, after the line `let s2 = s1;`, Rust considers `s1` as
-no longer valid. Therefore, Rust doesn’t need to free anything when `s1` goes
-out of scope. Check out what happens when you try to use `s1` after `s2` is
-created; it won’t work:
+Để đảm bảo an toàn cho bộ nhớ, sau dòng `let s2 = s1;`, Rust coi `s1` là
+không còn giá trị. Do đó, Rust không cần giải phóng bất cứ thứ gì khi `s1` ra
+ra khỏi phạm vi. Xem điều gì sẽ xảy ra khi bạn cố gắng sử dụng `s1` sau khi `s2` 
+được tạo; nó sẽ không hoạt động:
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-04-cant-use-after-move/src/main.rs:here}}
 ```
 
-You’ll get an error like this because Rust prevents you from using the
-invalidated reference:
+Bạn sẽ gặp lỗi như thế này vì Rust ngăn bạn sử dụng tham chiếu không hợp lệ:
 
 ```console
 {{#include ../listings/ch04-understanding-ownership/no-listing-04-cant-use-after-move/output.txt}}
 ```
 
-If you’ve heard the terms *shallow copy* and *deep copy* while working with
-other languages, the concept of copying the pointer, length, and capacity
-without copying the data probably sounds like making a shallow copy. But
-because Rust also invalidates the first variable, instead of being called a
-shallow copy, it’s known as a *move*. In this example, we would say that `s1`
-was *moved* into `s2`. So, what actually happens is shown in Figure 4-4.
+Nếu bạn đã nghe các thuật ngữ *shallow copy* (sao chép cạn) và *deep copy* 
+(sao chép sâu) khi làm việc với các ngôn ngữ khác, việc sao chép con trỏ, 
+độ dài và dung lượng mà không sao chép dữ liệu có thể giống như tạo một 
+shallow copy. Nhưng vì Rust cũng vô hiệu hóa biến đầu tiên, thay vì được gọi là
+bản sao nông, nó được gọi là *move* (di chuyển). Trong ví dụ này, chúng ta 
+sẽ nói rằng `s1` đã được *move* vào `s2`. Vì vậy, những gì thực sự xảy ra 
+được thể hiện trong Hình 4-4.
 
-<img alt="Three tables: tables s1 and s2 representing those strings on the
-stack, respectively, and both pointing to the same string data on the heap.
-Table s1 is grayed out be-cause s1 is no longer valid; only s2 can be used to
-access the heap data." src="img/trpl04-04.svg" class="center" style="width:
+<img alt="Ba bảng: bảng s1 và s2 đại diện cho các chuỗi đó trên
+stack tương ứng và cả hai đều trỏ đến cùng một dữ liệu chuỗi trên heap.
+Bảng s1 chuyển sang màu xám vì s1 không còn giá trị; chỉ s2 có thể được sử dụng để
+truy cập dữ liệu heap." src="img/trpl04-04.svg" class="center" style="width:
 50%;" />
 
-<span class="caption">Figure 4-4: Representation in memory after `s1` has been
-invalidated</span>
+<span class="caption">Hình 4-4: Biểu diễn trong bộ nhớ sau khi `s1` được
+vô hiệu</span>
 
-That solves our problem! With only `s2` valid, when it goes out of scope it
-alone will free the memory, and we’re done.
+Điều này giúp giải quyết vấn đề của chúng ta! Với chỉ `s2` hợp lệ, khi vượt ra 
+phạm vi, chỉ có nó phải giải phóng bộ nhớ, và chỉ vậy là đủ.
 
-In addition, there’s a design choice that’s implied by this: Rust will never
-automatically create “deep” copies of your data. Therefore, any *automatic*
-copying can be assumed to be inexpensive in terms of runtime performance.
+Ngoài ra, có một lựa chọn thiết kế được ngụ ý bởi điều này: Rust sẽ không bao giờ
+tự động tạo các bản sao dữ liệu “sâu” của bạn. Do đó, bất kỳ thao tác *tự động*
+sao chép đều có thể được coi là không tốn kém về hiệu suất hoạt động.
 
 <!-- Old heading. Do not remove or links may break. -->
 <a id="ways-variables-and-data-interact-clone"></a>
 
-#### Variables and Data Interacting with Clone
+#### Các biến và tương tác dữ liệu với Clone
 
-If we *do* want to deeply copy the heap data of the `String`, not just the
-stack data, we can use a common method called `clone`. We’ll discuss method
-syntax in Chapter 5, but because methods are a common feature in many
-programming languages, you’ve probably seen them before.
+Nếu chúng tôi *thực sự* muốn sao chép cả dữ liệu trên heap của `String`, không chỉ
+dữ liệu trên stack, chúng ta có thể sử dụng một phương pháp phổ biến gọi là `clone` (nhân bản). 
+Chúng ta sẽ thảo luận về cú pháp trong Chương 5, nhưng bởi vì các phương thức kiểu này 
+là một tính năng phổ biến trong nhiều ngôn ngữ lập trình, bạn có thể đã nhìn thấy chúng trước đây.
 
-Here’s an example of the `clone` method in action:
-
-```rust
-{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-05-clone/src/main.rs:here}}
-```
-
-This works just fine and explicitly produces the behavior shown in Figure 4-3,
-where the heap data *does* get copied.
-
-When you see a call to `clone`, you know that some arbitrary code is being
-executed and that code may be expensive. It’s a visual indicator that something
-different is going on.
-
-#### Stack-Only Data: Copy
-
-There’s another wrinkle we haven’t talked about yet. This code using
-integers—part of which was shown in Listing 4-2—works and is valid:
+Đây là một ví dụ về phương thức `clone` đang hoạt động:
 
 ```rust
-{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-06-copy/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch04-undering-ownership/no-listing-05-clone/src/main.rs:here}}
 ```
 
-But this code seems to contradict what we just learned: we don’t have a call to
-`clone`, but `x` is still valid and wasn’t moved into `y`.
+Cách này hoạt động hoàn toàn tốt và tạo ra hành vi như trong Hình 4-3,
+khi mà dữ liệu trên heap *thực sự* được sao chép.
 
-The reason is that types such as integers that have a known size at compile
-time are stored entirely on the stack, so copies of the actual values are quick
-to make. That means there’s no reason we would want to prevent `x` from being
-valid after we create the variable `y`. In other words, there’s no difference
-between deep and shallow copying here, so calling `clone` wouldn’t do anything
-different from the usual shallow copying, and we can leave it out.
+Khi bạn thấy lệnh gọi đến `clone`, bạn sẽ biết rằng một số code tùy biến đang được
+được thực hiện và code đó có thể tốn kém. Đó cũng là một chỉ dẫn trực quan cho thấy 
+rằng một điều gì đó khác đang diễn ra.
 
-Rust has a special annotation called the `Copy` trait that we can place on
-types that are stored on the stack, as integers are (we’ll talk more about
-traits in [Chapter 10][traits]<!-- ignore -->). If a type implements the `Copy`
-trait, variables that use it do not move, but rather are trivially copied,
-making them still valid after assignment to another variable.
+#### Dữ liệu trên stack: sao chép
 
-Rust won’t let us annotate a type with `Copy` if the type, or any of its parts,
-has implemented the `Drop` trait. If the type needs something special to happen
-when the value goes out of scope and we add the `Copy` annotation to that type,
-we’ll get a compile-time error. To learn about how to add the `Copy` annotation
-to your type to implement the trait, see [“Derivable
-Traits”][derivable-traits]<!-- ignore --> in Appendix C.
+Có một điều thắc mắc khác mà chúng ta chưa nói đến. Mã này sử dụng
+integer — là một phần được hiển thị trong trong Listing 4-2 — chạy được và 
+hoàn toàn hợp lệ:
 
-So, what types implement the `Copy` trait? You can check the documentation for
-the given type to be sure, but as a general rule, any group of simple scalar
-values can implement `Copy`, and nothing that requires allocation or is some
-form of resource can implement `Copy`. Here are some of the types that
-implement `Copy`:
+```rust
+{{#rustdoc_include ../listings/ch04-under Hiểu- sở hữu/no-listing-06-copy/src/main.rs:here}}
+```
 
-* All the integer types, such as `u32`.
-* The Boolean type, `bool`, with values `true` and `false`.
-* All the floating-point types, such as `f64`.
-* The character type, `char`.
-* Tuples, if they only contain types that also implement `Copy`. For example,
-  `(i32, i32)` implements `Copy`, but `(i32, String)` does not.
+Nhưng mã này dường như mâu thuẫn với những gì chúng ta vừa học được: chúng ta không có lời gọi đến
+`clone`, nhưng `x` vẫn hợp lệ và không được chuyển vào `y`.
 
+Rust có một annotation (chú thích) đặc biệt gọi là `Copy` mà chúng ta có thể đặt trên
+các loại dữ liệu được lưu trữ trên stack, như số nguyên (chúng ta sẽ nói thêm về
+annotation trong [Chương 10][traits]<!-- ignore -->). Nếu một kiểu dữ liệu áp dụng
+`Copy`, các biến sử dụng nó không move mà được copy một cách bình thường,
+làm cho chúng vẫn hợp lệ sau khi được gán cho một biến khác.
+
+Rust sẽ không cho phép chúng ta đánh dấu một kiểu bằng `Copy` nếu kiểu đó hoặc 
+bất kỳ thành phần nào của nó, đã được đánh dấu `Drop`. Nếu kiểu dữ liệu cần làm một 
+điều gì đó đặc biệt khi giá trị vượt quá phạm vi và chúng ta thêm chú thích `Copy` 
+cho loại đó, chúng tôi sẽ gặp lỗi biên dịch. Để tìm hiểu về cách thêm chú thích `Copy`
+vào kiểu dữ liệu của bạn để thực hiện trait, xem phần [“Đặc điểm dẫn xuất”][derivable-traits]<!-- ignore --> 
+trong Phụ lục C.
+
+Vậy, những kiểu dữ liệu nào thực hiện đặc điểm `Copy`? Để chắc chắn bạn có thể 
+kiểm tra tài liệu của loại dữ liệu đó, nhưng theo nguyên tắc chung, bất kỳ nhóm kiểu dữ liệu 
+vô hướng đơn giản nào các giá trị có thể triển khai `Copy` và không có gì yêu cầu phân bổ hoặc là một số
+dạng tài nguyên có thể triển khai `Copy`. Đây là một số loại áp dụng `Copy`:
+
+* Tất cả các loại số nguyên, chẳng hạn như `u32`.
+* Kiểu Boolean, `bool`, với các giá trị `true` và `false`.
+* Tất cả các loại dấu phẩy động, chẳng hạn như `f64`.
+* Loại ký tự, `char`.
+* Tuple, nếu chúng chỉ chứa các loại cũng áp dụng `Copy`. Ví dụ,
+   `(i32, i32)` thực hiện `Copy`, nhưng `(i32, String)` thì không.  
+  
 ### Ownership and Functions
 
 The mechanics of passing a value to a function are similar to those when
