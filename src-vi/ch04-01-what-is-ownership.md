@@ -226,7 +226,7 @@ có vẻ đơn giản, nhưng trong những trường hợp phức tạp code c�
 sát một vài trường hợp:
 
 <!-- Old heading. Do not remove or links may break. -->
-<a id="ways-variables-and-data-interact-move"></a>
+<a id="ways-variables-and-data-interact-move"></a><a id="variables-and-data-interacting-with-move"></a>
 
 #### Các biến và việc tương tác dữ liệu với Move
 
@@ -368,6 +368,8 @@ khi mà dữ liệu trên heap *thực sự* được sao chép.
 Khi bạn thấy lệnh gọi đến `clone`, bạn sẽ biết rằng một số code tùy biến đang được
 được thực hiện và code đó có thể tốn kém. Đó cũng là một chỉ dẫn trực quan cho thấy 
 rằng một điều gì đó khác đang diễn ra.
+
+<a id="stack-only-data-copy"></a>
 
 #### Dữ liệu trên stack: sao chép
 
