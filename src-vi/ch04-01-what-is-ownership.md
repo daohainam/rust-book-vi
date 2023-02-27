@@ -406,13 +406,13 @@ dạng tài nguyên có thể triển khai `Copy`. Đây là một số loại �
 * Loại ký tự, `char`.
 * Tuple, nếu chúng chỉ chứa các loại cũng áp dụng `Copy`. Ví dụ,
    `(i32, i32)` thực hiện `Copy`, nhưng `(i32, String)` thì không.  
-  
-### Ownership and Functions
 
-The mechanics of passing a value to a function are similar to those when
-assigning a value to a variable. Passing a variable to a function will move or
-copy, just as assignment does. Listing 4-3 has an example with some annotations
-showing where variables go into and out of scope.
+<a id="ownership-and-functions"></a>  
+### Ownership và Functions
+
+Cơ chế chuyển một giá trị cho một hàm cũng tương tự như khi gán giá trị cho một biến. 
+Truyền một biến cho một hàm sẽ move hoặc copy, giống như phép gán. Liệt kê 4-3 có một ví 
+dụ với một số annotation nơi các biến vào và ra khỏi phạm vi.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -420,19 +420,19 @@ showing where variables go into and out of scope.
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-03/src/main.rs}}
 ```
 
-<span class="caption">Listing 4-3: Functions with ownership and scope
+<span class="caption">Liệt kê 4-3: Các hàm với ownership và scope
 annotated</span>
 
-If we tried to use `s` after the call to `takes_ownership`, Rust would throw a
-compile-time error. These static checks protect us from mistakes. Try adding
-code to `main` that uses `s` and `x` to see where you can use them and where
-the ownership rules prevent you from doing so.
+Nếu chúng tôi cố sử dụng `s` sau lệnh gọi `takes_ownership`, Rust sẽ đưa ra một
+lỗi biên dịch. Những kiểm tra tĩnh này bảo vệ chúng ta khỏi những sai lầm. Thử thêm
+code vào `main` để sử dụng `s` và `x` và xem bạn có thể sử dụng chúng ở đâu và ở đâu
+các quy tắc ownership ngăn cản bạn làm vậy.
 
-### Return Values and Scope
+<a id="return-values-and-scope"></a>
+### Giá trị trả về và Scope
 
-Returning values can also transfer ownership. Listing 4-4 shows an example of a
-function that returns some value, with similar annotations as those in Listing
-4-3.
+Các giá trị trả về cũng có thể chuyển ownership. Liệt kê 4-4 trình bày một ví dụ về một
+hàm trả về một số giá trị, với các annotation tương tự như trong Liệt kê 4-3.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -440,21 +440,19 @@ function that returns some value, with similar annotations as those in Listing
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-04/src/main.rs}}
 ```
 
-<span class="caption">Listing 4-4: Transferring ownership of return
-values</span>
+<span class="caption">Listing 4-4: Chuyển ownership của các giá trị trả về</span>
 
-The ownership of a variable follows the same pattern every time: assigning a
-value to another variable moves it. When a variable that includes data on the
-heap goes out of scope, the value will be cleaned up by `drop` unless ownership
-of the data has been moved to another variable.
+Ownership của một biến luôn tuân theo cùng một khuôn mẫu: việc gán giá trị cho một 
+biến khác sẽ move nó. Khi một biến bao gồm dữ liệu trên heap nằm ngoài scope, giá trị 
+sẽ bị `drop` trừ khi ownership đã được chuyển sang một biến khác.
 
-While this works, taking ownership and then returning ownership with every
-function is a bit tedious. What if we want to let a function use a value but
-not take ownership? It’s quite annoying that anything we pass in also needs to
-be passed back if we want to use it again, in addition to any data resulting
-from the body of the function that we might want to return as well.
+Khi điều này hoạt động, việc lấy ownership và sau đó trả lại ownership với các 
+hàm sẽ có một chút tẻ nhạt. Điều gì sẽ xảy ra nếu chúng ta muốn để một hàm sử dụng một 
+giá trị nhưng không lấy ownership? Thật khó chịu khi bất cứ thứ gì chúng ta truyền đi 
+cũng cần phải được trả lại nếu chúng ta muốn sử dụng lại, chưa kể chúng ta còn phải trả
+về giá trị của hàm.
 
-Rust does let us return multiple values using a tuple, as shown in Listing 4-5.
+Rust cho phép chúng ta trả về nhiều giá trị bằng cách sử dụng tuple, như trong Liệt kê 4-5.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -462,11 +460,11 @@ Rust does let us return multiple values using a tuple, as shown in Listing 4-5.
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-05/src/main.rs}}
 ```
 
-<span class="caption">Listing 4-5: Returning ownership of parameters</span>
+<span class="caption">Liệt kê 4-5: Trả về ownership của các tham số</span>
 
-But this is too much ceremony and a lot of work for a concept that should be
-common. Luckily for us, Rust has a feature for using a value without
-transferring ownership, called *references*.
+Nhưng quả là có quá nhiều thứ cho một khái niệm vốn khá phổ biến. Thật may mắn cho chúng ta, 
+Rust có một tính năng cho phép sử dụng một giá trị mà không cần
+chuyển quyền sở hữu, được gọi là *reference* (tham chiếu).
 
 [data-types]: ch03-02-data-types.html#data-types
 [ch8]: ch08-02-strings.html

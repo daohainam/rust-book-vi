@@ -1,17 +1,19 @@
-## References and Borrowing
+<a id="references-and-borrowing"></a>
+## References and Borrowing (tham chiếu và mượn)
 
-The issue with the tuple code in Listing 4-5 is that we have to return the
-`String` to the calling function so we can still use the `String` after the
-call to `calculate_length`, because the `String` was moved into
-`calculate_length`. Instead, we can provide a reference to the `String` value.
-A *reference* is like a pointer in that it’s an address we can follow to access
-the data stored at that address; that data is owned by some other variable.
-Unlike a pointer, a reference is guaranteed to point to a valid value of a
-particular type for the life of that reference.
+Vấn đề với tuple code trong Liệt kê 4-5 là chúng ta phải trả về
+`String` cho hàm gọi để vẫn có thể sử dụng `String` sau khi gọi 
+tới `calculate_length`, vì `String` đã được chuyển vào
+`calculate_length`. Để làm điều đó, chúng ta có thể cung cấp một reference (tham chiếu)
+đến giá trị `String`.
+Một *tham chiếu* giống như một con trỏ ở chỗ nó là một địa chỉ mà chúng ta có thể theo dõi để truy cập
+dữ liệu được lưu trữ tại địa chỉ đó; dữ liệu đó được sở hữu bởi một số biến khác.
+Nhưng không giống con trỏ, một reference được đảm bảo trỏ đến một giá trị hợp lệ của một
+kiểu cụ thể trong suốt vòng đời của reference đó.
 
-Here is how you would define and use a `calculate_length` function that
-has a reference to an object as a parameter instead of taking ownership of the
-value:
+Đây là cách bạn định nghĩa và sử dụng hàm `calculate_length` để
+có tham chiếu đến một đối tượng dưới dạng tham số thay vì lấy ownership của đối tượng
+sở hữu giá trị:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -19,34 +21,34 @@ value:
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-07-reference/src/main.rs:all}}
 ```
 
-First, notice that all the tuple code in the variable declaration and the
-function return value is gone. Second, note that we pass `&s1` into
-`calculate_length` and, in its definition, we take `&String` rather than
-`String`. These ampersands represent *references*, and they allow you to refer
-to some value without taking ownership of it. Figure 4-5 depicts this concept.
+Đầu tiên, lưu ý rằng tất cả tuple code trong khai báo biến và
+giá trị trả về của hàm đã biến mất. Thứ hai, lưu ý rằng chúng ta chuyển `&s1` vào
+`calculate_length` và, theo định nghĩa của nó, chúng ta lấy `&String` thay vì
+`String`. Các dấu & này đại diện cho *reference* và chúng cho phép bạn tham chiếu
+đến một giá trị nào đó mà không sở hữu nó. Hình 4-5 mô tả khái niệm này.
 
-<img alt="&amp;String s pointing at String s1" src="img/trpl04-05.svg" class="center" />
+<img alt="&amp;Chuỗi s chỉ vào Chuỗi s1" src="img/trpl04-05.svg" class="center" />
 
-<span class="caption">Figure 4-5: A diagram of `&String s` pointing at `String
+<span class="caption">Hình 4-5: Sơ đồ `&String s` chỉ vào `String
 s1`</span>
 
-> Note: The opposite of referencing by using `&` is *dereferencing*, which is
-> accomplished with the dereference operator, `*`. We’ll see some uses of the
-> dereference operator in Chapter 8 and discuss details of dereferencing in
-> Chapter 15.
+> Lưu ý: Ngược lại với reference bằng cách sử dụng `&` là *dereferencing*, bằng cách
+> dùng toán tử `*`. Chúng ta sẽ thấy một số công dụng của
+> toán tử dereference trong Chương 8 và thảo luận chi tiết về dereference trong
+> Chương 15.
 
-Let’s take a closer look at the function call here:
+Hãy cùng xem kỹ hơn về lệnh gọi hàm ở đây:
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-07-reference/src/main.rs:here}}
 ```
 
-The `&s1` syntax lets us create a reference that *refers* to the value of `s1`
-but does not own it. Because it does not own it, the value it points to will
-not be dropped when the reference stops being used.
+Cú pháp `&s1` cho phép chúng ta tạo một reference *tham chiếu* đến giá trị của `s1`
+nhưng không sở hữu nó. Vì không sở hữu nó, giá trị mà nó trỏ tới sẽ
+không bị drop khi tham chiếu ngừng được sử dụng.
 
-Likewise, the signature of the function uses `&` to indicate that the type of
-the parameter `s` is a reference. Let’s add some explanatory annotations:
+Tương tự như vậy, chữ ký của hàm sử dụng `&` để chỉ ra rằng kiểu của
+tham số `s` là một tham chiếu. Hãy thêm một số annotation:
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-08-reference-with-annotations/src/main.rs:here}}
