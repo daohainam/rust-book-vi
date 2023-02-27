@@ -359,7 +359,7 @@ là một tính năng phổ biến trong nhiều ngôn ngữ lập trình, bạn
 Đây là một ví dụ về phương thức `clone` đang hoạt động:
 
 ```rust
-{{#rustdoc_include ../listings/ch04-undering-ownership/no-listing-05-clone/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-05-clone/src/main.rs:here}}
 ```
 
 Cách này hoạt động hoàn toàn tốt và tạo ra hành vi như trong Hình 4-3,
@@ -376,7 +376,7 @@ integer — là một phần được hiển thị trong trong Listing 4-2 — c
 hoàn toàn hợp lệ:
 
 ```rust
-{{#rustdoc_include ../listings/ch04-under Hiểu- sở hữu/no-listing-06-copy/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-06-copy/src/main.rs:here}}
 ```
 
 Nhưng mã này dường như mâu thuẫn với những gì chúng ta vừa học được: chúng ta không có lời gọi đến
@@ -392,7 +392,7 @@ Rust sẽ không cho phép chúng ta đánh dấu một kiểu bằng `Copy` n�
 bất kỳ thành phần nào của nó, đã được đánh dấu `Drop`. Nếu kiểu dữ liệu cần làm một 
 điều gì đó đặc biệt khi giá trị vượt quá phạm vi và chúng ta thêm chú thích `Copy` 
 cho loại đó, chúng tôi sẽ gặp lỗi biên dịch. Để tìm hiểu về cách thêm chú thích `Copy`
-vào kiểu dữ liệu của bạn để thực hiện trait, xem phần [“Đặc điểm dẫn xuất”][derivable-traits]<!-- ignore --> 
+vào kiểu dữ liệu của bạn để thực hiện trait, xem phần [“Derivable Traits”][derivable-traits]<!-- ignore --> 
 trong Phụ lục C.
 
 Vậy, những kiểu dữ liệu nào thực hiện đặc điểm `Copy`? Để chắc chắn bạn có thể 
