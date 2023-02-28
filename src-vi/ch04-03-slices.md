@@ -1,3 +1,4 @@
+<a id="the-slice-type"></a>
 ## Kiểu Slice
 
 *Slice* cho phép bạn tham chiếu một chuỗi các phần tử liền kề trong một collection
