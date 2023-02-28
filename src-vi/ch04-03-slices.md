@@ -1,25 +1,26 @@
-## The Slice Type
+## Kiểu Slice
 
-*Slices* let you reference a contiguous sequence of elements in a collection
-rather than the whole collection. A slice is a kind of reference, so it does
-not have ownership.
+*Slice* cho phép bạn tham chiếu một chuỗi các phần tử liền kề trong một collection
+thay vì toàn bộ collection. Một slide là một dạng reference, do đó, nó
+không có ownership.
 
-Here’s a small programming problem: write a function that takes a string of
-words separated by spaces and returns the first word it finds in that string.
-If the function doesn’t find a space in the string, the whole string must be
-one word, so the entire string should be returned.
+Đây là một vấn đề lập trình nhỏ: viết một hàm nhận vào một chuỗi
+các từ được phân tách bằng khoảng trắng và trả về từ đầu tiên nó tìm thấy trong chuỗi đó.
+Nếu hàm không tìm thấy khoảng trắng trong chuỗi, toàn bộ chuỗi phải là
+một từ, vì vậy toàn bộ chuỗi sẽ được trả về.
 
-Let’s work through how we’d write the signature of this function without using
-slices, to understand the problem that slices will solve:
+Hãy tìm hiểu cách chúng ta viết khai báo hàm này mà không cần sử dụng
+slice, để hiểu vấn đề mà slice sẽ giải quyết:
 
 ```rust,ignore
 fn first_word(s: &String) -> ?
 ```
 
-The `first_word` function has a `&String` as a parameter. We don’t want
-ownership, so this is fine. But what should we return? We don’t really have a
-way to talk about *part* of a string. However, we could return the index of the
-end of the word, indicated by a space. Let’s try that, as shown in Listing 4-7.
+Hàm `first_word` có `&String` làm tham số. chúng tôi không muốn
+ownership, vì vậy điều này là tốt. Nhưng chúng ta nên trả về những gì? Chúng ta 
+không thực sự có một cách để nói về *phần* của một chuỗi. Tuy nhiên, chúng ta 
+có thể trả về index của vị trí cuối từ, được biểu thị bằng khoảng trắng. Hãy 
+thử điều đó, như trong Liệt kê 4-7.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -27,51 +28,52 @@ end of the word, indicated by a space. Let’s try that, as shown in Listing 4-7
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 4-7: The `first_word` function that returns a
-byte index value into the `String` parameter</span>
+<span class="caption">Liệt kê 4-7: Hàm `first_word` trả về một
+giá trị byte index vào tham số `String`</span>
 
-Because we need to go through the `String` element by element and check whether
-a value is a space, we’ll convert our `String` to an array of bytes using the
-`as_bytes` method:
+Vì chúng ta cần đi qua từng phần tử `String` và kiểm tra xem
+một giá trị có là khoảng trắng hay không, chúng ta sẽ chuyển 
+đổi `String` của mình thành một mảng byte bằng cách sử dụng
+phương thức `as_bytes`:
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:as_bytes}}
 ```
 
-Next, we create an iterator over the array of bytes using the `iter` method:
+Tiếp theo, chúng ta tạo một iterator trên mảng byte bằng phương thức `iter`:
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:iter}}
 ```
 
-We’ll discuss iterators in more detail in [Chapter 13][ch13]<!-- ignore -->.
-For now, know that `iter` is a method that returns each element in a collection
-and that `enumerate` wraps the result of `iter` and returns each element as
-part of a tuple instead. The first element of the tuple returned from
-`enumerate` is the index, and the second element is a reference to the element.
-This is a bit more convenient than calculating the index ourselves.
+Chúng ta sẽ thảo luận chi tiết hơn về các iterator trong [Chương 13][ch13]<!-- ignore -->.
+Hiện tại, hãy biết rằng `iter` là một phương thức trả về từng phần tử trong một collection
+và `enumerate` bao bọc kết quả của `iter` và trả về mỗi phần tử dưới dạng tuple. 
+Phần tử đầu tiên của bộ dữ liệu được trả về từ
+`enumerate` là chỉ mục và phần tử thứ hai là tham chiếu đến phần tử.
+Điều này thuận tiện hơn một chút so với việc tự tính toán index.
 
-Because the `enumerate` method returns a tuple, we can use patterns to
-destructure that tuple. We’ll be discussing patterns more in [Chapter
-6][ch6]<!-- ignore -->. In the `for` loop, we specify a pattern that has `i`
-for the index in the tuple and `&item` for the single byte in the tuple.
-Because we get a reference to the element from `.iter().enumerate()`, we use
-`&` in the pattern.
+Vì phương thức `enumerate` trả về một tuple, nên chúng ta có thể sử dụng các pattern (mẫu) để
+hủy tuple đó. Chúng ta sẽ thảo luận nhiều hơn về các pattern trong [Chương
+6][ch6]<!-- ignore -->. Trong vòng lặp `for`, chúng ta chỉ định một pattern có `i`
+cho chỉ mục trong tuple và `&item` cho byte đơn trong tuple.
+Bởi vì chúng tôi nhận được tham chiếu đến phần tử từ `.iter().enumerate()`, nên chúng ta sử dụng
+`&` trong pattern.
 
-Inside the `for` loop, we search for the byte that represents the space by
-using the byte literal syntax. If we find a space, we return the position.
-Otherwise, we return the length of the string by using `s.len()`:
+Bên trong vòng lặp `for`, chúng ta tìm kiếm byte đại diện cho khoảng trắng bằng cách
+sử dụng cú pháp ký tự byte. Nếu tìm thấy một khoảng trống, chúng ta sẽ trả lại vị trí.
+Ngược lại, chúng tôi trả về độ dài của chuỗi bằng cách sử dụng `s.len()`:
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:inside_for}}
 ```
 
-We now have a way to find out the index of the end of the first word in the
-string, but there’s a problem. We’re returning a `usize` on its own, but it’s
-only a meaningful number in the context of the `&String`. In other words,
-because it’s a separate value from the `String`, there’s no guarantee that it
-will still be valid in the future. Consider the program in Listing 4-8 that
-uses the `first_word` function from Listing 4-7.
+Bây giờ chúng ta có một cách để tìm ra chỉ số kết thúc của từ đầu tiên trong
+chuỗi, nhưng có một vấn đề. Chúng ta đang trả về một `usize`, nhưng nó
+chỉ có ý nghĩa trong ngữ cảnh của `&String`. Nói cách khác,
+bởi vì đó là một giá trị riêng biệt từ `String`, nên không có gì đảm bảo rằng nó
+vẫn sẽ hợp lệ trong tương lai. Hãy xem xét chương trình trong Listing 4-8 
+sử dụng hàm `first_word` từ Listing 4-7.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -102,6 +104,31 @@ that state at all. We have three unrelated variables floating around that
 need to be kept in sync.
 
 Luckily, Rust has a solution to this problem: string slices.
+
+
+<span class="caption">Liệt kê 4-8: Lưu trữ kết quả từ việc gọi hàm
+hàm `first_word` rồi thay đổi nội dung `String`</span>
+
+Chương trình này biên dịch mà không có bất kỳ lỗi nào và cũng sẽ vậy nếu chúng ta sử dụng `word`
+sau khi gọi `s.clear()`. Bởi vì `word` không được kết nối với trạng thái của `s`
+hoàn toàn, `word` vẫn chứa giá trị `5`. Chúng ta có thể sử dụng giá trị `5` đó với
+biến `s` để trích xuất từ đầu tiên, nhưng đây sẽ là một lỗi bởi vì nội dung 
+của `s` đã thay đổi kể từ khi chúng ta lưu `5` trong `word`.
+
+Việc phải lo lắng về index trong `word` không đồng bộ với dữ liệu trong
+`s` thật chán và dễ bị lỗi! Việc quản lý các chỉ số này thậm chí còn khó khăn hơn nếu
+chúng tôi viết một hàm `second_word`. Khai báo của nó sẽ phải trông như thế này:
+
+```rust,ignore
+fn second_word(s: &String) -> (sử dụng, sử dụng) {
+```
+
+Bây giờ chúng ta đang theo dõi chỉ mục bắt đầu *và* kết thúc, và chúng ta thậm chí còn có
+các giá trị được tính toán từ dữ liệu ở một trạng thái cụ thể nhưng không bị ràng buộc với
+trạng thái đó. Chúng ta có ba biến không liên quan trôi nổi xung quanh 
+cần được giữ đồng bộ với nhau.
+
+May mắn thay, Rust có một giải pháp cho vấn đề này: slide.
 
 ### String Slices
 
