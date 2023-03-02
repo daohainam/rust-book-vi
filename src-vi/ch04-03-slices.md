@@ -133,31 +133,30 @@ May mắn thay, Rust có một giải pháp cho vấn đề này: slide.
 
 ### String Slices
 
-A *string slice* is a reference to part of a `String`, and it looks like this:
+Một *string slice* là một tham chiếu đến một phần của `String`, và nó trông như thế này:
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-17-slice/src/main.rs:here}}
 ```
 
-Rather than a reference to the entire `String`, `hello` is a reference to a
-portion of the `String`, specified in the extra `[0..5]` bit. We create slices
-using a range within brackets by specifying `[starting_index..ending_index]`,
-where `starting_index` is the first position in the slice and `ending_index` is
-one more than the last position in the slice. Internally, the slice data
-structure stores the starting position and the length of the slice, which
-corresponds to `ending_index` minus `starting_index`. So in the case of `let
-world = &s[6..11];`, `world` would be a slice that contains a pointer to the
-byte at index 6 of `s` with a length value of 5.
+Thay vì reference đến toàn bộ `String`, `hello` là một reference đến một
+phần của `String`, được chỉ định trong phần `[0..5]`. Chúng ta tạo ra các slice
+sử dụng toán tử phạm vi trong ngoặc bằng cách viết `[starting_index..ending_index]`,
+trong đó `starting_index` là vị trí đầu tiên trong slice và `ending_index` là
+vị trí cuối cùng + 1 trong slice. Bên trong, cấu trúc dữ liệu slice
+lưu trữ vị trí bắt đầu và độ dài của slice, tương ứng với `ending_index` trừ `starting_index`. 
+Vì vậy, trong trường hợp `let world = &s[6..11];`, `world` sẽ là một slice chứa con trỏ tới
+byte tại index 6 của `s` với giá trị độ dài là 5.
 
-Figure 4-6 shows this in a diagram.
+Hình 4-6 cho thấy điều này trong một diagram.
 
-<img alt="world containing a pointer to the byte at index 6 of String s and a length 5" src="img/trpl04-06.svg" class="center" style="width: 50%;" />
+<img alt="world chứa con trỏ tới byte ở chỉ số 6 của String s và độ dài 5" src="img/trpl04-06.svg" class="center" style="width: 50%;" />
 
-<span class="caption">Figure 4-6: String slice referring to part of a
+<span class="caption">Hình 4-6: String slice tham chiếu đến một phần của
 `String`</span>
 
-With Rust’s `..` range syntax, if you want to start at index zero, you can drop
-the value before the two periods. In other words, these are equal:
+Với cú pháp phạm vi `..` của Rust, nếu bạn muốn bắt đầu từ chỉ số 0, bạn có thể bỏ
+giá trị trước hai dấu chấm. Nói cách khác, chúng bằng nhau:
 
 ```rust
 let s = String::from("hello");
@@ -166,8 +165,8 @@ let slice = &s[0..2];
 let slice = &s[..2];
 ```
 
-By the same token, if your slice includes the last byte of the `String`, you
-can drop the trailing number. That means these are equal:
+Tương tự như vậy, nếu slice của bạn bao gồm byte cuối cùng của `String`, thì bạn
+có thể chỉ số cuối. Điều đó có nghĩa là các lệnh sau tương tự nhau:
 
 ```rust
 let s = String::from("hello");
@@ -178,8 +177,7 @@ let slice = &s[3..len];
 let slice = &s[3..];
 ```
 
-You can also drop both values to take a slice of the entire string. So these
-are equal:
+Bạn cũng có thể bỏ cả hai giá trị để lấy một phần của toàn bộ chuỗi:
 
 ```rust
 let s = String::from("hello");
@@ -190,15 +188,15 @@ let slice = &s[0..len];
 let slice = &s[..];
 ```
 
-> Note: String slice range indices must occur at valid UTF-8 character
-> boundaries. If you attempt to create a string slice in the middle of a
-> multibyte character, your program will exit with an error. For the purposes
-> of introducing string slices, we are assuming ASCII only in this section; a
-> more thorough discussion of UTF-8 handling is in the [“Storing UTF-8 Encoded
-> Text with Strings”][strings]<!-- ignore --> section of Chapter 8.
+> Lưu ý: Chỉ số phạm vi string slice phải xuất hiện ở vị trí là ranh giới một ký tự UTF-8 hợp lệ.
+> Nếu bạn cố gắng tạo một lát cắt chuỗi ở giữa một
+> ký tự multibyte, chương trình của bạn sẽ thoát với một lỗi. Với mục đích
+> giới thiệu các string slice, chúng ta giả sử chỉ dùng ASCII trong phần này; Một
+> thảo luận kỹ lưỡng hơn về xử lý UTF-8 có trong [“Lưu trữ văn bản UTF-8 Encoded
+> với String”][strings]<!-- ignore --> phần của Chương 8.
 
-With all this information in mind, let’s rewrite `first_word` to return a
-slice. The type that signifies “string slice” is written as `&str`:
+Với tất cả những thông tin đã có, hãy viết lại `first_word` để trả về một
+slice. Loại biểu thị “lát cắt chuỗi” được viết là `&str`:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -206,30 +204,30 @@ slice. The type that signifies “string slice” is written as `&str`:
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-18-first-word-slice/src/main.rs:here}}
 ```
 
-We get the index for the end of the word in the same way as we did in Listing
-4-7, by looking for the first occurrence of a space. When we find a space, we
-return a string slice using the start of the string and the index of the space
-as the starting and ending indices.
+Chúng ta lấy chỉ mục cho phần cuối của từ giống như cách chúng ta đã làm trong Liệt kê
+4-7, bằng cách tìm kiếm sự xuất hiện đầu tiên của khoảng trắng. Khi tìm thấy một space, ta
+trả về một string slice bằng cách sử dụng phần đầu của chuỗi và index của space
+như các chỉ số bắt đầu và kết thúc.
 
-Now when we call `first_word`, we get back a single value that is tied to the
-underlying data. The value is made up of a reference to the starting point of
-the slice and the number of elements in the slice.
+Bây giờ, khi gọi `first_word`, chúng ta nhận lại một giá trị duy nhất được gắn với
+dữ liệu bên dưới. Giá trị được tạo thành từ một tham chiếu đến điểm bắt đầu của
+slice và số phần tử trong slice.
 
-Returning a slice would also work for a `second_word` function:
+Trả về một slice cũng sẽ hoạt động đối với hàm `second_word`:
 
 ```rust,ignore
 fn second_word(s: &String) -> &str {
 ```
 
-We now have a straightforward API that’s much harder to mess up, because the
-compiler will ensure the references into the `String` remain valid. Remember
-the bug in the program in Listing 4-8, when we got the index to the end of the
-first word but then cleared the string so our index was invalid? That code was
-logically incorrect but didn’t show any immediate errors. The problems would
-show up later if we kept trying to use the first word index with an emptied
-string. Slices make this bug impossible and let us know we have a problem with
-our code much sooner. Using the slice version of `first_word` will throw a
-compile-time error:
+Bây giờ chúng tôi có một API đơn giản, khó gây ra rắc rối hơn nhiều, vì
+trình biên dịch sẽ đảm bảo các tham chiếu vào `String` vẫn hợp lệ. Nhớ
+lỗi trong chương trình trong Liệt kê 4-8, khi chúng ta lấy index đến cuối
+từ đầu tiên nhưng sau đó xóa chuỗi để index đó trở nên không hợp lệ? Đoạn code đó 
+không chính xác về mặt logic nhưng không hiển thị bất kỳ lỗi ngay lập tức nào. 
+Các vấn đề sẽ xuất hiện sau nếu chúng ta tiếp tục cố gắng sử dụng chỉ mục từ đầu tiên 
+với một chuỗi rỗng. Các slide khiến lỗi này không thể xảy ra và cho ta biết 
+về các vấn đề của code sớm hơn nhiều. Sử dụng phiên bản slide của `first_word` sẽ tạo ra một
+lỗi biên dịch:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -237,20 +235,20 @@ compile-time error:
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-19-slice-error/src/main.rs:here}}
 ```
 
-Here’s the compiler error:
+Đây là lỗi biên dịch:
 
 ```console
 {{#include ../listings/ch04-understanding-ownership/no-listing-19-slice-error/output.txt}}
 ```
 
-Recall from the borrowing rules that if we have an immutable reference to
-something, we cannot also take a mutable reference. Because `clear` needs to
-truncate the `String`, it needs to get a mutable reference. The `println!`
-after the call to `clear` uses the reference in `word`, so the immutable
-reference must still be active at that point. Rust disallows the mutable
-reference in `clear` and the immutable reference in `word` from existing at the
-same time, and compilation fails. Not only has Rust made our API easier to use,
-but it has also eliminated an entire class of errors at compile time!
+Hãy nhớ lại từ các quy tắc borrowing rằng nếu ta có một immutable reference đến
+một cái gì đó, ta cũng không thể lấy một mutable reference. Bởi vì `clear` cần 
+cắt bớt `String`, nó cần lấy mutable reference. Lệnh `println!` sau lệnh gọi `clear` 
+sử dụng tham chiếu trong `word`, vì vậy giá trị immutable reference vẫn đang 
+được sử dụng tại thời điểm đó. Rust không cho phép thay đổi
+tham chiếu trong `clear` và immutable reference trong `word` cùng lúc 
+và việc biên dịch sẽ không thành công. Rust không chỉ làm cho API của chúng 
+ta dễ sử dụng hơn, mà nó còn loại bỏ toàn bộ các lỗi tại thời điểm biên dịch!
 
 #### String Literals Are Slices
 
