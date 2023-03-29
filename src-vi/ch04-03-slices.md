@@ -82,32 +82,7 @@ sử dụng hàm `first_word` từ Listing 4-7.
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-08/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 4-8: Storing the result from calling the
-`first_word` function and then changing the `String` contents</span>
-
-This program compiles without any errors and would also do so if we used `word`
-after calling `s.clear()`. Because `word` isn’t connected to the state of `s`
-at all, `word` still contains the value `5`. We could use that value `5` with
-the variable `s` to try to extract the first word out, but this would be a bug
-because the contents of `s` have changed since we saved `5` in `word`.
-
-Having to worry about the index in `word` getting out of sync with the data in
-`s` is tedious and error prone! Managing these indices is even more brittle if
-we write a `second_word` function. Its signature would have to look like this:
-
-```rust,ignore
-fn second_word(s: &String) -> (usize, usize) {
-```
-
-Now we’re tracking a starting *and* an ending index, and we have even more
-values that were calculated from data in a particular state but aren’t tied to
-that state at all. We have three unrelated variables floating around that
-need to be kept in sync.
-
-Luckily, Rust has a solution to this problem: string slices.
-
-
-<span class="caption">Liệt kê 4-8: Lưu trữ kết quả từ việc gọi hàm
+<span class="caption">Listing 4-8: Lưu trữ kết quả từ việc gọi hàm
 hàm `first_word` rồi thay đổi nội dung `String`</span>
 
 Chương trình này biên dịch mà không có bất kỳ lỗi nào và cũng sẽ vậy nếu chúng ta sử dụng `word`
@@ -252,15 +227,15 @@ ta dễ sử dụng hơn, mà nó còn loại bỏ toàn bộ các lỗi tại t
 
 #### String Literals Are Slices
 
-Recall that we talked about string literals being stored inside the binary. Now
-that we know about slices, we can properly understand string literals:
+Nhớ lại rằng chúng ta đã nói về string literal được lưu trữ bên trong dữ liệu nhị phân. Hiện nay
+mà chúng ta biết về slice, chúng ta có thể hiểu đúng về string literal:
 
 ```rust
 let s = "Hello, world!";
 ```
 
-The type of `s` here is `&str`: it’s a slice pointing to that specific point of
-the binary. This is also why string literals are immutable; `&str` is an
+Kiểu của `s` ở đây là `&str`: đó là một slice trỏ đến một điểm cụ thể của giá trị
+nhị phân. Đây cũng là lý do tại sao string literal là bất biến; `&str` là một
 immutable reference.
 
 #### String Slices as Parameters
