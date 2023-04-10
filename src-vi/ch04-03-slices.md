@@ -240,31 +240,31 @@ immutable reference.
 
 #### String Slices as Parameters
 
-Knowing that you can take slices of literals and `String` values leads us to
-one more improvement on `first_word`, and that’s its signature:
+Khi đã biết rằng bạn có thể lấy slice của các literal và giá trị của `String`, ta sẽ thấy thêm 
+một cải tiến nữa trên `first_word`, và đây là chữ ký của nó:
 
 ```rust,ignore
 fn first_word(s: &String) -> &str {
 ```
 
-A more experienced Rustacean would write the signature shown in Listing 4-9
-instead because it allows us to use the same function on both `&String` values
-and `&str` values.
+Một Rustacean có kinh nghiệm hơn sẽ viết chữ ký như trong Listing 4-9
+vì nó cho phép chúng ta sử dụng cùng một chức năng trên cả hai giá trị `&String`
+và các giá trị `&str`.
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-09/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 4-9: Improving the `first_word` function by using
-a string slice for the type of the `s` parameter</span>
+<span class="caption">Listing 4-9: Cải thiện chức năng `first_word` bằng cách sử dụng
+một slice cho kiểu của tham số `s`</span>
 
-If we have a string slice, we can pass that directly. If we have a `String`, we
-can pass a slice of the `String` or a reference to the `String`. This
-flexibility takes advantage of *deref coercions*, a feature we will cover in
-the [“Implicit Deref Coercions with Functions and
-Methods”][deref-coercions]<!--ignore--> section of Chapter 15. Defining a
-function to take a string slice instead of a reference to a `String` makes our
-API more general and useful without losing any functionality:
+Nếu chúng ta có một string slice, chúng ta có thể truyền nó trực tiếp. Nếu chúng ta có `String`, 
+chúng ta có thể chuyển một slice của `String` hoặc tham chiếu đến `String`. Sự linh hoạt này
+cho phép ta tận dụng *deref coercions*, một tính năng mà chúng tôi sẽ đề cập trong
+phần [“Implicit Deref Coercions with Functions and
+Methods”][deref-coercions]<!--ignore--> trong chương 15. 
+Việc xác định một function lấy một string slice thay vì tham chiếu đến `String` giúp cho 
+API của chúng ta trở nên tổng quát và hữu ích hơn mà không làm mất bất kỳ tính năng nào:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -274,15 +274,16 @@ API more general and useful without losing any functionality:
 
 ### Other Slices
 
-String slices, as you might imagine, are specific to strings. But there’s a
-more general slice type, too. Consider this array:
+Các string slice, như bạn có thể tưởng tượng, là dành riêng cho chuỗi. Nhưng cũng có một
+loại slice tổng quát hơn, quá. Hãy xem xét mảng này:
 
 ```rust
 let a = [1, 2, 3, 4, 5];
 ```
 
-Just as we might want to refer to a part of a string, we might want to refer
-to part of an array. We’d do so like this:
+Cũng tương tự như khi ta muốn tham chiếu đến một phần của chuỗi, ta cũng có thể muốn 
+tham chiếu thành một phần của mảng. Khi đó ta sẽ làm như vậy như thế này:
+
 
 ```rust
 let a = [1, 2, 3, 4, 5];
@@ -292,22 +293,23 @@ let slice = &a[1..3];
 assert_eq!(slice, &[2, 3]);
 ```
 
-This slice has the type `&[i32]`. It works the same way as string slices do, by
-storing a reference to the first element and a length. You’ll use this kind of
-slice for all sorts of other collections. We’ll discuss these collections in
-detail when we talk about vectors in Chapter 8.
+Slice này có kiểu `&[i32]`. Nó hoạt động giống như các string slice, bằng cách
+lưu trữ tham chiếu đến phần tử đầu tiên và độ dài. Bạn sẽ sử dụng kiểu
+slice này cho tất cả các kiểu collection khác. Chúng ta sẽ thảo luận về những collection này 
+chi tiết hơn khi nói về vector trong Chương 8.
 
-## Summary
+## Tổng kết
 
-The concepts of ownership, borrowing, and slices ensure memory safety in Rust
-programs at compile time. The Rust language gives you control over your memory
-usage in the same way as other systems programming languages, but having the
-owner of data automatically clean up that data when the owner goes out of scope
-means you don’t have to write and debug extra code to get this control.
+Các khái niệm về ownership, borrowing và slice đảm bảo an toàn cho bộ nhớ trong 
+chương trình Rust tại thời điểm biên dịch. Ngôn ngữ Rust cho phép bạn kiểm soát 
+việc sử dụng bộ nhớ giống như trong các ngôn ngữ lập trình hệ thống khác, nhưng có
+owner của dữ liệu sẽ tự động giải phóng dữ liệu đó khi owner vượt quá phạm vi,
+có nghĩa là bạn không phải viết và debug thêm code để có quyền kiểm soát này.
 
-Ownership affects how lots of other parts of Rust work, so we’ll talk about
-these concepts further throughout the rest of the book. Let’s move on to
-Chapter 5 and look at grouping pieces of data together in a `struct`.
+Ownership ảnh hưởng đến số lượng các phần khác của Rust khi hoạt động, vì vậy 
+chúng ta sẽ nói về những khái niệm này sâu hơn trong suốt phần còn lại của cuốn sách. 
+Hãy chuyển sang Chương 5 và xem xét việc nhóm các phần dữ liệu lại với nhau 
+trong một `struct`.
 
 [ch13]: ch13-02-iterators.html
 [ch6]: ch06-02-match.html#patterns-that-bind-to-values
