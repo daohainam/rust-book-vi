@@ -1,17 +1,16 @@
-## Defining and Instantiating Structs
+## Định nghĩa và khởi tạo các cấu trúc
 
-Structs are similar to tuples, discussed in [“The Tuple Type”][tuples]<!--
-ignore --> section, in that both hold multiple related values. Like tuples, the
-pieces of a struct can be different types. Unlike with tuples, in a struct
-you’ll name each piece of data so it’s clear what the values mean. Adding these
-names means that structs are more flexible than tuples: you don’t have to rely
-on the order of the data to specify or access the values of an instance.
+Struct (cấu trúc) tương tự như tuple, được thảo luận trong phần [“The Tuple Type”][tuples]<!--
+ignore -->, trong đó cả hai đều chứa những giá trị liên quan. Giống như các tuple, các
+các phần của một cấu trúc có thể là các kiểu khác nhau. Không giống như với tuple, trong một cấu trúc
+bạn sẽ đặt tên cho từng phần dữ liệu để hiểu rõ ý nghĩa của các giá trị. Việc thêm tên 
+cho những thành phần bên trong giúp nó có cấu trúc linh hoạt hơn tuple: bạn không cần phải dựa vào
+thứ tự của dữ liệu để truy cập vào các giá trị của một instance (thể hiện).
 
-To define a struct, we enter the keyword `struct` and name the entire struct. A
-struct’s name should describe the significance of the pieces of data being
-grouped together. Then, inside curly brackets, we define the names and types of
-the pieces of data, which we call *fields*. For example, Listing 5-1 shows a
-struct that stores information about a user account.
+Để định nghĩa một struct, chúng ta nhập từ khóa `struct` và đặt tên cho toàn bộ struct. 
+Tên của một cấu trúc phải mô tả mục đích quan trọng nhất của phần dữ liệu nó chứa. Sau đó, bên trong dấu 
+ngoặc nhọn, chúng ta xác định tên và kiểu của các phần dữ liệu mà chúng tôi gọi là *field* (trường). 
+Ví dụ, Listing 5-1 cho thấy một struct lưu trữ thông tin về tài khoản người dùng.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -19,7 +18,7 @@ struct that stores information about a user account.
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-01/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 5-1: A `User` struct definition</span>
+<span class="caption">Listing 5-1: Định nghĩa cấu trúc `User`</span>
 
 To use a struct after we’ve defined it, we create an *instance* of that struct
 by specifying concrete values for each of the fields. We create an instance by
@@ -31,20 +30,29 @@ struct definition is like a general template for the type, and instances fill
 in that template with particular data to create values of the type. For
 example, we can declare a particular user as shown in Listing 5-2.
 
+Để sử dụng một struct sau khi đã định nghĩa, chúng ta tạo một *instance* của cấu trúc đó
+bằng cách chỉ định các giá trị cụ thể cho từng trường. Chúng tôi tạo một ví dụ bằng cách
+nêu tên của cấu trúc và sau đó thêm dấu ngoặc nhọn chứa các cặp *key:value*, 
+trong đó các key là tên của các field và các value là dữ liệu chúng ta muốn 
+lưu trong các trường đó. Chúng ta không phải chỉ định các field theo
+cùng thứ tự mà chúng ta đã khai báo chúng trong cấu trúc. Nói cách khác, một
+định nghĩa cấu trúc giống như một hình mẫu chung cho một kiểu và các instance 
+gán vào trong hình mẫu đó các dữ liệu cụ thể để tạo các giá trị của kiểu. 
+Ví dụ, chúng ta có thể khai báo một user cụ thể như trong Listing 5-2.
+
 <span class="filename">Filename: src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-02/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 5-2: Creating an instance of the `User`
-struct</span>
+<span class="caption">Listing 5-2: Tạo một instance của cấu trúc `User`</span>
 
-To get a specific value from a struct, we use dot notation. For example, to
-access this user’s email address, we use `user1.email`. If the instance is
-mutable, we can change a value by using the dot notation and assigning into a
-particular field. Listing 5-3 shows how to change the value in the `email`
-field of a mutable `User` instance.
+Để lấy một giá trị cụ thể từ một struct, chúng ta sử dụng ký hiệu dấu chấm. Ví dụ, để
+truy cập địa chỉ email của user này, chúng ta sử dụng `user1.email`. Nếu instance là
+mutable (có thể thay đổi), chúng ta có thể thay đổi một giá trị bằng cách sử dụng 
+ký hiệu dấu chấm và gán vào một field cụ thể. Listing kê 5-3 cho thấy cách 
+thay đổi giá trị trong field `email` của một mutable instance `User`.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -52,13 +60,12 @@ field of a mutable `User` instance.
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-03/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 5-3: Changing the value in the `email` field of a
-`User` instance</span>
+<span class="caption">Listing 5-3: Thay đổi giá trị trường `email` của một instance `User`</span>
 
-Note that the entire instance must be mutable; Rust doesn’t allow us to mark
-only certain fields as mutable. As with any expression, we can construct a new
-instance of the struct as the last expression in the function body to
-implicitly return that new instance.
+Lưu ý rằng toàn bộ instance phải mutable; Rust không cho phép chúng ta đánh dấu 
+chỉ một số trường nhất định là mutable. Như với bất kỳ biểu thức nào, chúng ta 
+có thể tạo một instance mới của cấu trúc với biểu thức cuối cùng trong thân hàm 
+để trả lại một cách rõ ràng instance mới đó.
 
 Listing 5-4 shows a `build_user` function that returns a `User` instance with
 the given email and username. The `active` field gets the value of `true`, and
