@@ -20,16 +20,6 @@ Ví dụ, Listing 5-1 cho thấy một struct lưu trữ thông tin về tài kh
 
 <span class="caption">Listing 5-1: Định nghĩa cấu trúc `User`</span>
 
-To use a struct after we’ve defined it, we create an *instance* of that struct
-by specifying concrete values for each of the fields. We create an instance by
-stating the name of the struct and then add curly brackets containing *key:
-value* pairs, where the keys are the names of the fields and the values are the
-data we want to store in those fields. We don’t have to specify the fields in
-the same order in which we declared them in the struct. In other words, the
-struct definition is like a general template for the type, and instances fill
-in that template with particular data to create values of the type. For
-example, we can declare a particular user as shown in Listing 5-2.
-
 Để sử dụng một struct sau khi đã định nghĩa, chúng ta tạo một *instance* của cấu trúc đó
 bằng cách chỉ định các giá trị cụ thể cho từng trường. Chúng tôi tạo một ví dụ bằng cách
 nêu tên của cấu trúc và sau đó thêm dấu ngoặc nhọn chứa các cặp *key:value*, 
@@ -67,9 +57,9 @@ chỉ một số trường nhất định là mutable. Như với bất kỳ bi�
 có thể tạo một instance mới của cấu trúc với biểu thức cuối cùng trong thân hàm 
 để trả lại một cách rõ ràng instance mới đó.
 
-Listing 5-4 shows a `build_user` function that returns a `User` instance with
-the given email and username. The `active` field gets the value of `true`, and
-the `sign_in_count` gets a value of `1`.
+Listing 5-4 biểu diễn một hàm `build_user` trả về một instance kiểu `User` với
+email và tên người dùng đã cho. Trường `active` nhận giá trị `true` và
+`sign_in_count` nhận giá trị `1`.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -77,49 +67,48 @@ the `sign_in_count` gets a value of `1`.
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-04/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 5-4: A `build_user` function that takes an email
-and username and returns a `User` instance</span>
+<span class="caption">Listing 5-4: Một hàm `build_user` nhận vào một email và
+username và trả về một `User` instance</span>
 
-It makes sense to name the function parameters with the same name as the struct
-fields, but having to repeat the `email` and `username` field names and
-variables is a bit tedious. If the struct had more fields, repeating each name
-would get even more annoying. Luckily, there’s a convenient shorthand!
+Sẽ là có nghĩa khi đặt tên các tham số của function với tên trùng với tên các 
+trường của struct, nhưng việc lặp lại các tên như `email` và `username` cũng sẽ
+gây nhàm chán. Nếu struct có thêm nhiều field nữa, việc lặp đi lặp lại chúng sẽ 
+còn gây khó chịu hơn. May thay, Rust có một cách viết ngắn gọn!
 
 <!-- Old heading. Do not remove or links may break. -->
 <a id="using-the-field-init-shorthand-when-variables-and-fields-have-the-same-name"></a>
 
-### Using the Field Init Shorthand
+### Sử dụng cách viết khởi tạo trường một cách ngắn gọn
 
-Because the parameter names and the struct field names are exactly the same in
-Listing 5-4, we can use the *field init shorthand* syntax to rewrite
-`build_user` so it behaves exactly the same but doesn’t have the repetition of
-`username` and `email`, as shown in Listing 5-5.
+Vì tên tham số và tên trường của cấu trúc hoàn toàn giống nhau trong
+Listing 5-4, chúng ta có thể sử dụng cú pháp tốc ký *field init* để viết lại
+`build_user` giúp nó hoạt động giống hệt nhưng không có sự lặp lại của
+`username` và `email`, như trong Listing 5-5.
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Tên tệp: src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-05/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 5-5: A `build_user` function that uses field init
-shorthand because the `username` and `email` parameters have the same name as
-struct fields</span>
+<span class="caption">Listing 5-5: Hàm `build_user` sử dụng cách viết tắt để khởi tạo 
+vì tham số `username` và `email` có cùng tên với field</span>
 
-Here, we’re creating a new instance of the `User` struct, which has a field
-named `email`. We want to set the `email` field’s value to the value in the
-`email` parameter of the `build_user` function. Because the `email` field and
-the `email` parameter have the same name, we only need to write `email` rather
-than `email: email`.
+Ở đây, chúng ta tạo một instance mới của cấu trúc `User`, có field
+tên là `email`. Chúng ta muốn đặt giá trị của `email` thành giá trị trong
+tham số `email` của hàm `build_user`. Vì trường `email` và
+tham số `email` trùng tên ta chỉ cần viết `email` là được
+hơn `email: email`.
 
-### Creating Instances from Other Instances with Struct Update Syntax
+### Tạo instance mới từ một instance khác với cú pháp cập nhật cấu trúc 
 
-It’s often useful to create a new instance of a struct that includes most of
-the values from another instance, but changes some. You can do this using
-*struct update syntax*.
+Một thao tác thường làm là tạo mới một instance của Struct với hầu hết
+các giá trị từ một phiên bản khác, với một số thay đổi. Bạn có thể làm điều này bằng cách sử dụng
+*cú pháp cập nhật cấu trúc* (struct update syntax).
 
-First, in Listing 5-6 we show how to create a new `User` instance in `user2`
-regularly, without the update syntax. We set a new value for `email` but
-otherwise use the same values from `user1` that we created in Listing 5-2.
+Đầu tiên, trong Listing 5-6, chúng tôi trình bày cách tạo một instance `User` mới trong `user2`
+theo cách thông thường, không dùng cú pháp cập nhật. Chúng tôi đặt một giá trị mới cho `email` nhưng
+sử dụng cùng các giá trị khác từ `user1` mà chúng ta đã tạo trong Listing 5-2.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -127,12 +116,11 @@ otherwise use the same values from `user1` that we created in Listing 5-2.
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-06/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 5-6: Creating a new `User` instance using one of
-the values from `user1`</span>
+<span class="caption">Listing 5-6: Tạo một instance `User` mới dùng giá trị từ  `user1`</span>
 
-Using struct update syntax, we can achieve the same effect with less code, as
-shown in Listing 5-7. The syntax `..` specifies that the remaining fields not
-explicitly set should have the same value as the fields in the given instance.
+Sử dụng struct update syntax, chúng ta có thể đạt được cùng mục đích với ít code hơn, như thể
+hiện trong Listing 5-7. Cú pháp `..` chỉ định rằng các trường còn lại không
+được đặt rõ ràng phải có cùng giá trị với các trường trong instance đã cho.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -140,30 +128,28 @@ explicitly set should have the same value as the fields in the given instance.
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-07/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 5-7: Using struct update syntax to set a new
-`email` value for a `User` instance but to use the rest of the values from
+<span class="caption">Listing 5-7: Sử dụng struct update syntax để đặt mới
+giá trị `email` cho instance `User` nhưng sử dụng phần còn lại của các giá trị từ
 `user1`</span>
 
-The code in Listing 5-7 also creates an instance in `user2` that has a
-different value for `email` but has the same values for the `username`,
-`active`, and `sign_in_count` fields from `user1`. The `..user1` must come last
-to specify that any remaining fields should get their values from the
-corresponding fields in `user1`, but we can choose to specify values for as
-many fields as we want in any order, regardless of the order of the fields in
-the struct’s definition.
+Đoạn code trong Listing 5-7 cũng tạo một instance trong `user2` với một giá trị khác trong 
+`email` nhưng có cùng giá trị trong `username`, `active`, và `sign_in_count` từ`user1`. 
+`..user1` phải được viết cuối cùng để chỉ định rằng mọi trường còn lại sẽ nhận giá trị của chúng từ
+các trường tương ứng trong `user1`, nhưng chúng ta có thể chọn chỉ định giá trị cho
+nhiều trường như chúng ta muốn theo bất kỳ thứ tự nào, bất kể thứ tự của chúng trong
+định nghĩa của cấu trúc.
 
-Note that the struct update syntax uses `=` like an assignment; this is because
-it moves the data, just as we saw in the [“Variables and Data Interacting with
-Move”][move]<!-- ignore --> section. In this example, we can no longer use
-`user1` as a whole after creating `user2` because the `String` in the
-`username` field of `user1` was moved into `user2`. If we had given `user2` new
-`String` values for both `email` and `username`, and thus only used the
-`active` and `sign_in_count` values from `user1`, then `user1` would still be
-valid after creating `user2`. Both `active` and `sign_in_count` are types that
-implement the `Copy` trait, so the behavior we discussed in the [“Stack-Only
-Data: Copy”][copy]<!-- ignore --> section would apply.
+Lưu ý rằng cú pháp cập nhật cấu trúc sử dụng `=` như một phép gán; điều này là bởi vì
+nó di chuyển dữ liệu, giống như chúng ta đã thấy trong phần [“Variables and Data Interacting with
+Move”][move]<!-- ignore -->. Trong ví dụ này, chúng ta không còn có thể sử dụng
+`user1` sau khi tạo `user2` vì `String` trong Trường `username` của `user1` đã 
+được chuyển vào `user2`. Nếu chúng ta gán `user2` một giá trị `String` mới cho cả trường `email`
+và `username`, có nghĩa là ta chỉ lấy `active` và `sign_in_count` từ `user1`, khi đó 
+`user1` vẫn hợp lệ sau khi tạo `user2`. Đó là vì cả hai `active` và `sign_in_count` 
+đều implement `Copy` trait, do vậy các hành vi như ta đã thảo luậ trong phần 
+[“Stack-Only Data: Copy”][copy]<!-- ignore --> sẽ được áp dụng.
 
-### Using Tuple Structs Without Named Fields to Create Different Types
+### Sử dụng Tuple struct mà không dùng các trường được đặt tên để tạo các kiểu khác
 
 Rust also supports structs that look similar to tuples, called *tuple structs*.
 Tuple structs have the added meaning the struct name provides but don’t have
@@ -175,6 +161,8 @@ field as in a regular struct would be verbose or redundant.
 To define a tuple struct, start with the `struct` keyword and the struct name
 followed by the types in the tuple. For example, here we define and use two
 tuple structs named `Color` and `Point`:
+
+Rust cũng hỗ trợ các cấu trúc trông tương tự như các bộ dữ liệu, được gọi là *tuple structs*.
 
 <span class="filename">Filename: src/main.rs</span>
 
