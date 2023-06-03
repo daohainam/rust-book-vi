@@ -164,6 +164,20 @@ tuple structs named `Color` and `Point`:
 
 Rust cũng hỗ trợ các cấu trúc trông tương tự như các bộ dữ liệu, được gọi là *tuple structs*.
 
+
+Rust cũng hỗ trợ các cấu trúc trông tương tự như các tuple, được gọi là *tuple structs*.
+Các tuple struct cho phép cung cấp tên cho cấu trúc nhưng không có các tên được kết hợp với từng 
+trường bên trong struct; thay vì vậy, chúng chỉ có các kiểu cho các field đó. 
+Các tuple struct rất hữu ích khi bạn muốn đặt tên cho toàn bộ tuple và biến nó thành 
+một kiểu khác với các tuple khác, và khi đặt tên cho từng field bên trong struct
+như trong một cấu trúc thông thường sẽ trở nên dài dòng hoặc dư thừa.
+
+Để định nghĩa tuple struct, hãy bắt đầu với từ khóa `struct` và tên cấu trúc
+theo sau là các kiểu trong tuple. Ví dụ, ở đây chúng ta định nghĩa và sử dụng hai
+tuple struct có tên `Color` và `Point`:
+
+Rust cũng hỗ trợ các cấu trúc trông giống như các bộ dữ liệu, được gọi là *tuple structs*.
+
 <span class="filename">Filename: src/main.rs</span>
 
 ```rust
