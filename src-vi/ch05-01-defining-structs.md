@@ -151,20 +151,6 @@ và `username`, có nghĩa là ta chỉ lấy `active` và `sign_in_count` từ 
 
 ### Sử dụng Tuple struct mà không dùng các trường được đặt tên để tạo các kiểu khác
 
-Rust also supports structs that look similar to tuples, called *tuple structs*.
-Tuple structs have the added meaning the struct name provides but don’t have
-names associated with their fields; rather, they just have the types of the
-fields. Tuple structs are useful when you want to give the whole tuple a name
-and make the tuple a different type from other tuples, and when naming each
-field as in a regular struct would be verbose or redundant.
-
-To define a tuple struct, start with the `struct` keyword and the struct name
-followed by the types in the tuple. For example, here we define and use two
-tuple structs named `Color` and `Point`:
-
-Rust cũng hỗ trợ các cấu trúc trông tương tự như các bộ dữ liệu, được gọi là *tuple structs*.
-
-
 Rust cũng hỗ trợ các cấu trúc trông tương tự như các tuple, được gọi là *tuple structs*.
 Các tuple struct cho phép cung cấp tên cho cấu trúc nhưng không có các tên được kết hợp với từng 
 trường bên trong struct; thay vì vậy, chúng chỉ có các kiểu cho các field đó. 
@@ -184,24 +170,23 @@ Rust cũng hỗ trợ các cấu trúc trông giống như các bộ dữ liệu
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/no-listing-01-tuple-structs/src/main.rs}}
 ```
 
-Note that the `black` and `origin` values are different types because they’re
-instances of different tuple structs. Each struct you define is its own type,
-even though the fields within the struct might have the same types. For
-example, a function that takes a parameter of type `Color` cannot take a
-`Point` as an argument, even though both types are made up of three `i32`
-values. Otherwise, tuple struct instances are similar to tuples in that you can
-destructure them into their individual pieces, and you can use a `.` followed
-by the index to access an individual value.
+Lưu ý rằng các giá trị `black` và `origin` có các kiểu khác nhau vì chúng
+là instance của các tuple struct khác nhau. Mỗi struct bạn định nghĩa mang kiểu riêng của nó,
+mặc dù các trường trong struct có thể có cùng loại. Ví dụ, một hàm nhận tham số kiểu `Color` không thể nhận
+`Point` làm đối số, mặc dù cả hai loại đều được tạo thành từ ba giá trị `i32`. 
+Mặt khác, các instance tuple struct tương tự như tuple ở chỗ bạn có thể
+hủy struct chúng thành các phần riêng lẻ và bạn có thể sử dụng dấu `.` theo sau
+theo chỉ mục để truy cập từng giá trị riêng.
 
-### Unit-Like Structs Without Any Fields
+### Các cấu trúc Unit-Like không có bất kỳ trường nào
 
-You can also define structs that don’t have any fields! These are called
-*unit-like structs* because they behave similarly to `()`, the unit type that
-we mentioned in [“The Tuple Type”][tuples]<!-- ignore --> section. Unit-like
-structs can be useful when you need to implement a trait on some type but don’t
-have any data that you want to store in the type itself. We’ll discuss traits
-in Chapter 10. Here’s an example of declaring and instantiating a unit struct
-named `AlwaysEqual`:
+Bạn cũng có thể định nghĩa các cấu trúc không có bất kỳ trường nào! Chúng được gọi là
+*unit-like struct* vì chúng hoạt động tương tự như `()`, kiểu đơn vị
+chúng ta đã đề cập trong phần [“The Tuple Type”][tuples]<!-- ignore -->. Unit-like
+struct có thể hữu ích khi bạn cần triển khai một trait trên một số kiểu nhưng không
+có bất kỳ dữ liệu nào mà bạn muốn lưu trữ trong chính kiểu đó. Chúng ta sẽ thảo luận về trait
+trong Chương 10. Đây là một ví dụ về khai báo và khởi tạo một unit struct
+được đặt tên là `AlwaysEqual`:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -209,28 +194,29 @@ named `AlwaysEqual`:
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/no-listing-04-unit-like-structs/src/main.rs}}
 ```
 
-To define `AlwaysEqual`, we use the `struct` keyword, the name we want, and
-then a semicolon. No need for curly brackets or parentheses! Then we can get an
-instance of `AlwaysEqual` in the `subject` variable in a similar way: using the
-name we defined, without any curly brackets or parentheses. Imagine that later
-we’ll implement behavior for this type such that every instance of
-`AlwaysEqual` is always equal to every instance of any other type, perhaps to
-have a known result for testing purposes. We wouldn’t need any data to
-implement that behavior! You’ll see in Chapter 10 how to define traits and
-implement them on any type, including unit-like structs.
+Để định nghĩa `AlwaysEqual`, chúng ta sử dụng từ khóa `struct`, tên chúng ta muốn và
+sau đó là dấu chấm phẩy. Không cần dấu ngoặc nhọn hoặc dấu ngoặc đơn! 
+Sau đó, chúng ta có thể nhận được một instance về `AlwaysEqual` trong biến `subject` 
+theo cách tương tự: sử dụng tên chúng ta đã xác định, không có bất kỳ dấu ngoặc 
+nhọn hoặc dấu ngoặc đơn nào. Hãy tưởng tượng rằng sau này chúng tôi sẽ triển khai 
+hành vi cho kiểu này sao cho mọi instance của `AlwaysEqual` luôn bằng với mọi instance 
+của bất kỳ kiểu nào khác, có lẽ để có một kết quả xác định nhằm mục đích thử nghiệm. 
+Chúng ta sẽ không cần bất kỳ dữ liệu nào để thực hiện hành vi đó! Bạn sẽ thấy trong 
+Chương 10 cách định nghĩa các trait và triển khai chúng trên bất kỳ kiểu dữ liệu nào, 
+kể cả các unit-like struct.
 
-> ### Ownership of Struct Data
+> ### Sở hữu của các cấu trúc dữ liệu
 >
-> In the `User` struct definition in Listing 5-1, we used the owned `String`
-> type rather than the `&str` string slice type. This is a deliberate choice
-> because we want each instance of this struct to own all of its data and for
-> that data to be valid for as long as the entire struct is valid.
->
-> It’s also possible for structs to store references to data owned by something
-> else, but to do so requires the use of *lifetimes*, a Rust feature that we’ll
-> discuss in Chapter 10. Lifetimes ensure that the data referenced by a struct
-> is valid for as long as the struct is. Let’s say you try to store a reference
-> in a struct without specifying lifetimes, like the following; this won’t work:
+> Trong định nghĩa cấu trúc `User` trong Listing 5-1, chúng ta đã sử dụng kiểu `String` 
+> type thay vì kiểu string slice `&str`. Đây là một sự lựa chọn có chủ ý
+> bởi vì chúng ta muốn mỗi instance của cấu trúc này sở hữu tất cả dữ liệu của nó và cho
+> dữ liệu đó là hợp lệ miễn sao toàn bộ cấu trúc là hợp lệ.
+> 
+>Các cấu trúc cũng có thể lưu trữ các tham chiếu đến dữ liệu thuộc sở hữu của một thứ gì đó
+> khác, nhưng để làm như vậy yêu cầu sử dụng *lifetimes*, một tính năng của Rust mà chúng ta sẽ
+> thảo luận trong Chương 10. *lifetimes* đảm bảo rằng dữ liệu được tham chiếu bởi một cấu trúc
+> sẽ là hợp lệ cùng với chính cấu trúc đó . Giả sử bạn cố gắng lưu trữ một tham chiếu
+> trong một cấu trúc mà không chỉ định thời gian tồn tại giống như sau; chúng sẽ không hoạt động:
 >
 > <span class="filename">Filename: src/main.rs</span>
 >
@@ -254,7 +240,7 @@ implement them on any type, including unit-like structs.
 > }
 > ```
 >
-> The compiler will complain that it needs lifetime specifiers:
+> Trình duyệt sẽ báo lỗi rằng bạn cần các khai báo về lifetime:
 >
 > ```console
 > $ cargo run
@@ -290,9 +276,10 @@ implement them on any type, including unit-like structs.
 > error: could not compile `structs` due to 2 previous errors
 > ```
 >
-> In Chapter 10, we’ll discuss how to fix these errors so you can store
-> references in structs, but for now, we’ll fix errors like these using owned
-> types like `String` instead of references like `&str`.
+> Trong chương 10, chúng ta sẽ thảo luận cách sửa các lỗi trên, cho phép bạn
+> lưu các tham chiếu bên trong các struct, nhưng hiện tại, chúng ta sẽ sửa các 
+> lỗi này bằng cách dùng các kiểu được sở hữu như `String` thay vì dùng tham
+> chiếu như `&str`.
 
 <!-- manual-regeneration
 for the error above
