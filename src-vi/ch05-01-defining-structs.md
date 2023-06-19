@@ -100,6 +100,7 @@ tham số `email` của hàm `build_user`. Vì trường `email` và
 tham số `email` trùng tên ta chỉ cần viết `email` là được
 hơn `email: email`.
 
+<a id="creating-instances-from-other-instances-with-struct-update-syntax"></a>
 ### Tạo instance mới từ một instance khác với cú pháp cập nhật cấu trúc 
 
 Một thao tác thường làm là tạo mới một instance của Struct với hầu hết
@@ -149,7 +150,8 @@ và `username`, có nghĩa là ta chỉ lấy `active` và `sign_in_count` từ 
 đều implement `Copy` trait, do vậy các hành vi như ta đã thảo luậ trong phần 
 [“Stack-Only Data: Copy”][copy]<!-- ignore --> sẽ được áp dụng.
 
-### Sử dụng Tuple struct mà không dùng các trường được đặt tên để tạo các kiểu khác
+<a id="using-tuple-structs-without-named-fields-to-create-different-types"></a>
+### Sử dụng tuple struct không dùng các trường được đặt tên để tạo các kiểu khác
 
 Rust cũng hỗ trợ các cấu trúc trông tương tự như các tuple, được gọi là *tuple structs*.
 Các tuple struct cho phép cung cấp tên cho cấu trúc nhưng không có các tên được kết hợp với từng 
