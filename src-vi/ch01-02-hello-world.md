@@ -195,3 +195,4 @@ và làm cho việc chia sẻ code trở nên dễ dàng. Tiếp theo, chúng t�
 một công cụ có tên Cargo, thứ sẽ giúp bạn tạo nên các chương trình thực sự.
 
 [troubleshooting]: ch01-01-installation.html#troubleshooting
+[devtools]: appendix-04-useful-development-tools.html
