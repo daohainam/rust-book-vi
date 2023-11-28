@@ -31,7 +31,7 @@ trên cũng có thể đã được sửa trên repository, vì các bản phát
 Để dịch sang định dạng sách online bạn sẽ cần [mdBook], tốt nhất là cùng phiên bản
 mà rust-lang/rust dùng trong [tệp tin này][rust-mdbook]. Để tải về:
 
-[mdBook]: https://github.com/rust-lang-nursery/mdBook
+[mdBook]: https://github.com/rust-lang/mdBook
 [rust-mdbook]: https://github.com/rust-lang/rust/blob/master/src/tools/rustbook/Cargo.toml
 
 ```bash
@@ -97,7 +97,7 @@ mới để bắt đầu một bản dịch mới cho một ngôn ngữ. Chúng 
 để hỗ trợ đa ngôn ngữ trước khi merge, nhưng hiện tại các bạn hãy cứ thoải mái bắt đầu!
 
 [Translations]: https://github.com/rust-lang/book/issues?q=is%3Aopen+is%3Aissue+label%3ATranslations
-[mdbook support]: https://github.com/rust-lang-nursery/mdBook/issues/5
+[mdbook support]: https://github.com/rust-lang/mdBook/issues/5
 
 ## Kiểm tra chính tả
 
