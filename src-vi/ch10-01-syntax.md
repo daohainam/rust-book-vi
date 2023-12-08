@@ -1,20 +1,21 @@
-## Generic Data Types
+## Các kiểu dữ liệu Generic
 
-We use generics to create definitions for items like function signatures or
-structs, which we can then use with many different concrete data types. Let’s
-first look at how to define functions, structs, enums, and methods using
-generics. Then we’ll discuss how generics affect code performance.
+Chúng ta sử dụng generics để tạo định nghĩa cho các mục như chữ ký hàm hoặc 
+các struct, mà chúng ta sau đó có thể sử dụng với nhiều loại dữ liệu cụ thể 
+khác nhau. Hãy trước hết xem cách định nghĩa hàm, struct, enum và các phương 
+thức bằng generics. Sau đó, chúng ta sẽ thảo luận về cách generics ảnh hưởng 
+đến hiệu suất của code.
 
-### In Function Definitions
+### Trong Định nghĩa Hàm
 
-When defining a function that uses generics, we place the generics in the
-signature of the function where we would usually specify the data types of the
-parameters and return value. Doing so makes our code more flexible and provides
-more functionality to callers of our function while preventing code duplication.
+Khi định nghĩa một hàm sử dụng generics, chúng ta đặt generics trong chữ ký 
+của hàm nơi chúng ta thường chỉ định loại dữ liệu của các tham số và giá trị 
+trả về. Việc này làm cho code của chúng ta linh hoạt hơn và cung cấp thêm chức 
+năng cho người gọi hàm của chúng ta trong khi ngăn chặn việc trùng lặp code.
 
-Continuing with our `largest` function, Listing 10-4 shows two functions that
-both find the largest value in a slice. We'll then combine these into a single
-function that uses generics.
+Tiếp tục với hàm `largest` của chúng ta, Listing 10-4 hiển thị hai hàm cả hai 
+đều tìm giá trị lớn nhất trong một slice. Sau đó, chúng ta sẽ kết hợp chúng 
+thành một hàm duy nhất sử dụng generics.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -25,38 +26,36 @@ function that uses generics.
 <span class="caption">Listing 10-4: Two functions that differ only in their
 names and the types in their signatures</span>
 
-The `largest_i32` function is the one we extracted in Listing 10-3 that finds
-the largest `i32` in a slice. The `largest_char` function finds the largest
-`char` in a slice. The function bodies have the same code, so let’s eliminate
-the duplication by introducing a generic type parameter in a single function.
+Hàm `largest_i32` là hàm chúng ta đã trích xuất ở Listing 10-3 để tìm giá trị 
+lớn nhất của `i32` trong một slice. Hàm `largest_char` tìm giá trị lớn nhất của `char` 
+trong một slice. Cả hai hàm có cùng mã nguồn, vì vậy hãy loại bỏ sự trùng lặp 
+bằng cách giới thiệu một tham số kiểu generic trong một hàm duy nhất.
 
-To parameterize the types in a new single function, we need to name the type
-parameter, just as we do for the value parameters to a function. You can use
-any identifier as a type parameter name. But we’ll use `T` because, by
-convention, type parameter names in Rust are short, often just a letter, and Rust’s
-type-naming convention is CamelCase. Short for “type,” `T` is the default
-choice of most Rust programmers.
+Để tham số hóa các loại trong một hàm mới, chúng ta cần đặt tên tham số kiểu, 
+giống như chúng ta làm với các tham số giá trị của một hàm. Bạn có thể sử dụng 
+bất kỳ định danh nào làm tên tham số kiểu. Nhưng chúng ta sẽ sử dụng `T` vì theo 
+quy ước, tên tham số kiểu trong Rust ngắn gọn, thường chỉ là một chữ cái, và 
+quy ước đặt tên kiểu của Rust là CamelCase. Rút gọn từ “type,” `T` là lựa chọn 
+mặc định của hầu hết các lập trình viên Rust.
 
-When we use a parameter in the body of the function, we have to declare the
-parameter name in the signature so the compiler knows what that name means.
-Similarly, when we use a type parameter name in a function signature, we have
-to declare the type parameter name before we use it. To define the generic
-`largest` function, place type name declarations inside angle brackets, `<>`,
-between the name of the function and the parameter list, like this:
+Khi chúng ta sử dụng một tham số trong thân của hàm, chúng ta phải khai báo tên 
+tham số trong chữ ký để trình biên dịch biết nghĩa của tên đó là gì. Tương tự, khi 
+chúng ta sử dụng tên tham số kiểu trong chữ ký hàm, chúng ta phải khai báo tên 
+tham số kiểu trước khi sử dụng nó. Để định nghĩa hàm generic `largest`, đặt khai 
+báo tên kiểu bên trong dấu ngoặc nhọn, `<>`, giữa tên hàm và danh sách tham số, như sau:
 
 ```rust,ignore
 fn largest<T>(list: &[T]) -> &T {
 ```
 
-We read this definition as: the function `largest` is generic over some type
-`T`. This function has one parameter named `list`, which is a slice of values
-of type `T`. The `largest` function will return a reference to a value of the
-same type `T`.
+Chúng ta đọc định nghĩa này như sau: hàm `largest` là generic qua một loại T 
+nào đó. Hàm này có một tham số có tên là `list`, là một slice của các giá trị 
+kiểu `T`. Hàm `largest` sẽ trả về một tham chiếu đến một giá trị cùng kiểu `T`.
 
-Listing 10-5 shows the combined `largest` function definition using the generic
-data type in its signature. The listing also shows how we can call the function
-with either a slice of `i32` values or `char` values. Note that this code won’t
-compile yet, but we’ll fix it later in this chapter.
+Listing 10-5 cho thấy định nghĩa hàm `largest` kết hợp sử dụng kiểu dữ liệu 
+generic trong chữ ký của nó. Listing cũng cho thấy cách chúng ta có thể gọi 
+hàm với một slice của giá trị `i32` hoặc giá trị `char`. Lưu ý rằng đoạn code này 
+chưa thể biên dịch được, nhưng chúng ta sẽ sửa nó sau trong chương này.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -64,31 +63,31 @@ compile yet, but we’ll fix it later in this chapter.
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-05/src/main.rs}}
 ```
 
-<span class="caption">Listing 10-5: The `largest` function using generic type
-parameters; this doesn’t yet compile</span>
+<span class="caption">Listing 10-5: Hàm `largest` sử dụng các tham số kiểu 
+generic; code này hiện chưa thể biên dịch được</span>
 
-If we compile this code right now, we’ll get this error:
+Nếu chúng ta biên dịch đoạn code này ngay bây giờ, chúng ta sẽ nhận được lỗi này:
 
 ```console
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-05/output.txt}}
 ```
 
-The help text mentions `std::cmp::PartialOrd`, which is a *trait*, and we’re
-going to talk about traits in the next section. For now, know that this error
-states that the body of `largest` won’t work for all possible types that `T`
-could be. Because we want to compare values of type `T` in the body, we can
-only use types whose values can be ordered. To enable comparisons, the standard
-library has the `std::cmp::PartialOrd` trait that you can implement on types
-(see Appendix C for more on this trait). By following the help text's
-suggestion, we restrict the types valid for `T` to only those that implement
-`PartialOrd` and this example will compile, because the standard library
-implements `PartialOrd` on both `i32` and `char`.
+Phần trợ giúp chỉ đến `std::cmp::PartialOrd`, đó là một *trait*, và chúng ta 
+sẽ nói về các traits trong phần tiếp theo. Hiện tại, hãy biết rằng lỗi này 
+nói rằng thân của `largest` không hoạt động với tất cả các loại `T` có thể có. 
+Vì chúng ta muốn so sánh giá trị của kiểu `T` trong thân hàm, chúng ta chỉ có 
+thể sử dụng các loại mà giá trị của chúng có thể được so sánh. Để kích hoạt so 
+sánh, thư viện chuẩn có trait `std::cmp::PartialOrd` mà bạn có thể triển khai cho 
+các loại (xem Phụ lục C để biết thêm về trait này). Bằng cách tuân theo gợi ý 
+của văn bản trợ giúp, chúng ta giới hạn các loại hợp lệ cho `T` chỉ đến những 
+loại triển khai PartialOrd, và ví dụ này sẽ biên dịch được, vì thư viện chuẩn 
+triển khai `PartialOrd` cho cả `i32` và `char`.
 
-### In Struct Definitions
+### Trong Các Định Nghĩa Struct
 
-We can also define structs to use a generic type parameter in one or more
-fields using the `<>` syntax. Listing 10-6 defines a `Point<T>` struct to hold
-`x` and `y` coordinate values of any type.
+Chúng ta cũng có thể định nghĩa các structs để sử dụng một tham số kiểu generic 
+trong một hoặc nhiều trường bằng cú pháp `<>`. Listing 10-6 định nghĩa một 
+struct `Point<T>` để chứa các giá trị tọa độ `x` và `y` của bất kỳ kiểu nào.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -96,19 +95,20 @@ fields using the `<>` syntax. Listing 10-6 defines a `Point<T>` struct to hold
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-06/src/main.rs}}
 ```
 
-<span class="caption">Listing 10-6: A `Point<T>` struct that holds `x` and `y`
-values of type `T`</span>
+<span class="caption">Listing 10-6: Một struct `Point<T>` chứa các giá trị x 
+và y của kiểu `T`</span>
 
-The syntax for using generics in struct definitions is similar to that used in
-function definitions. First, we declare the name of the type parameter inside
-angle brackets just after the name of the struct. Then we use the generic type
-in the struct definition where we would otherwise specify concrete data types.
+Cú pháp sử dụng generics trong định nghĩa struct tương tự như cú pháp 
+được sử dụng trong định nghĩa hàm. Trước tiên, chúng ta khai báo tên 
+của tham số kiểu bên trong dấu ngoặc nhọn ngay sau tên của struct. Sau 
+đó, chúng ta sử dụng kiểu generic trong định nghĩa struct ở những nơi 
+chúng ta thông thường sẽ chỉ định kiểu dữ liệu cụ thể.
 
-Note that because we’ve used only one generic type to define `Point<T>`, this
-definition says that the `Point<T>` struct is generic over some type `T`, and
-the fields `x` and `y` are *both* that same type, whatever that type may be. If
-we create an instance of a `Point<T>` that has values of different types, as in
-Listing 10-7, our code won’t compile.
+Lưu ý rằng vì chúng ta đã sử dụng chỉ một kiểu generic để định nghĩa `Point<T>`, 
+định nghĩa này nói rằng struct `Point<T>` là generic trên một loại `T`, và các 
+trường `x` và `y` đều là cùng một kiểu đó, bất kể kiểu đó là gì. Nếu chúng ta 
+tạo một thể hiện của `Point<T>` có giá trị của các kiểu khác nhau, như trong 
+Listing 10-7, mã nguồn của chúng ta sẽ không biên dịch được.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -116,13 +116,14 @@ Listing 10-7, our code won’t compile.
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-07/src/main.rs}}
 ```
 
-<span class="caption">Listing 10-7: The fields `x` and `y` must be the same
-type because both have the same generic data type `T`.</span>
+<span class="caption">Listing 10-7: Các trường `x` and `y` phải có cùng kiểu vì chúng 
+sử dụng cùng kiểu generic T</span>
 
-In this example, when we assign the integer value 5 to `x`, we let the compiler
-know that the generic type `T` will be an integer for this instance of
-`Point<T>`. Then when we specify 4.0 for `y`, which we’ve defined to have the
-same type as `x`, we’ll get a type mismatch error like this:
+Trong ví dụ này, khi chúng ta gán giá trị số nguyên 5 cho `x`, chúng ta thông 
+báo cho trình biên dịch biết rằng kiểu generic T sẽ là một số nguyên cho 
+instance này của `Point<T>`. Sau đó, khi chúng ta chỉ định giá trị 4.0 cho 
+`y`, mà chúng ta đã định nghĩa có cùng kiểu với x, chúng ta sẽ nhận được một 
+lỗi không khớp kiểu như sau:
 
 ```console
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-07/output.txt}}
@@ -139,14 +140,15 @@ and `U` where `x` is of type `T` and `y` is of type `U`.
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-08/src/main.rs}}
 ```
 
-<span class="caption">Listing 10-8: A `Point<T, U>` generic over two types so
-that `x` and `y` can be values of different types</span>
+<span class="caption">Listing 10-8: Một struct `Point<T, U>` generic trên hai 
+kiểu để `x` và `y` có thể là giá trị của các kiểu khác nhau</span>
 
-Now all the instances of `Point` shown are allowed! You can use as many generic
-type parameters in a definition as you want, but using more than a few makes
-your code hard to read. If you're finding you need lots of generic types in
-your code, it could indicate that your code needs restructuring into smaller
-pieces.
+Bây giờ tất cả các thể hiện của `Point` được hiển thị đều được chấp nhận! 
+Bạn có thể sử dụng nhiều tham số kiểu generic trong định nghĩa càng nhiều 
+càng tốt, nhưng sử dụng quá nhiều có thể làm cho mã nguồn của bạn khó đọc. 
+Nếu bạn phát hiện bạn cần nhiều kiểu generic trong mã nguồn của mình, 
+điều này có thể là dấu hiệu cho thấy mã nguồn của bạn cần được tổ chức 
+lại thành các phần nhỏ hơn.
 
 ### In Enum Definitions
 
