@@ -28,7 +28,7 @@ names and the types in their signatures</span>
 
 Hàm `largest_i32` là hàm chúng ta đã trích xuất ở Listing 10-3 để tìm giá trị 
 lớn nhất của `i32` trong một slice. Hàm `largest_char` tìm giá trị lớn nhất của `char` 
-trong một slice. Cả hai hàm có cùng mã nguồn, vì vậy hãy loại bỏ sự trùng lặp 
+trong một slice. Cả hai hàm có cùng code nguồn, vì vậy hãy loại bỏ sự trùng lặp 
 bằng cách giới thiệu một tham số kiểu generic trong một hàm duy nhất.
 
 Để tham số hóa các loại trong một hàm mới, chúng ta cần đặt tên tham số kiểu, 
@@ -108,7 +108,7 @@ Lưu ý rằng vì chúng ta đã sử dụng chỉ một kiểu generic để �
 định nghĩa này nói rằng struct `Point<T>` là generic trên một loại `T`, và các 
 trường `x` và `y` đều là cùng một kiểu đó, bất kể kiểu đó là gì. Nếu chúng ta 
 tạo một thể hiện của `Point<T>` có giá trị của các kiểu khác nhau, như trong 
-Listing 10-7, mã nguồn của chúng ta sẽ không biên dịch được.
+Listing 10-7, code nguồn của chúng ta sẽ không biên dịch được.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -145,16 +145,16 @@ kiểu để `x` và `y` có thể là giá trị của các kiểu khác nhau</
 
 Bây giờ tất cả các thể hiện của `Point` được hiển thị đều được chấp nhận! 
 Bạn có thể sử dụng nhiều tham số kiểu generic trong định nghĩa càng nhiều 
-càng tốt, nhưng sử dụng quá nhiều có thể làm cho mã nguồn của bạn khó đọc. 
-Nếu bạn phát hiện bạn cần nhiều kiểu generic trong mã nguồn của mình, 
-điều này có thể là dấu hiệu cho thấy mã nguồn của bạn cần được tổ chức 
+càng tốt, nhưng sử dụng quá nhiều có thể làm cho code nguồn của bạn khó đọc. 
+Nếu bạn phát hiện bạn cần nhiều kiểu generic trong code nguồn của mình, 
+điều này có thể là dấu hiệu cho thấy code nguồn của bạn cần được tổ chức 
 lại thành các phần nhỏ hơn.
 
-### In Enum Definitions
+### Trong Định Nghĩa Enum
 
-As we did with structs, we can define enums to hold generic data types in their
-variants. Let’s take another look at the `Option<T>` enum that the standard
-library provides, which we used in Chapter 6:
+Như chúng ta đã làm với các struct, chúng ta có thể định nghĩa các enum để giữ 
+các kiểu dữ liệu chung trong các biến khác nhau của chúng. Hãy xem xét 
+lại enum `Option<T>` mà thư viện chuẩn cung cấp, mà chúng ta đã sử dụng trong Chương 6:
 
 ```rust
 enum Option<T> {
@@ -163,15 +163,15 @@ enum Option<T> {
 }
 ```
 
-This definition should now make more sense to you. As you can see, the
-`Option<T>` enum is generic over type `T` and has two variants: `Some`, which
-holds one value of type `T`, and a `None` variant that doesn’t hold any value.
-By using the `Option<T>` enum, we can express the abstract concept of an
-optional value, and because `Option<T>` is generic, we can use this abstraction
-no matter what the type of the optional value is.
+Bây giờ, định nghĩa này sẽ rõ hơn đối với bạn. Như bạn có thể thấy, enum `Option<T>` 
+là chung cho kiểu T và có hai biến thể: Some, giữ một giá trị của kiểu T, và 
+một biến thể None không giữ bất kỳ giá trị nào. Bằng cách sử dụng enum `Option<T>`, 
+chúng ta có thể diễn đạt khái niệm trừu tượng của giá trị tùy chọn, và do enum 
+Option<T> là chung, chúng ta có thể sử dụng trừu tượng này không phụ thuộc vào 
+kiểu giá trị tùy chọn là gì.
 
-Enums can use multiple generic types as well. The definition of the `Result`
-enum that we used in Chapter 9 is one example:
+Enum cũng có thể sử dụng nhiều kiểu chung. Định nghĩa enum Result mà chúng ta sử 
+dụng trong Chương 9 là một ví dụ:
 
 ```rust
 enum Result<T, E> {
@@ -180,24 +180,24 @@ enum Result<T, E> {
 }
 ```
 
-The `Result` enum is generic over two types, `T` and `E`, and has two variants:
-`Ok`, which holds a value of type `T`, and `Err`, which holds a value of type
-`E`. This definition makes it convenient to use the `Result` enum anywhere we
-have an operation that might succeed (return a value of some type `T`) or fail
-(return an error of some type `E`). In fact, this is what we used to open a
-file in Listing 9-3, where `T` was filled in with the type `std::fs::File` when
-the file was opened successfully and `E` was filled in with the type
-`std::io::Error` when there were problems opening the file.
+Enum Result là chung cho hai kiểu T và E, và có hai biến thể: Ok, giữ một giá 
+trị của kiểu T, và Err, giữ một giá trị của kiểu E. Định nghĩa này làm cho 
+việc sử dụng enum Result thuận lợi ở bất kỳ nơi nào chúng ta có một hoạt động có 
+thể thành công (trả về một giá trị của một kiểu T) hoặc thất bại (trả về một lỗi 
+của một kiểu E). Trong thực tế, đây là điều chúng ta đã sử dụng để mở một tập tin 
+trong Listing 9-3, trong đó T được điền bằng kiểu std::fs::File khi tập tin được 
+mở thành công và E được điền bằng kiểu std::io::Error khi có vấn đề khi mở tập tin.
 
-When you recognize situations in your code with multiple struct or enum
-definitions that differ only in the types of the values they hold, you can
-avoid duplication by using generic types instead.
+Khi bạn nhận diện các tình huống trong code của bạn với nhiều định nghĩa struct hoặc 
+enum khác nhau chỉ khác nhau ở các kiểu giá trị chúng giữ, bạn có thể tránh sự 
+trùng lặp bằng cách sử dụng các kiểu chung.
 
-### In Method Definitions
+### Trong Định Nghĩa Phương Thức
 
-We can implement methods on structs and enums (as we did in Chapter 5) and use
-generic types in their definitions, too. Listing 10-9 shows the `Point<T>`
-struct we defined in Listing 10-6 with a method named `x` implemented on it.
+Chúng ta có thể triển khai các phương thức trên các struct và enums (như chúng 
+ta đã làm trong Chương 5) và sử dụng các kiểu generic trong định nghĩa của chúng 
+cũng. Listing 10-9 hiển thị struct `Point<T>` mà chúng ta đã định nghĩa trong 
+Listing 10-6 với một phương thức có tên là `x`.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -205,27 +205,27 @@ struct we defined in Listing 10-6 with a method named `x` implemented on it.
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-09/src/main.rs}}
 ```
 
-<span class="caption">Listing 10-9: Implementing a method named `x` on the
-`Point<T>` struct that will return a reference to the `x` field of type
-`T`</span>
+<span clas	s="caption">Listing 10-9: Triển khai một phương thức có tên `x` trên cấu trúc 
+`Point<T>` sẽ trả về một tham chiếu đến trường `x` kiểu `T`.</span>
 
-Here, we’ve defined a method named `x` on `Point<T>` that returns a reference
-to the data in the field `x`.
+Ở đây, chúng ta đã định nghĩa một phương thức có tên x trên `Point<T>` trả về một 
+tham chiếu đến dữ liệu trong trường `x`.
 
-Note that we have to declare `T` just after `impl` so we can use `T` to specify
-that we’re implementing methods on the type `Point<T>`. By declaring `T` as a
-generic type after `impl`, Rust can identify that the type in the angle
-brackets in `Point` is a generic type rather than a concrete type. We could
-have chosen a different name for this generic parameter than the generic
-parameter declared in the struct definition, but using the same name is
-conventional. Methods written within an `impl` that declares the generic type
-will be defined on any instance of the type, no matter what concrete type ends
-up substituting for the generic type.
+Lưu ý rằng chúng ta phải khai báo `T` ngay sau `impl` để chúng ta có thể sử dụng `T` 
+để chỉ định rằng chúng ta đang triển khai các phương thức trên kiểu `Point<T>`. Bằng 
+cách khai báo `T` làm một loại generic sau impl, Rust có thể xác định rằng kiểu 
+trong ngoặc nhọn ở `Point` là một kiểu generic thay vì một kiểu cụ thể. Chúng ta 
+có thể chọn một tên khác cho tham số generic này so với tham số generic được 
+khai báo trong định nghĩa struct, nhưng việc sử dụng cùng một tên là phổ biến. 
+Các phương thức được viết trong một `impl` khai báo tham số generic sẽ được định 
+nghĩa cho bất kỳ thể hiện nào của kiểu đó, không phụ thuộc vào kiểu cụ thể nào 
+thay thế cho kiểu generic.
 
-We can also specify constraints on generic types when defining methods on the
-type. We could, for example, implement methods only on `Point<f32>` instances
-rather than on `Point<T>` instances with any generic type. In Listing 10-10 we
-use the concrete type `f32`, meaning we don’t declare any types after `impl`.
+Chúng ta cũng có thể chỉ định ràng buộc trên các kiểu generic khi định nghĩa 
+các phương thức trên kiểu. Ví dụ, chúng ta có thể triển khai các phương thức 
+chỉ trên các thể hiện `Point<f32>` thay vì trên các thể hiện `Point<T>` với bất kỳ 
+kiểu generic nào. Trong Listing 10-10, chúng ta sử dụng kiểu cụ thể `f32`, có 
+nghĩa là chúng ta không khai báo bất kỳ kiểu nào sau impl.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -233,21 +233,21 @@ use the concrete type `f32`, meaning we don’t declare any types after `impl`.
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-10/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 10-10: An `impl` block that only applies to a
-struct with a particular concrete type for the generic type parameter `T`</span>
+<span class="caption">Listing 10-10: Một khối `impl` chỉ áp dụng cho một struct 
+với một kiểu cụ thể cho tham số kiểu generic `T`.</span>
 
-This code means the type `Point<f32>` will have a `distance_from_origin`
-method; other instances of `Point<T>` where `T` is not of type `f32` will not
-have this method defined. The method measures how far our point is from the
-point at coordinates (0.0, 0.0) and uses mathematical operations that are
-available only for floating point types.
+Mã này có nghĩa là kiểu `Point<f32>` sẽ có một phương thức `distance_from_origin`; 
+các phiên bản khác của `Point<T>` nơi `T` không phải là kiểu f32 sẽ không có phương thức 
+này được định nghĩa. Phương thức này đo lường khoảng cách từ điểm của chúng ta 
+đến điểm tại tọa độ (0.0, 0.0) và sử dụng các phép toán toán học chỉ có sẵn cho 
+các kiểu số thực.
 
-Generic type parameters in a struct definition aren’t always the same as those
-you use in that same struct’s method signatures. Listing 10-11 uses the generic
-types `X1` and `Y1` for the `Point` struct and `X2` `Y2` for the `mixup` method
-signature to make the example clearer. The method creates a new `Point`
-instance with the `x` value from the `self` `Point` (of type `X1`) and the `y`
-value from the passed-in `Point` (of type `Y2`).
+Các tham số kiểu generic trong định nghĩa struct không luôn giống nhau so với các 
+tham số kiểu bạn sử dụng trong các chữ ký phương thức của cùng struct đó. Mã ở 
+Listing 10-11 sử dụng các kiểu generic `X1` và `Y1` cho struct `Point` và `X2` `Y2` cho 
+chữ ký phương thức mixup để làm cho ví dụ trở nên rõ ràng hơn. Phương thức này 
+tạo một thể hiện mới của `Point` với giá trị x từ `self` `Point` (kiểu `X1`) và giá trị 
+`y` từ `Point` được chuyển vào (kiểu `Y2`).
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -255,55 +255,53 @@ value from the passed-in `Point` (of type `Y2`).
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-11/src/main.rs}}
 ```
 
-<span class="caption">Listing 10-11: A method that uses generic types different
-from its struct’s definition</span>
+<span class="caption">Listing 10-11: Một phương thức sử dụng các kiểu generic 
+khác so với định nghĩa struct của nó.</span>
 
-In `main`, we’ve defined a `Point` that has an `i32` for `x` (with value `5`)
-and an `f64` for `y` (with value `10.4`). The `p2` variable is a `Point` struct
-that has a string slice for `x` (with value `"Hello"`) and a `char` for `y`
-(with value `c`). Calling `mixup` on `p1` with the argument `p2` gives us `p3`,
-which will have an `i32` for `x`, because `x` came from `p1`. The `p3` variable
-will have a `char` for `y`, because `y` came from `p2`. The `println!` macro
-call will print `p3.x = 5, p3.y = c`.
+Trong `main`, chúng ta đã định nghĩa một `Point` có kiểu `i32` cho `x` (giá trị là `5`) 
+và kiểu `f64` cho `y` (giá trị là `10.4`). Biến `p2` là một struct `Point` có một chuỗi 
+("Hello") cho `x` và một ký tự (c) cho `y`. Gọi mixup trên p1 với đối số là `p2` 
+cho chúng ta `p3`, nơi có kiểu `i32` cho `x`, vì `x` đến từ `p1`. Biến `p3` sẽ có kiểu 
+char cho `y`, vì `y` đến từ `p2`. Cuộc gọi macro println! sẽ in ra `p3.x = 5, p3.y = c`.
 
-The purpose of this example is to demonstrate a situation in which some generic
-parameters are declared with `impl` and some are declared with the method
-definition. Here, the generic parameters `X1` and `Y1` are declared after
-`impl` because they go with the struct definition. The generic parameters `X2`
-and `Y2` are declared after `fn mixup`, because they’re only relevant to the
-method.
+Mục đích của ví dụ này là để minh họa một tình huống trong đó một số tham 
+số generic được khai báo với `impl` và một số được khai báo với định nghĩa 
+phương thức. Ở đây, các tham số generic `X1` và `Y1` được khai báo sau impl vì 
+chúng đi kèm với định nghĩa `struct`. Các tham số generic `X2` và `Y2` được 
+khai báo sau `fn mixup`, vì chúng chỉ liên quan đến phương thức.
 
-### Performance of Code Using Generics
+### Hiệu năng của code sử dụng Generic
 
-You might be wondering whether there is a runtime cost when using generic type
-parameters. The good news is that using generic types won't make your program run 
-any slower than it would with concrete types.
+Bạn có thể tự hỏi liệu có chi phí thời gian chạy khi sử dụng các tham số kiểu 
+generic hay không. Tin tốt là việc sử dụng các kiểu generic sẽ không làm 
+chương trình của bạn chạy chậm hơn so với việc sử dụng các kiểu cụ thể.
 
-Rust accomplishes this by performing monomorphization of the code using
-generics at compile time. *Monomorphization* is the process of turning generic
-code into specific code by filling in the concrete types that are used when
-compiled. In this process, the compiler does the opposite of the steps we used
-to create the generic function in Listing 10-5: the compiler looks at all the
-places where generic code is called and generates code for the concrete types
-the generic code is called with.
+Rust đạt được điều này bằng cách thực hiện *monomorphization* của mã nguồn 
+sử dụng generics trong quá trình biên dịch. *Monomorphization* là quá trình 
+chuyển đổi mã nguồn generic thành mã nguồn cụ thể bằng cách điền vào các kiểu cụ 
+thể được sử dụng khi biên dịch. Trong quá trình này, trình biên dịch thực hiện 
+theo chiều ngược lại so với các bước chúng ta đã sử dụng để tạo hàm generic 
+trong Listing 10-5: trình biên dịch xem xét tất cả các điểm mà mã nguồn generic 
+được gọi và tạo mã nguồn cho các kiểu cụ thể mà mã nguồn generic được gọi với.
 
-Let’s look at how this works by using the standard library’s generic
-`Option<T>` enum:
+Hãy xem cách điều này hoạt động bằng cách sử dụng generic `Option<T>` enum từ 
+thư viện chuẩn:
 
 ```rust
 let integer = Some(5);
 let float = Some(5.0);
 ```
 
-When Rust compiles this code, it performs monomorphization. During that
-process, the compiler reads the values that have been used in `Option<T>`
-instances and identifies two kinds of `Option<T>`: one is `i32` and the other
-is `f64`. As such, it expands the generic definition of `Option<T>` into two
-definitions specialized to `i32` and `f64`, thereby replacing the generic
-definition with the specific ones.
+Khi Rust biên dịch mã nguồn này, nó thực hiện monomorphization. 
+Trong quá trình đó, trình biên dịch đọc các giá trị đã được sử dụng 
+trong các trường hợp của `Option<T>` và xác định hai loại `Option<T>`: một 
+là `i32` và một là `f64`. Do đó, nó mở rộng định nghĩa generic của `Option<T>` 
+thành hai định nghĩa được tối ưu hóa cho `i32` và `f64`, thay thế định nghĩa 
+generic bằng những định nghĩa cụ thể này.
 
-The monomorphized version of the code looks similar to the following (the
-compiler uses different names than what we’re using here for illustration):
+Phiên bản đã được tối ưu hóa bằng monomorphization của mã nguồn trông 
+giống như sau (trình biên dịch sử dụng tên khác với những gì chúng ta sử 
+dụng ở đây cho mục đích minh họa):
 
 <span class="filename">Filename: src/main.rs</span>
 
