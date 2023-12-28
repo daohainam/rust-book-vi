@@ -1,33 +1,32 @@
-# Programming a Guessing Game
+# Lập trình một trò chơi đoán số
 
-Let’s jump into Rust by working through a hands-on project together! This
-chapter introduces you to a few common Rust concepts by showing you how to use
-them in a real program. You’ll learn about `let`, `match`, methods, associated
-functions, external crates, and more! In the following chapters, we’ll explore
-these ideas in more detail. In this chapter, you’ll just practice the
-fundamentals.
+Hãy bắt đầu với Rust bằng cách cùng nhau làm một dự án thực hành! Chương này giới 
+thiệu bạn với một số khái niệm Rust phổ biến bằng cách hướng dẫn cách sử dụng 
+chúng trong một chương trình thực tế. Bạn sẽ tìm hiểu về `let`, `match`, các phương 
+thức, các hàm liên kết, các crate bên ngoài, và nhiều điều khác nữa! Trong các chương 
+tiếp theo, chúng ta sẽ khám phá những ý tưởng này một cách chi tiết hơn. 
+Trong chương này, bạn chỉ cần thực hành các kiến thức cơ bản.
 
-We’ll implement a classic beginner programming problem: a guessing game. Here’s
-how it works: the program will generate a random integer between 1 and 100. It
-will then prompt the player to enter a guess. After a guess is entered, the
-program will indicate whether the guess is too low or too high. If the guess is
-correct, the game will print a congratulatory message and exit.
+Chúng ta sẽ triển khai một bài toán lập trình cơ bản dành cho người mới học: một trò 
+chơi đoán số. Cách thức hoạt động như sau: chương trình sẽ tạo một số nguyên ngẫu 
+nhiên từ 1 đến 100. Sau đó, nó sẽ yêu cầu người chơi nhập một dự đoán. Sau khi có dự đoán, 
+chương trình sẽ cho biết liệu dự đoán có quá thấp, quá cao, hay chính xác. Nếu 
+dự đoán đúng, trò chơi sẽ in một thông báo chúc mừng và thoát.
 
 ## Setting Up a New Project
 
-To set up a new project, go to the *projects* directory that you created in
-Chapter 1 and make a new project using Cargo, like so:
+Để thiết lập một dự án mới, hãy di chuyển đến thư mục *projects* mà bạn đã tạo trong
+Chương 1 và tạo một dự án mới bằng Cargo, như sau:
 
 ```console
 $ cargo new guessing_game
 $ cd guessing_game
 ```
 
-The first command, `cargo new`, takes the name of the project (`guessing_game`)
-as the first argument. The second command changes to the new project’s
-directory.
+Lệnh đầu tiên, cargo new, nhận tên của dự án (`guessing_game`) như là đối số 
+đầu tiên. Lệnh thứ hai chuyển đến thư mục mới của dự án.
 
-Look at the generated *Cargo.toml* file:
+Hãy xem vào tệp *Cargo.toml* được tạo ra:
 
 <!-- manual-regeneration
 cd listings/ch02-guessing-game-tutorial
@@ -44,8 +43,8 @@ cd ../../..
 {{#include ../listings/ch02-guessing-game-tutorial/no-listing-01-cargo-new/Cargo.toml}}
 ```
 
-As you saw in Chapter 1, `cargo new` generates a “Hello, world!” program for
-you. Check out the *src/main.rs* file:
+Như bạn đã thấy ở Chương 1, `cargo new` tạo ra một chương trình "Hello, world!" 
+cho bạn. Hãy xem tệp *src/main.rs*:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -53,25 +52,24 @@ you. Check out the *src/main.rs* file:
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/no-listing-01-cargo-new/src/main.rs}}
 ```
 
-Now let’s compile this “Hello, world!” program and run it in the same step
-using the `cargo run` command:
+Để biên dịch và chạy chương trình "Hello, world!" trong Rust, bạn có thể sử dụng lệnh `cargo run`:
 
 ```console
 {{#include ../listings/ch02-guessing-game-tutorial/no-listing-01-cargo-new/output.txt}}
 ```
 
-The `run` command comes in handy when you need to rapidly iterate on a project,
-as we’ll do in this game, quickly testing each iteration before moving on to
-the next one.
+Lệnh `run` rất hữu ích khi bạn cần lặp nhanh chóng trên một dự án, như 
+chúng ta sẽ làm trong trò chơi này, kiểm thử nhanh chóng từng bước 
+trước khi chuyển sang bước tiếp theo.
 
-Reopen the *src/main.rs* file. You’ll be writing all the code in this file.
+Mở lại tệp *src/main.rs*. Bạn sẽ viết toàn bộ code trong file này.
 
 ## Processing a Guess
 
-The first part of the guessing game program will ask for user input, process
-that input, and check that the input is in the expected form. To start, we’ll
-allow the player to input a guess. Enter the code in Listing 2-1 into
-*src/main.rs*.
+Phần đầu tiên của chương trình trò chơi đoán số sẽ yêu cầu người chơi nhập liệu, 
+xử lý đầu vào đó và kiểm tra xem đầu vào có đúng dạng mong đợi hay không. Để bắt đầu, 
+chúng ta sẽ cho phép người chơi nhập một số đoán. Nhập code trong Listing 2-1 
+vào *src/main.rs*.
 
 <span class="filename">Filename: src/main.rs</span>
 
