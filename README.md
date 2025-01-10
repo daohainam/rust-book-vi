@@ -1,5 +1,6 @@
 # The Rust Programming Language
 
+
 ![Build Status](https://github.com/rust-lang/book/workflows/CI/badge.svg)
 
 This repository contains the source of "The Rust Programming Language" book.
@@ -20,6 +21,10 @@ releases are updated less frequently.
 See the [releases] to download just the code of all the code listings that appear in the book.
 
 [releases]: https://github.com/rust-lang/book/releases
+
+## Vietnamese translation
+This is a Vietnamese version of Rust book, you can start by reading [README-vi.md](https://github.com/daohainam/rust-book-vi/blob/main/README-vi.md).
+Translation is in progress in [src-vi](https://github.com/daohainam/rust-book-vi/tree/main/src-vi) folder.
 
 ## Requirements
 
