@@ -38,6 +38,13 @@ mà rust-lang/rust dùng trong [tệp tin này][rust-mdbook]. Để tải về:
 $ cargo install mdbook --version <version_num>
 ```
 
+Trong sách này cũng chứa hai mdbook plugin như một phần của repository. Nếu bạn không cài
+đặt chúng, bạn sẽ thấy một vài cảnh báo khi dịch và kết quả sẽ không chính xác, 
+nhưng bạn _sẽ_ vẫn build được. Để dùng các plugin này, bạn hãy chạy lệnh sau:
+
+```bash
+$ cargo install --locked --path packages/mdbook-trpl
+```
 ## Building
 
 Để dịch thành sách online, gõ:
@@ -50,6 +57,7 @@ Kết quả sẽ được lưu lại trong thư mục con `book`. Bạn có th�
 duyệt web của bạn.
 
 _Firefox:_
+
 ```bash
 $ firefox book/index.html                       # Linux
 $ open -a "Firefox" book/index.html             # OS X
@@ -58,6 +66,7 @@ $ start firefox.exe .\book\index.html           # Windows (Cmd)
 ```
 
 _Chrome:_
+
 ```bash
 $ google-chrome book/index.html                 # Linux
 $ open -a "Google Chrome" book/index.html       # OS X
@@ -68,7 +77,8 @@ $ start chrome.exe .\book\index.html            # Windows (Cmd)
 Để chạy phần kiểm tra:
 
 ```bash
-$ mdbook test
+$ cd packages/trpl
+$ mdbook test --library-path packages/trpl/target/debug/deps
 ```
 
 ## Đóng góp
