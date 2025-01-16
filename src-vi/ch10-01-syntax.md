@@ -322,9 +322,10 @@ fn main() {
 }
 ```
 
-The generic `Option<T>` is replaced with the specific definitions created by
-the compiler. Because Rust compiles generic code into code that specifies the
-type in each instance, we pay no runtime cost for using generics. When the code
-runs, it performs just as it would if we had duplicated each definition by
-hand. The process of monomorphization makes Rust’s generics extremely efficient
-at runtime.
+Cấu trúc tổng quát Option<T> được thay thế bằng các định nghĩa cụ thể được 
+tạo ra bởi trình biên dịch. Vì Rust biên dịch mã tổng quát thành mã xác định 
+kiểu trong từng trường hợp cụ thể, nên chúng ta không phải chịu chi phí 
+thực thi tại thời gian chạy khi sử dụng generics. Khi mã được thực thi, 
+nó hoạt động giống hệt như thể chúng ta đã sao chép từng định nghĩa thủ công. 
+Quá trình đơn hình hóa (monomorphization) khiến generics của Rust cực kỳ 
+hiệu quả khi chạy.
